@@ -44,8 +44,8 @@ namespace yourmod.Content.DamageClasses
             // 此方法允许你隐藏物品描述中特定伤害类型的数据显示
             // 四个可用的名称是 "Damage", "CritChance", "Speed", 和 "Knockback"
             // 这四行描述默认返回 true, 因此会显示出来 (废话), 但如果我们...
-            if (lineName == "Speed")
-                return false;
+            //if (lineName == "Speed")
+            //    return false;
 
             return true;
         }

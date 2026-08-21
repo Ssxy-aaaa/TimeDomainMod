@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\build.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:build.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\buffs\\opticneuronbuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\buffs\\opticneuronbuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\damageclasses\\sprintdamageclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\damageclasses\\sprintdamageclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\buffs\\spikeslimebuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\buffs\\spikeslimebuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\items\\weapons\\melee\\testspear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\items\\weapons\\melee\\testspear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -16,10 +32,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\common\\systems\\downedbosssystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:common\\systems\\downedbosssystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\buffs\\spikeslimebuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\buffs\\spikeslimebuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\yourmod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -109,10 +121,6 @@
       "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:common\\globals\\vanillanpcaioverrides\\kingslimeai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\damageclasses\\sprintdamageclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\damageclasses\\sprintdamageclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\common\\globals\\vanillanpcaioverrides\\brainofcthulhuai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:common\\globals\\vanillanpcaioverrides\\brainofcthulhuai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -155,10 +163,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\items\\weapons\\summon\\whip\\opticneuron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\items\\weapons\\summon\\whip\\opticneuron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\buffs\\opticneuronbuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|solutionrelative:content\\buffs\\opticneuronbuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D7D3D6E-3455-76E0-9D3C-8915AB7875B4}|yourmod.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\yourmod\\content\\items\\projectiles\\summon\\spikeslimeminion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -212,7 +216,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -232,7 +236,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "build.txt",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\build.txt",
+              "RelativeDocumentMoniker": "build.txt",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\build.txt",
+              "RelativeToolTip": "build.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-08-21T12:57:53.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Murasama.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\CalamityMod\\Items\\Weapons\\Melee\\Murasama.cs",
               "RelativeDocumentMoniker": "..\\CalamityMod\\Items\\Weapons\\Melee\\Murasama.cs",
@@ -244,20 +261,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "TestSpear.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Melee\\TestSpear.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Melee\\TestSpear.cs",
               "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Melee\\TestSpear.cs",
               "RelativeToolTip": "Content\\Items\\Weapons\\Melee\\TestSpear.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAcwDYAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAcwEMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-19T12:55:08.331Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "DownedBossSystem.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Systems\\DownedBossSystem.cs",
               "RelativeDocumentMoniker": "Common\\Systems\\DownedBossSystem.cs",
@@ -269,7 +286,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "GodUniverseBC.cs",
               "DocumentMoniker": "F:\\Downloads\\GodUniverseBC.cs",
               "ToolTip": "F:\\Downloads\\GodUniverseBC.cs",
@@ -279,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "GraniteCore.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Materials\\GraniteCore.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Materials\\GraniteCore.cs",
@@ -291,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "GraniteEnergyBall.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Projectiles\\GraniteEnergyBall.cs",
               "RelativeDocumentMoniker": "Content\\Projectiles\\GraniteEnergyBall.cs",
@@ -303,7 +320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "GraniteLeggings.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Armors\\GraniteLeggings.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Armors\\GraniteLeggings.cs",
@@ -315,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "GraniteBreastplate.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Armors\\GraniteBreastplate.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Armors\\GraniteBreastplate.cs",
@@ -327,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "GraniteHelmet.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Armors\\GraniteHelmet.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Armors\\GraniteHelmet.cs",
@@ -339,7 +356,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "SpikeSlimeBuff.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Buffs\\SpikeSlimeBuff.cs",
               "RelativeDocumentMoniker": "Content\\Buffs\\SpikeSlimeBuff.cs",
@@ -347,23 +364,25 @@
               "RelativeToolTip": "Content\\Buffs\\SpikeSlimeBuff.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-02T09:24:48.048Z"
+              "WhenOpened": "2026-08-02T09:24:48.048Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 1,
               "Title": "OpticNeuronBuff.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Buffs\\OpticNeuronBuff.cs",
               "RelativeDocumentMoniker": "Content\\Buffs\\OpticNeuronBuff.cs",
               "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Buffs\\OpticNeuronBuff.cs",
               "RelativeToolTip": "Content\\Buffs\\OpticNeuronBuff.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-02T09:24:32.223Z"
+              "WhenOpened": "2026-08-02T09:24:32.223Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "VT.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\VT.cs",
               "RelativeDocumentMoniker": "Common\\VT.cs",
@@ -375,7 +394,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "EyeOfCthulhuAI.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaNPCAIOverrides\\EyeOfCthulhuAI.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaNPCAIOverrides\\EyeOfCthulhuAI.cs",
@@ -387,7 +406,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "ElementalAura.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Projectiles\\ElementalAura.cs",
               "RelativeDocumentMoniker": "Content\\Projectiles\\ElementalAura.cs",
@@ -399,7 +418,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "SevenElements.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
@@ -411,7 +430,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "PrimordialSlime.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
@@ -423,7 +442,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "KingAntlion.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\NPCs\\Bosses\\KingAntlion\\KingAntlion.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\KingAntlion\\KingAntlion.cs",
@@ -435,7 +454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "EditorProj.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Melee\\EditorProj.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Melee\\EditorProj.cs",
@@ -447,7 +466,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "Editor.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Melee\\Editor.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Melee\\Editor.cs",
@@ -459,7 +478,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "IceCrystalProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Magic\\IceCrystalProjectile.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Magic\\IceCrystalProjectile.cs",
@@ -471,7 +490,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "IceFogProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Magic\\IceFogProjectile.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Magic\\IceFogProjectile.cs",
@@ -483,7 +502,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "IceCrystalFish.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Magic\\IceCrystalFish.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Magic\\IceCrystalFish.cs",
@@ -495,7 +514,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 36,
               "Title": "VanillaSetChangeProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaSetChangeProjectile.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaSetChangeProjectile.cs",
@@ -507,7 +526,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 38,
               "Title": "VanillaItemChangeItem.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaItemChangeItem.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaItemChangeItem.cs",
@@ -519,7 +538,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "BrainofCthulhuAI.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaNPCAIOverrides\\BrainofCthulhuAI.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaNPCAIOverrides\\BrainofCthulhuAI.cs",
@@ -531,7 +550,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "CreeperAI.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaNPCAIOverrides\\CreeperAI.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaNPCAIOverrides\\CreeperAI.cs",
@@ -543,7 +562,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "KingSlimeAI.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaNPCAIOverrides\\KingSlimeAI.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaNPCAIOverrides\\KingSlimeAI.cs",
@@ -555,7 +574,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "WoodenLance.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Lance\\WoodenLance.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Lance\\WoodenLance.cs",
@@ -567,19 +586,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 2,
               "Title": "SprintDamageClass.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\DamageClasses\\SprintDamageClass.cs",
               "RelativeDocumentMoniker": "Content\\DamageClasses\\SprintDamageClass.cs",
               "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\DamageClasses\\SprintDamageClass.cs",
               "RelativeToolTip": "Content\\DamageClasses\\SprintDamageClass.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-13T03:47:12.729Z"
+              "WhenOpened": "2026-06-13T03:47:12.729Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "HallowBossMusicSceneEffect.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\ModSceneEffects\\HallowBossMusicSceneEffect.cs",
               "RelativeDocumentMoniker": "Common\\ModSceneEffects\\HallowBossMusicSceneEffect.cs",
@@ -591,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "AdditionalIncreaseChangeProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\AdditionalIncreaseChangeProjectile.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\AdditionalIncreaseChangeProjectile.cs",
@@ -603,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "OpticNeuronProj2.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj2.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj2.cs",
@@ -615,7 +635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "OpticNeuronProj.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj.cs",
@@ -627,7 +647,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 40,
               "Title": "OpticNeuron.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuron.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuron.cs",
@@ -639,7 +659,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "TestItem.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Test\\TestItem.cs",
               "RelativeDocumentMoniker": "Common\\Test\\TestItem.cs",
@@ -651,7 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "BrokenPocketWatch.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Consumables\\BrokenPocketWatch.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Consumables\\BrokenPocketWatch.cs",
@@ -663,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "yourmod.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\yourmod.cs",
               "RelativeDocumentMoniker": "yourmod.cs",
@@ -675,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "VampireStaff.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\Common\\VampireStaff.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Common\\VampireStaff.cs",
@@ -687,7 +707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 35,
               "Title": "VanillaBossAIChangeProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaBossAIChangeProjectile.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaBossAIChangeProjectile.cs",
@@ -699,7 +719,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "VanillaBossAIChangeNPC.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\VanillaBossAIChangeNPC.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\VanillaBossAIChangeNPC.cs",
@@ -711,7 +731,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "TextureChangeProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\TextureChangeProjectile.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\TextureChangeProjectile.cs",
@@ -723,7 +743,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "TextureChangeNPC.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\TextureChangeNPC.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\TextureChangeNPC.cs",
@@ -735,7 +755,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "SpawnChanceChangeNPC.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\Globals\\SpawnChanceChangeNPC.cs",
               "RelativeDocumentMoniker": "Common\\Globals\\SpawnChanceChangeNPC.cs",
@@ -747,7 +767,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "ShimmerBulletProj.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Projectiles\\ShimmerBulletProj.cs",
               "RelativeDocumentMoniker": "Content\\Projectiles\\ShimmerBulletProj.cs",
@@ -759,7 +779,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "ShimmerBullet.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Arrows\\ShimmerBullet.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Arrows\\ShimmerBullet.cs",
@@ -771,7 +791,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "ModUtil.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Common\\ModUtil.cs",
               "RelativeDocumentMoniker": "Common\\ModUtil.cs",
@@ -783,7 +803,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "SpikeSlimeMinion.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Projectiles\\Summon\\SpikeSlimeMinion.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Projectiles\\Summon\\SpikeSlimeMinion.cs",
@@ -795,7 +815,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "en-US_Mods.yourmod.hjson",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Localization\\en-US_Mods.yourmod.hjson",
               "RelativeDocumentMoniker": "Localization\\en-US_Mods.yourmod.hjson",
@@ -807,7 +827,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "JungleAcidSpike.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Projectiles\\JungleAcidSpike.cs",
               "RelativeDocumentMoniker": "Content\\Projectiles\\JungleAcidSpike.cs",
@@ -819,7 +839,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 37,
               "Title": "AcidSpikedJungleSlime.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\NPCs\\AcidSpikedJungleSlime.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\AcidSpikedJungleSlime.cs",
@@ -831,7 +851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "\u5C16\u523A\u53F2\u83B1\u59C6\u53EC\u5524\u6756.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\yourmod\\Content\\Items\\Weapons\\\u5C16\u523A\u53F2\u83B1\u59C6\u53EC\u5524\u6756.cs",
               "RelativeDocumentMoniker": "Content\\Items\\Weapons\\\u5C16\u523A\u53F2\u83B1\u59C6\u53EC\u5524\u6756.cs",
