@@ -1,0 +1,129 @@
+# This file will automatically update with entries for new content after a build and reload.
+# Please read https://github.com/tModLoader/tModLoader/wiki/Localization to learn more about localization and these files.
+
+Items: {
+	gunmu: {
+		DisplayName: gunmu
+		Tooltip:
+			'''
+			Template of an item
+			Replacing this tooltip is duty 
+			It's snowing on Mt.Fuji
+			'''
+	}
+
+	尖刺史莱姆召唤杖: {
+		DisplayName: 尖刺史莱姆召唤杖
+		Tooltip: ""
+	}
+
+	ShimmerBullet: {
+		Tooltip:
+			'''
+			无线穿透，击中敌人后向上匀速直线行进
+			“亮闪闪的炫彩！”
+			'''
+		DisplayName: 以太微光弹
+	}
+
+	VampireStaff: {
+		Tooltip: ""
+		DisplayName: 吸血鬼法杖
+	}
+
+	BrokenPocketWatch: {
+		Tooltip: ""
+		DisplayName: 破损怀表
+	}
+
+	TestItem: {
+		// DisplayName: Test Item
+		// Tooltip: ""
+	}
+
+	OpticNeuron: {
+		Tooltip: ""
+		DisplayName: 视神经元
+	}
+
+	IceCrystalFish: {
+		Tooltip: ""
+		DisplayName: 冰晶鱼
+	}
+
+	Editor: {
+		DisplayName: 裁序者
+		Tooltip: ""
+	}
+
+	GraniteLeggings: {
+		// Tooltip: ""
+		// DisplayName: Granite Leggings
+	}
+
+	GraniteHelmet: {
+		// Tooltip: ""
+		// DisplayName: Granite Helmet
+	}
+
+	GraniteBreastplate: {
+		// Tooltip: ""
+		// DisplayName: Granite Breastplate
+	}
+
+	GraniteCore: {
+		// DisplayName: Granite Core
+		// Tooltip: ""
+	}
+
+	CursedGel: {
+		// Tooltip: ""
+		// DisplayName: Cursed Gel
+	}
+
+	TestSpear: {
+		// DisplayName: Test Spear
+		// Tooltip: ""
+	}
+}
+
+Buffs: {
+	SpikeSlimeBuff: {
+		DisplayName: 尖刺宝宝史莱姆
+		Description: 尖刺宝宝史莱姆为你而战！
+	}
+
+	OpticNeuronBuff: {
+		// DisplayName: Optic Neuron Buff
+		// Description: Mods.yourmod.Buffs.OpticNeuronBuff.Description
+	}
+}
+
+Projectiles: {
+	SpikeSlimeMinion.DisplayName: 尖刺宝宝史莱姆
+	SlimeSpike.DisplayName: 尖刺宝宝史莱姆尖刺
+	JungleAcidSpike.DisplayName: 丛林酸刺
+	ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
+	// OpticNeuronProj.DisplayName: Optic Neuron Proj
+	// OpticNeuronProj2.DisplayName: Optic Neuron Proj2
+	// IceFogProjectile.DisplayName: Ice Fog Projectile
+	// IceCrystalProjectile.DisplayName: Ice Crystal Projectile
+	// EditorProj.DisplayName: Editor Proj
+	// ElementalAura.DisplayName: Elemental Aura
+	// GraniteEnergyBall.DisplayName: Granite Energy Ball
+	// TestSpearProj.DisplayName: Test Spear Proj
+}
+
+NPCs: {
+	AcidSpikedJungleSlime.DisplayName: 丛林酸刺史莱姆
+	// KingAntlion.DisplayName: King Antlion
+
+	PrimordialSlime: {
+		DisplayName: 始祖史莱姆
+		spawnInfo: Mods.yourmod.NPCs.PrimordialSlime.spawnInfo
+	}
+
+	// SevenElements.DisplayName: Seven Elements
+}
+
+// DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName

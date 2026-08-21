@@ -1,0 +1,125 @@
+# This file will automatically update with entries for new content after a build and reload.
+# Please read https://github.com/tModLoader/tModLoader/wiki/Localization to learn more about localization and these files.
+
+Items: {
+	gunmu: {
+		DisplayName: gunmu
+		Tooltip:
+			'''
+			Template of an item
+			Replacing this tooltip is duty 
+			It's snowing on Mt.Fuji
+			'''
+	}
+
+	尖刺史莱姆召唤杖: {
+		DisplayName: 尖刺史莱姆召唤杖
+		Tooltip: ""
+	}
+
+	ShimmerBullet: {
+		Tooltip: ""
+		DisplayName: Shimmer Bullet
+	}
+
+	VampireStaff: {
+		Tooltip: ""
+		DisplayName: Vampire Staff
+	}
+
+	BrokenPocketWatch: {
+		Tooltip: ""
+		DisplayName: Broken Pocket Watch
+	}
+
+	TestItem: {
+		DisplayName: Test Item
+		Tooltip: ""
+	}
+
+	OpticNeuron: {
+		Tooltip: ""
+		DisplayName: Optic Neuron
+	}
+
+	IceCrystalFish: {
+		Tooltip: ""
+		DisplayName: Ice Crystal Fish
+	}
+
+	Editor: {
+		DisplayName: Editor
+		Tooltip: ""
+	}
+
+	GraniteLeggings: {
+		Tooltip: ""
+		DisplayName: Granite Leggings
+	}
+
+	GraniteHelmet: {
+		Tooltip: ""
+		DisplayName: Granite Helmet
+	}
+
+	GraniteBreastplate: {
+		Tooltip: ""
+		DisplayName: Granite Breastplate
+	}
+
+	GraniteCore: {
+		DisplayName: Granite Core
+		Tooltip: ""
+	}
+
+	CursedGel: {
+		Tooltip: ""
+		DisplayName: Cursed Gel
+	}
+
+	TestSpear: {
+		DisplayName: Test Spear
+		Tooltip: ""
+	}
+}
+
+Buffs: {
+	SpikeSlimeBuff: {
+		DisplayName: Spike Slime Buff
+		Description: Mods.yourmod.Buffs.SpikeSlimeBuff.Description
+	}
+
+	OpticNeuronBuff: {
+		DisplayName: Optic Neuron Buff
+		Description: Mods.yourmod.Buffs.OpticNeuronBuff.Description
+	}
+}
+
+Projectiles: {
+	SpikeSlimeMinion.DisplayName: Spike Slime Minion
+	SlimeSpike.DisplayName: Slime Spike
+	JungleAcidSpike.DisplayName: Jungle Acid Spike
+	ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
+	OpticNeuronProj.DisplayName: Optic Neuron Proj
+	OpticNeuronProj2.DisplayName: Optic Neuron Proj2
+	IceFogProjectile.DisplayName: Ice Fog Projectile
+	IceCrystalProjectile.DisplayName: Ice Crystal Projectile
+	EditorProj.DisplayName: Editor Proj
+	ElementalAura.DisplayName: Elemental Aura
+	GraniteEnergyBall.DisplayName: Granite Energy Ball
+	TestSpearProj.DisplayName: Test Spear Proj
+}
+
+NPCs: {
+	AcidSpikedJungleSlime.DisplayName: Acid Spiked Jungle Slime
+	KingAntlion.DisplayName: King Antlion
+
+	PrimordialSlime: {
+		DisplayName: Primordial Slime
+		spawnInfo: Mods.yourmod.NPCs.PrimordialSlime.spawnInfo
+	}
+
+	SevenElements.DisplayName: Seven Elements
+}
+
+DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName

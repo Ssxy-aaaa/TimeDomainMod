@@ -1,0 +1,412 @@
+﻿using yourmod.Content.Buffs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+
+namespace yourmod.Content.Items.Projectiles.Summon
+{
+
+    internal class SpikeSlimeMinion : ModProjectile
+    {
+        private enum AttackMode
+        {
+            SlimeJump
+,
+            SpikeShot
+        }
+
+        public override void SetStaticDefaults()
+        {
+            Main
+.projPet[Projectile.type] = true;
+            ProjectileID
+.Sets.MinionSacrificable[Projectile.type] = true;
+            ProjectileID
+.Sets.MinionTargettingFeature[Projectile.type] = true;
+            Main
+.projFrames[Projectile.type] = 4;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile
+.width = 36;
+            Projectile
+.height = 34;
+            Projectile
+.tileCollide = true;
+            Projectile
+.friendly = true;
+            Projectile
+.minion = true;
+            Projectile
+.DamageType = DamageClass.Summon;
+            Projectile
+.minionSlots = 1f;
+            Projectile
+.penetrate = -1;
+            Projectile
+.usesLocalNPCImmunity = true;
+            Projectile
+.localNPCHitCooldown = 10;
+            Projectile.damage = 30;
+        }
+
+        public override void AI()
+        {
+            Player player = Main.player[Projectile.owner];
+
+            if (player.dead || !player.active)
+            {
+                player
+.ClearBuff(ModContent.BuffType<SpikeSlimeBuff>());
+                return;
+            }
+
+            if (player.HasBuff(ModContent.BuffType<SpikeSlimeBuff>()))
+            {
+                Projectile
+.timeLeft = 2;
+            }
+
+            NPC target = FindTarget(player);
+            if (target == null)
+            {
+                UpdateAnimation(true, false);
+                IdleBehavior(player);
+                return;
+            }
+
+            AttackMode currentMode = (AttackMode)(int)Projectile.ai[0];
+            int attackTimer = (int)Projectile.ai[1];
+            int spikeRounds = (int)Projectile.localAI[0];
+
+            Projectile
+.ai[1]++;
+
+            switch (currentMode)
+            {
+                case AttackMode.SlimeJump:
+                    UpdateAnimation(true, false);
+                    SlimeJumpAttack(target);
+                    if (attackTimer > 900)
+                    {
+                        Projectile
+.ai[0] = (int)AttackMode.SpikeShot;
+                        Projectile
+.ai[1] = 0;
+                        Projectile
+.localAI[0] = 0;
+                    }
+                    break;
+
+                case AttackMode.SpikeShot:
+                    int phase = (int)(Projectile.ai[1] % 120);
+                    if (phase < 60)
+                    {
+                        UpdateAnimation(false, true);
+                    }
+                    else if (phase == 60)
+                    {
+                        UpdateAnimation(false, true);
+                        FireSpikes(target);
+                        Projectile
+.localAI[0]++;
+                    }
+                    else
+                    {
+                        UpdateAnimation(false, true);
+                    }
+
+                    SpikeShotAttack(target);
+
+                    if (spikeRounds >= 3)
+                    {
+                        Projectile
+.ai[0] = (int)AttackMode.SlimeJump;
+                        Projectile
+.ai[1] = 0;
+                        Projectile
+.localAI[0] = 0;
+                    }
+                    break;
+            }
+
+            foreach (NPC npc in Main.npc)
+            {
+                if (npc.active && !npc.friendly && npc.Distance(Projectile.Center) < 40f)
+                {
+                    npc
+        .SimpleStrikeNPC(Projectile.damage, Projectile.velocity.X > 0 ? 1 : -1);
+                }
+            }
+        }
+
+        private void UpdateAnimation(bool isJump, bool isSpike)
+        {
+            Projectile
+.frameCounter++;
+
+            if (isJump)
+            {
+                if (Projectile.frameCounter > 5)
+                {
+                    Projectile
+.frameCounter = 0;
+                    Projectile
+.frame++;
+                    if (Projectile.frame > 1) Projectile.frame = 0;
+                }
+            }
+            else if (isSpike)
+            {
+                if (Projectile.frameCounter > 5)
+                {
+                    Projectile
+.frameCounter = 0;
+                    Projectile
+.frame++;
+                    if (Projectile.frame < 2 || Projectile.frame > 3) Projectile.frame = 2;
+                }
+            }
+        }
+
+        private void SlimeJumpAttack(NPC target)
+        {
+            // 史莱姆式接触攻击：向目标跳跃，造成接触伤害
+            Projectile
+.velocity.Y += 0.4f;
+
+            // 落地检测
+            if (Projectile.velocity.Y > 0 && IsOnGround())
+            {
+                // 计算向目标的跳跃
+                Vector2 toTarget = target.Center - Projectile.Center;
+                float distX = Math.Abs(toTarget.X);
+                float distY = target.Center.Y - Projectile.Center.Y;
+
+                // 水平速度：向目标
+                float jumpSpeedX = Math.Min(distX * 0.05f, 8f);
+                if (toTarget.X > 0)
+                    Projectile
+.velocity.X = jumpSpeedX;
+                else
+                    Projectile
+.velocity.X = -jumpSpeedX;
+
+                // 垂直速度：根据高度调整
+                if (distY < -50f)
+                    Projectile
+.velocity.Y = -14f;  // 高跳
+                else if (distY > 50f)
+                    Projectile
+.velocity.Y = -6f;   // 低跳或下落
+                else
+                    Projectile
+.velocity.Y = -10f;  // 普通跳
+
+                // 如果目标很近，直接冲刺
+                if (distX < 40f && Math.Abs(distY) < 30f)
+                {
+                    Projectile
+.velocity.X *= 1.5f;
+                }
+            }
+
+            // 接触伤害已经由 Projectile.friendly 和 minion 属性自动处理
+            // 靠近敌人时加速冲刺
+            if (target.Distance(Projectile.Center) < 80f)
+            {
+                Vector2 toTarget = (target.Center - Projectile.Center).SafeNormalize(Vector2.Zero);
+                Projectile
+.velocity += toTarget * 0.5f;
+            }
+
+            Projectile
+.spriteDirection = target.Center.X > Projectile.Center.X ? -1 : 1;
+            Projectile
+.rotation = 0;
+        }
+
+        private void SpikeShotAttack(NPC target)
+        {
+            int phase = (int)(Projectile.ai[1] % 120);
+
+            if (phase < 60)
+            {
+                // 移动到目标脚下
+                Vector2 hoverPos = target.Bottom + new Vector2(0, 0);
+                Vector2 toHover = hoverPos - Projectile.Center;
+                float dist = toHover.Length();
+
+                Projectile
+.velocity.Y += 0.4f;
+
+                if (dist > 10f)
+                {
+                    float moveSpeed = 4f;
+                    if (toHover.X > 0)
+                        Projectile
+.velocity.X = moveSpeed;
+                    else
+                        Projectile
+.velocity.X = -moveSpeed;
+                }
+                else
+                {
+                    Projectile
+.velocity.X *= 0.8f;
+                }
+
+                if (IsOnGround() && Collision.SolidCollision(Projectile.position + new Vector2(Projectile.velocity.X, 0), Projectile.width, Projectile.height))
+                {
+                    Projectile
+.velocity.Y = -8f;
+                }
+            }
+            else if (phase > 70)
+            {
+                Projectile
+.velocity.X *= 0.9f;
+            }
+
+            Projectile
+.spriteDirection = target.Center.X > Projectile.Center.X ? -1 : 1;
+            Projectile
+.rotation = 0;
+        }
+
+        private void FireSpikes(NPC target)
+        {
+            SoundEngine
+        .PlaySound(SoundID.Item17, Projectile.Center);
+
+            float baseAngle = -MathHelper.PiOver2;
+            float spread = MathHelper.Pi / 4;
+
+            for (int i = -1; i <= 1; i++)
+            {
+                float angle = baseAngle + spread * i / 2f;
+                Vector2 velocity = angle.ToRotationVector2() * 10f;
+
+                Projectile
+        .NewProjectile(
+                    Projectile
+        .GetSource_FromThis(),
+                    Projectile
+        .Bottom,
+                    velocity
+        ,
+                    ModContent
+        .ProjectileType<SlimeSpike>(),
+                    Projectile
+        .damage,
+                    1f,
+                    Projectile
+        .
+        owner
+                );
+            }
+        }
+
+        private NPC FindTarget(Player player)
+        {
+            NPC target = null;
+            float targetDist = 700f;
+
+            if (player.HasMinionAttackTargetNPC)
+            {
+                NPC npc = Main.npc[player.MinionAttackTargetNPC];
+                if (npc.CanBeChasedBy(Projectile) && npc.Distance(player.Center) < targetDist)
+                {
+                    return npc;
+                }
+            }
+
+            foreach (NPC npc in Main.npc)
+            {
+                if (npc.CanBeChasedBy(Projectile))
+                {
+                    float dist = npc.Distance(player.Center);
+                    if (dist < targetDist)
+                    {
+                        targetDist
+= dist;
+                        target
+= npc;
+                    }
+                }
+            }
+
+            return target;
+        }
+
+        private void IdleBehavior(Player player)
+        {
+            Vector2 idlePos = player.Center + new Vector2(-40 * player.direction, 0);
+            Vector2 toIdle = idlePos - Projectile.Center;
+            float dist = toIdle.Length();
+
+            Projectile
+.velocity.Y += 0.4f;
+
+            if (dist > 20f)
+            {
+                float moveSpeed = 3f;
+                if (toIdle.X > 0)
+                    Projectile
+.velocity.X = moveSpeed;
+                else
+                    Projectile
+.velocity.X = -moveSpeed;
+
+                if (IsOnGround() && Collision.SolidCollision(Projectile.position + new Vector2(Projectile.velocity.X, 0), Projectile.width, Projectile.height))
+                {
+                    Projectile
+.velocity.Y = -8f;
+                }
+            }
+            else
+            {
+                Projectile
+.velocity.X *= 0.8f;
+            }
+
+            if (IsOnGround() && Main.rand.NextBool(60))
+            {
+                Projectile
+.velocity.Y = -6f;
+            }
+
+            Projectile
+.spriteDirection = player.direction;
+            Projectile
+.rotation = 0;
+        }
+
+        // 检测是否在地面上
+        private bool IsOnGround()
+        {
+            return Collision.SolidCollision(Projectile.position + new Vector2(0, Projectile.height), Projectile.width, 4);
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.velocity.X != oldVelocity.X)
+                Projectile
+.velocity.X = -oldVelocity.X * 0.5f;
+            if (Projectile.velocity.Y != oldVelocity.Y && oldVelocity.Y > 0)
+                Projectile
+.velocity.Y = 0;
+
+            return false;
+        }
+    }
+}
