@@ -330,6 +330,10 @@ namespace yourmod.Content.Items.Weapons.Melee
                 ////             SpriteEffects.None,
                 ////             0);
             }
+            if (Timer < 1)
+            {
+                return false;
+            }
             {
                 //缩写这俩 我懒得在后面打长长的东西
                 SpriteBatch sb = Main.spriteBatch;
@@ -342,18 +346,19 @@ namespace yourmod.Content.Items.Weapons.Melee
                 //开始顶点绘制
 
                 List<Vertex> ve = new List<Vertex>();
-
-                for (int i = 0; i < 9; i++)
+                //GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(3556), Projectile);
+                float c = 30f;
+                for (int i = 0; i < c; i++)
                 {
-                    Color b = Color.Lerp(Color.Red, Color.Blue, i / 9);
+                    Color b = Color.Lerp(Color.Red, Color.Blue, i / c);
                     float Ro = (1 + (float)Math.Cos(Projectile.oldRot[i] - MathHelper.PiOver2) * player.direction);
                     Ro = 1;
                     //存顶点																										从这一—————————————到这里都是乱弄的 你可以随便改改数据看看能发生什么
                     ve.Add(new Vertex(Projectile.Center - Main.screenPosition + new Vector2(0, -160).RotatedBy(Projectile.oldRot[i] + MathHelper.PiOver2) * Ro,
-                          new Vector3(i / 9, 1, 1),
+                          new Vector3(i / c, 1, 1),
                           b));
                     ve.Add(new Vertex(Projectile.Center - Main.screenPosition + new Vector2(0, -20).RotatedBy(Projectile.oldRot[i] + MathHelper.PiOver2) * Ro,
-                          new Vector3(i / 9, 0, 1),
+                          new Vector3(i / c, 0, 1),
                           b));
                 }
 
