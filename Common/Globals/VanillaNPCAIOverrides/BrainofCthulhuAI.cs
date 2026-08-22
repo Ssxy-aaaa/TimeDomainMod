@@ -191,10 +191,6 @@ namespace yourmod.Common.Globals.VanillaNPCAIOverrides
                         BrainofCthulhu_origins += BrainofCthulhu_circles;
                         npc.velocity = BrainofCthulhu_origins - npc.Center;
                     }
-                    //if (BossTime2 > 150 && BossTime2 < 180)
-                    //{
-                    //    npc.velocity *= 0.97f;
-                    //}
                     #region 旧冲刺
                     /*
                     if (BossTime2 > 180 && BossTime2 <= 183)

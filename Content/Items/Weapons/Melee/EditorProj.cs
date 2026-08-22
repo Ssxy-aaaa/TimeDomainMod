@@ -26,6 +26,8 @@ namespace yourmod.Content.Items.Weapons.Melee
         {
             ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
             //ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
+            //ProjectileID.Sets.TrailingMode[Type] = 2;
+            //ProjectileID.Sets.TrailCacheLength[Type] = 10;
         }
         public override void SetDefaults()
         {
@@ -92,11 +94,13 @@ namespace yourmod.Content.Items.Weapons.Melee
 
         // 我们为每个阶段定义了时间函数，同时考虑了近战攻击速度
         // 注意，你可以根据你的投射物需求更改此设置
-        float a = 54f;
+        float a = 27;//54f;
         private float prepTime => a / Owner.GetTotalAttackSpeed(Projectile.DamageType);
         private float execTime => a / Owner.GetTotalAttackSpeed(Projectile.DamageType);
         private float hideTime => a / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 
+        public int UseItemCount = 0;
+        public static int Style = 1;
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.spriteDirection = Main.MouseWorld.X > Owner.MountedCenter.X ? 1 : -1;
@@ -125,16 +129,23 @@ namespace yourmod.Content.Items.Weapons.Melee
 
                 InitialAngle = targetAngle - _FirstHalfSwing * _SwingRange * Projectile.spriteDirection; // Otherwise, we calculate the angle
             }
+
+
+            //UseItemCount++;
+            //UseItemCount = UseItemCount > 1 ? 0 : UseItemCount;
+            Style = -Style;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write((sbyte)Projectile.spriteDirection);
+            writer.Write(Style);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             Projectile.spriteDirection = reader.ReadSByte();
+            Style = reader.ReadInt32();
         }
 
         public override void AI()
@@ -207,41 +218,41 @@ namespace yourmod.Content.Items.Weapons.Melee
 
             {
                 #region L
-                Vector2 tipPos = Owner.MountedCenter + new Vector2(-1.5f, -1.5f).RotatedBy(Projectile.rotation + (MathHelper.Pi / 2 * 3) * Projectile.spriteDirection) * 80;
-                Texture2D Tex = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Effect_7").Value;
-                Texture2D Tex2 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/slash1").Value;
-                Texture2D Tex3 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/slash2").Value;
-                //Texture2D Tex4 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Particle_Slash_05").Value;
-                Color c = /*Color.LimeGreen*/new Color(90, 90, 140);
-                Color c2 = Color.Lerp(/*Color.Blue*/new Color(87, 86, 136), /*Color.Cyan*/new Color(214, 71, 214), 0.5f) * 0.8f;
-                Color c3 = /*Color.CadetBlue*/new Color(220, 80, 220);
-                c.A = 0;
+                //Vector2 tipPos = Owner.MountedCenter + new Vector2(-1.5f, -1.5f).RotatedBy(Projectile.rotation + (MathHelper.Pi / 2 * 3) * Projectile.spriteDirection) * 80;
+                //Texture2D Tex = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Effect_7").Value;
+                //Texture2D Tex2 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/slash1").Value;
+                //Texture2D Tex3 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/slash2").Value;
+                ////Texture2D Tex4 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Particle_Slash_05").Value;
+                //Color c = /*Color.LimeGreen*/new Color(90, 90, 140);
+                //Color c2 = Color.Lerp(/*Color.Blue*/new Color(87, 86, 136), /*Color.Cyan*/new Color(214, 71, 214), 0.5f) * 0.8f;
+                //Color c3 = /*Color.CadetBlue*/new Color(220, 80, 220);
+                //c.A = 0;
 
-                //if (/*CurrentAttackType == SpearAttackType.Spin*/)
-                {
-                    float Progress = this.Progress * 0.5f;
-                    //Main.spriteBatch.Draw(Tex, tipPos - Main.screenPosition, null, c * (Progress - 0.5f) * 5, 0, Tex.Size() / 2, new Vector2(2, 2), 0, 0);
-                    if (Owner.direction == 1)
-                    {
-                        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex2.Size() / 2, 2f, 0, 0);
-                        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c2 * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ - 0.4f), Tex2.Size() / 2, 2f, 0, 0);
-                        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 3*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex3.Size() / 2, 2f, 0, 0);
-                        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex3.Size() / 2, 1.5f, 0, 0);
-                        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex3.Size() / 2, 1.2f, 0, 0);
-                        //Main.spriteBatch.Draw(Tex4, Owner.Center - Main.screenPosition, null, c3 * Progress * 5, (float)(Projectile.rotation - Math.PI - 1.8f - Math.PI / 2), Tex4.Size() / 2, 1.35f, 0, 0);
+                ////if (/*CurrentAttackType == SpearAttackType.Spin*/)
+                //{
+                //    float Progress = this.Progress * 0.5f;
+                //    //Main.spriteBatch.Draw(Tex, tipPos - Main.screenPosition, null, c * (Progress - 0.5f) * 5, 0, Tex.Size() / 2, new Vector2(2, 2), 0, 0);
+                //    if (Owner.direction == 1)
+                //    {
+                //        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex2.Size() / 2, 2f, 0, 0);
+                //        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c2 * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ - 0.4f), Tex2.Size() / 2, 2f, 0, 0);
+                //        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 3*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex3.Size() / 2, 2f, 0, 0);
+                //        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex3.Size() / 2, 1.5f, 0, 0);
+                //        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/), Tex3.Size() / 2, 1.2f, 0, 0);
+                //        //Main.spriteBatch.Draw(Tex4, Owner.Center - Main.screenPosition, null, c3 * Progress * 5, (float)(Projectile.rotation - Math.PI - 1.8f - Math.PI / 2), Tex4.Size() / 2, 1.35f, 0, 0);
 
-                    }
-                    else
-                    {
-                        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex2.Size() / 2, 2f, SpriteEffects.FlipHorizontally, 0);
-                        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c2 * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI + 0.4f), Tex2.Size() / 2, 2f, SpriteEffects.FlipHorizontally, 0);
-                        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 3*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex3.Size() / 2, 2f, SpriteEffects.FlipHorizontally, 0);
-                        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex3.Size() / 2, 1.5f, SpriteEffects.FlipHorizontally, 0);
-                        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex3.Size() / 2, 1.2f, SpriteEffects.FlipHorizontally, 0);
-                        //Main.spriteBatch.Draw(Tex4, Owner.Center - Main.screenPosition, null, c3 * Progress * 5, (float)(Projectile.rotation/* + Math.PI + 1.8f*/), Tex4.Size() / 2, 1.35f, SpriteEffects.FlipHorizontally, 0);
-                    }
+                //    }
+                //    else
+                //    {
+                //        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex2.Size() / 2, 2f, SpriteEffects.FlipHorizontally, 0);
+                //        Main.spriteBatch.Draw(Tex2, Owner.Center - Main.screenPosition, null, c2 * Progress, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI + 0.4f), Tex2.Size() / 2, 2f, SpriteEffects.FlipHorizontally, 0);
+                //        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 3*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex3.Size() / 2, 2f, SpriteEffects.FlipHorizontally, 0);
+                //        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex3.Size() / 2, 1.5f, SpriteEffects.FlipHorizontally, 0);
+                //        Main.spriteBatch.Draw(Tex3, Owner.Center - Main.screenPosition, null, c3 * Progress/* * 2*/, (float)(Projectile.rotation/* - Math.PI / 2 - Math.PI / 4*/ + Math.PI), Tex3.Size() / 2, 1.2f, SpriteEffects.FlipHorizontally, 0);
+                //        //Main.spriteBatch.Draw(Tex4, Owner.Center - Main.screenPosition, null, c3 * Progress * 5, (float)(Projectile.rotation/* + Math.PI + 1.8f*/), Tex4.Size() / 2, 1.35f, SpriteEffects.FlipHorizontally, 0);
+                //    }
 
-                }
+                //}
                 #endregion
             }
 
@@ -319,13 +330,49 @@ namespace yourmod.Content.Items.Weapons.Melee
                 ////             SpriteEffects.None,
                 ////             0);
             }
+            {
+                //缩写这俩 我懒得在后面打长长的东西
+                SpriteBatch sb = Main.spriteBatch;
+                GraphicsDevice gd = Main.graphics.GraphicsDevice;
 
+                //end 和 begin里和顶点的东西建议照抄 然后慢慢理解
 
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                //开始顶点绘制
 
+                List<Vertex> ve = new List<Vertex>();
 
+                for (int i = 0; i < 9; i++)
+                {
+                    Color b = Color.Lerp(Color.Red, Color.Blue, i / 9);
+                    float Ro = (1 + (float)Math.Cos(Projectile.oldRot[i] - MathHelper.PiOver2) * player.direction);
+                    Ro = 1;
+                    //存顶点																										从这一—————————————到这里都是乱弄的 你可以随便改改数据看看能发生什么
+                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + new Vector2(0, -160).RotatedBy(Projectile.oldRot[i] + MathHelper.PiOver2) * Ro,
+                          new Vector3(i / 9, 1, 1),
+                          b));
+                    ve.Add(new Vertex(Projectile.Center - Main.screenPosition + new Vector2(0, -20).RotatedBy(Projectile.oldRot[i] + MathHelper.PiOver2) * Ro,
+                          new Vector3(i / 9, 0, 1),
+                          b));
+                }
 
-
+                if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
+                {
+                    gd.Textures[0] = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Extra_210").Value;//获取刀光的拖尾贴图
+                    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);//画
+                }
+                
+                //结束顶点绘制
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            }
             Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, default, lightColor * Projectile.Opacity, Projectile.rotation + rotationOffset, origin, Projectile.scale, effects, 0);
+
+
+
+
+
 
 
 
@@ -378,10 +425,16 @@ namespace yourmod.Content.Items.Weapons.Melee
         public void SetSwordPosition()
         {
             Projectile.rotation = InitialAngle + Projectile.spriteDirection * Progress; // Set projectile rotation
-
-            // Set composite arm allows you to set the rotation of the arm and stretch of the front and back arms independently
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.ToRadians(90f)); // set arm position (90 degree offset since arm starts lowered)
             Vector2 armPosition = Owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, Projectile.rotation - (float)Math.PI / 2); // get position of hand
+
+            if (Style == -1)
+            {
+                Projectile.rotation = 0f - Projectile.rotation;
+                armPosition.Y = Owner.Bottom.Y + (Owner.position.Y - armPosition.Y);
+            }
+            // Set composite arm allows you to set the rotation of the arm and stretch of the front and back arms independently
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (Projectile.rotation - MathHelper.ToRadians(90f))* 1); // set arm position (90 degree offset since arm starts lowered)
+
 
             // Adjust the position for reversed gravity.
             if (Owner.gravDir == -1f)
@@ -389,6 +442,7 @@ namespace yourmod.Content.Items.Weapons.Melee
                 Projectile.rotation = 0f - Projectile.rotation;
                 armPosition.Y = Owner.Bottom.Y + (Owner.position.Y - armPosition.Y);
             }
+
 
             armPosition.Y += Owner.gfxOffY;
             Projectile.Center = armPosition; // Set projectile to arm position
