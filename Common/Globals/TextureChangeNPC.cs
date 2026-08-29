@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
@@ -15,7 +16,7 @@ namespace TimeDomain.Common.Globals
             base.SetBestiary(npc, database, bestiaryEntry);
         }
         public override bool InstancePerEntity => true;
-        public int FC = 0;
+        public int uTime = 0;
         public override void FindFrame(NPC npc, int frameHeight)
         {
 
@@ -81,6 +82,7 @@ namespace TimeDomain.Common.Globals
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            uTime++;
             if (!TimeDomain.AncientMode)
             {
                 return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
@@ -250,6 +252,21 @@ namespace TimeDomain.Common.Globals
                 else
                     spriteBatch.Draw(texture1, npc.Center - screenPos, NPCRectangle, drawColor, npc.rotation + ROoff, new Vector2(texture1.Width / 2, texture1.Height / 8), 1f, SpriteEffects.None, 0f);
                 return false;
+            }
+            #endregion
+
+            #region d
+            if (npc.type == NPCID.BrainofCthulhu)
+            {
+                Texture2D npcTexture = TextureAssets.Npc[npc.type].Value;
+                for (int i = 0; i < 6; i++)
+                {
+                    float ro = -MathHelper.Pi + (i / 6f) * MathHelper.TwoPi + (uTime / 100f);
+                    Color newColor = drawColor;
+                    newColor.A /= 3;
+                    newColor *= (float)((Math.Sin(uTime / 100f)));
+                    spriteBatch.Draw(npcTexture, npc.position + ro.ToRotationVector2() * 5 - Main.screenPosition, new Rectangle?(npc.frame), newColor, npc.rotation, Vector2.Zero, npc.scale, 0, 0f);
+                }
             }
             #endregion
 

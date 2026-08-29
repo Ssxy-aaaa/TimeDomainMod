@@ -29,10 +29,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
         }
 
         public static bool BerserkMode = false;
-        public static void Text(object a)
-        {
-            Main.NewText(a, Color.Red);
-        }
+        public static void Text(object a) => Main.NewText(a, Color.Red);
 
 
 
@@ -43,23 +40,8 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
         static float BrainofCthulhu_rotation;
         static Vector2 BrainofCthulhu_origins;
         static Vector2 BrainofCthulhu_circles;
-        public static void BuffedAI(NPC npc)
+        public static void GetDamageAndDefense(NPC npc)
         {
-            thisNPC = npc;
-            BossTime3++;
-            Player p = Main.player[npc.target];
-            BerserkMode = !p.ZoneCrimson;
-            if (BossTime3 == 1)
-            {
-                npc.TargetClosest(true);
-                npc.Center = Main.player[npc.target].Center - new Vector2(0, 600);
-                int brainOfCthuluCreepersCount = NPC.GetBrainOfCthuluCreepersCount();
-                for (int i = 0; i < brainOfCthuluCreepersCount; i++)
-                {
-                    int num820 = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.Creeper, 0, 0f, 0f, 0f, npc.whoAmI, 255);
-                    Main.npc[num820].netUpdate = true;
-                }
-            }
             if (BerserkMode)
             {
                 if (Main.expertMode)
@@ -98,16 +80,10 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 //npc.damage = 45;
                 //npc.defense = 5;
             }
-            npc.ai[1]++;
-            NPC.crimsonBoss = npc.whoAmI;
-            ///test
-            //if (Main.netMode != NetmodeID.MultiplayerClient && npc.localAI[0] == 0f)
-            //{
-            //    npc.localAI[0] = 1f;
-            //}
-            ///
-            //脱战
-            ScreenPositionModifyPlayer modifyPlayer = p.GetModPlayer<ScreenPositionModifyPlayer>();
+        }
+        public static void SetScreenPos(NPC npc)
+        {
+            ScreenPositionModifyPlayer modifyPlayer = player.GetModPlayer<ScreenPositionModifyPlayer>();
             if (BossTime3 <= 180)
             {
                 Vector2 HalfScreen = new Vector2(Main.screenWidth, Main.screenHeight) / 2;
@@ -124,10 +100,10 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 }
                 else
                 {
-                    Vector2 ToPlayerFromNPC = p.Center - npc.Center;
+                    Vector2 ToPlayerFromNPC = player.Center - npc.Center;
                     float b = (BossTime3 - 120) / 60;
                     Vector2 CurScreenPos = (npc.Center + ToPlayerFromNPC * b) - HalfScreen;
-                    
+
                     modifyPlayer.IsModifyScreenPosition = true;
                     modifyPlayer.Target = CurScreenPos;
                 }
@@ -137,19 +113,43 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 modifyPlayer.IsModifyScreenPosition = false;
                 modifyPlayer.Target = Vector2.Zero;
             }
+        }
+        public static Player player => Main.player[thisNPC.target];
+        public static void BuffedAI(NPC npc)
+        {
+            thisNPC = npc;
+            BossTime3++;
+           
+            BerserkMode = !player.ZoneCrimson;
+            if (BossTime3 == 1)
+            {
+                npc.TargetClosest(true);
+                npc.Center = Main.player[npc.target].Center - new Vector2(0, 600);
+                int brainOfCthuluCreepersCount = NPC.GetBrainOfCthuluCreepersCount();
+                for (int i = 0; i < brainOfCthuluCreepersCount; i++)
+                {
+                    int num820 = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.Creeper, 0, 0f, 0f, 0f, npc.whoAmI, 255);
+                    Main.npc[num820].netUpdate = true;
+                }
+            }
+            GetDamageAndDefense(npc);
+            npc.ai[1]++;
+            NPC.crimsonBoss = npc.whoAmI;
+            //脱战
+            SetScreenPos(npc);
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 npc.TargetClosest(true);
-                //int num821 = 6000;
-                //if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > (float)num821)
-                //{
-                //    npc.active = false;
-                //    npc.life = 0;
-                //    if (Main.netMode == NetmodeID.Server)
-                //    {
-                //        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-                //    }
-                //}
+                int num821 = 6000;
+                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > (float)num821)
+                {
+                    npc.active = false;
+                    npc.life = 0;
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+                    }
+                }
             }
 
             if (npc.ai[0] < 0)
@@ -170,21 +170,18 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     }
                     if (BossTime2 == 10)
                     {
-                        //SoundEngine.PlaySound(SoundID.NPCHit3, npc.Center);
                         SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                     }
                     if (BossTime2 < 180)
                     {
                         //还好吧，我只是时间比较少
                         BrainofCthulhu_range = 360 - 2 * BossTime2;
-                        //Text(BrainofCthulhu_range);
-                        //Text(BossTime2);
                         float RSpeed = 0.07f;
                         if (BerserkMode)
                             RSpeed = 0.12f;
                         BrainofCthulhu_rotation = BossTime3 * RSpeed;
                         if (BossTime2 < 101)
-                            BrainofCthulhu_RO = p.Center;
+                            BrainofCthulhu_RO = player.Center;
 
                         BrainofCthulhu_origins = BrainofCthulhu_RO;
                         BrainofCthulhu_circles = BrainofCthulhu_rotation.ToRotationVector2() * BrainofCthulhu_range;
@@ -195,14 +192,14 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     /*
                     if (BossTime2 > 180 && BossTime2 <= 183)
                     {
-                        npc.velocity = -Vector2.Normalize(p.Center - npc.Center) * 10;
+                        npc.velocity = -Vector2.Normalize(player.Center - npc.Center) * 10;
                     }
                     //
                     if (BossTime2 > 210 && BossTime2 <= 300)
                     {
                         if (BrainofCthulhu_JGCenter == new Vector2(-10, -10))
                         {
-                            BrainofCthulhu_JGCenter = p.Center;
+                            BrainofCthulhu_JGCenter = player.Center;
                             Vector2 v = BrainofCthulhu_JGCenter - npc.Center;
                             v *= 1.2f;
                             //v.Normalize();
@@ -242,7 +239,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                             if (rand == 4) { vcr = new Vector2(-1, 0); }
 
                             vcr *= 800;
-                            npc.Center = p.Center + vcr;
+                            npc.Center = player.Center + vcr;
                             npc.velocity = -vcr / 4000;
                         }
                         if (BossTime2 == 185)
@@ -273,25 +270,19 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         if (BossTime2 == 230)
                         {
                             if (BerserkMode)
-                            {
                                 npc.velocity *= 1.2f;
-                            }
                             npc.velocity *= 100f;
                         }
                         if (BossTime2 > 250 && BossTime2 < 260)
                         {
                             if (BerserkMode)
-                            {
                                 npc.velocity *= 1.01f;
-                            }
                             npc.velocity *= 1.01f;
                         }
                         if (BossTime2 > 260 && BossTime2 < 270)
                         {
                             if (BerserkMode)
-                            {
                                 npc.velocity *= 0.99f;
-                            }
                             npc.velocity *= 0.97f;
                         }
                     }
@@ -303,7 +294,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     {
                         npc.ai[0] = -2;
                         BossTime2 = 0;
-                        Vector2 velocity = p.Center - npc.Center;
+                        Vector2 velocity = player.Center - npc.Center;
                         if (BerserkMode)
                         {
                             if (Main.masterMode)
@@ -354,9 +345,9 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         npc.alpha = 255;
                         int a = 0;
                         if (Main.rand.Next(0, 1) == 0)
-                        { a = 1; }
+                            a = 1;
                         else
-                        { a = -1; }
+                            a = -1; 
                         npc.position = Main.player[npc.target].Center + new Vector2(Main.rand.Next(-20, 20), 20 * a) + new Vector2(npc.width / 2, npc.height / 2);
                         npc.ai[0] = -3;
                     }
@@ -378,21 +369,6 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 if (npc.ai[0] == 0 && BossTime3 >= 180)
                 {
                     //转二阶段
-                    //int CreeperCount = 0;
-                    //for (int i = 0; i < Main.maxNPCs; i++)
-                    //{
-                    //    if (Main.npc[i].type == NPCID.Creeper)
-                    //    {
-                    //        if (npc.active)
-                    //        {
-                    //            CreeperCount++;
-                    //        }
-                    //    }
-                    //}
-                    //if (CreeperCount == 0)
-                    //{
-                    //    npc.ai[0] = 1;
-                    //}
                     bool Phase2 = false;
                     int CreeperCount = 0;
                     for (int i = 0; i < Main.maxNPCs; i++)
@@ -420,13 +396,9 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     float num837 = (float)Math.Sqrt((double)(num835 * num835 + num836 * num836));
                     float num838 = 1f;
                     if (Main.getGoodWorld)
-                    {
                         num838 *= 1.33f;
-                    }
                     if (BerserkMode)
-                    {
                         num838 *= 1.2f;
-                    }
                     num838 *= 3;
                     if (num837 < num838)
                     {
@@ -471,14 +443,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     }
                 }
             }
-            if (BerserkMode)
-            {
-                npc.ai[2] = 1;
-            }
-            else
-            {
-                npc.ai[2] = 0;
-            }
+            npc.ai[2] = BerserkMode.ToInt();
         }
         public static void OverrideOnSpawn(NPC npc)
         {
