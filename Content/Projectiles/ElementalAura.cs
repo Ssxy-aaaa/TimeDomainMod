@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.NPCs.Bosses.PrimordialSlime;
+using TimeDomain.Content.NPCs.Bosses.PrimordialSlime;
 
-namespace yourmod.Content.Projectiles
+namespace TimeDomain.Content.Projectiles
 {
     public class ElementalAura : ModProjectile
     {

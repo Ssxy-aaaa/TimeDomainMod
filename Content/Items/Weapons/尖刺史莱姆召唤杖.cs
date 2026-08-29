@@ -2,12 +2,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.Buffs;
+using TimeDomain.Content.Buffs;
 using Microsoft.Xna.Framework;
-using yourmod.Content.Items.Projectiles.Summon;
+using TimeDomain.Content.Items.Projectiles.Summon;
 
 
-namespace yourmod.Content.Items.Weapons
+namespace TimeDomain.Content.Items.Weapons
 {
     public class 尖刺史莱姆召唤杖 : ModItem
     {

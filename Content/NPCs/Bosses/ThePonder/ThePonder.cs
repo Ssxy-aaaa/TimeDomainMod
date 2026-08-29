@@ -5,10 +5,10 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Common;
+using TimeDomain.Common;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace yourmod.Content.NPCs.Bosses.ThePonder
+namespace TimeDomain.Content.NPCs.Bosses.ThePonder
 {
     public class ThePonder : ModNPC
     {

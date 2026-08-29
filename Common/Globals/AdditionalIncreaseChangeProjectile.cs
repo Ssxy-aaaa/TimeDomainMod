@@ -6,10 +6,10 @@
 //using System.Threading.Tasks;
 //using Terraria;
 //using Terraria.ModLoader;
-//using yourmod.Content.Items.Weapons.Summon.Whip;
+//using TimeDomain.Content.Items.Weapons.Summon.Whip;
 //using Microsoft.Xna.Framework;
 
-//namespace yourmod.Common.Globals
+//namespace TimeDomain.Common.Globals
 //{
 //    public class AdditionalIncreaseChangeProjectile : GlobalProjectile
 //    {

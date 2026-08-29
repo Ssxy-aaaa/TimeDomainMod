@@ -5,11 +5,11 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Common;
-using yourmod.Content.Buffs;
+using TimeDomain.Common;
+using TimeDomain.Content.Buffs;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace yourmod.Content.Items.Weapons.Summon.Whip
+namespace TimeDomain.Content.Items.Weapons.Summon.Whip
 {
     public class OpticNeuronProj : ModProjectile
     {
@@ -52,7 +52,7 @@ namespace yourmod.Content.Items.Weapons.Summon.Whip
         }
         public void DrawLine(List<Vector2> list)
         {
-            Texture2D texture = /*TextureAssets.FishingLine.Value*/ModContent.Request<Texture2D>("yourmod/Content/Items/Weapons/Summon/Whip/OpticNeuronProj").Value;
+            Texture2D texture = /*TextureAssets.FishingLine.Value*/ModContent.Request<Texture2D>("TimeDomain/Content/Items/Weapons/Summon/Whip/OpticNeuronProj").Value;
             Rectangle frame = texture.Frame();
             frame = new Rectangle(0,20,18,20);//20
             Vector2 origin = new Vector2(frame.Width / 2, 2);

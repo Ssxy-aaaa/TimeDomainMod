@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.Items.Materials;
+using TimeDomain.Content.Items.Materials;
 
-namespace yourmod.Content.Items.Armors
+namespace TimeDomain.Content.Items.Armors
 {
     [AutoloadEquip(EquipType.Body)]
     public class GraniteBreastplate : ModItem

@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Projectiles
+namespace TimeDomain.Content.Projectiles
 {
     public class JungleAcidSpike : ModProjectile
     {

@@ -3,7 +3,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.NPCs.Bosses.KingAntlion
+namespace TimeDomain.Content.NPCs.Bosses.KingAntlion
 {
     //蚁狮马王
     public class KingAntlion : ModNPC

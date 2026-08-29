@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 
-namespace yourmod.Content.Items.Weapons.Magic
+namespace TimeDomain.Content.Items.Weapons.Magic
 {
     public class IceFogProjectile : ModProjectile
     {

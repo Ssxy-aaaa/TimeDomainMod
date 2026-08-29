@@ -1,4 +1,4 @@
 displayName = 时域
 displayName.en-US = TimeDomain
 author = a小侠吖，圣熵
-version = 0.0.2.0
+version = 0.1.0.0

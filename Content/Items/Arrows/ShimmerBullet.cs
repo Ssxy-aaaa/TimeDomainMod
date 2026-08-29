@@ -1,9 +1,9 @@
-﻿using yourmod.Content.Projectiles;
+﻿using TimeDomain.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Items.Arrows
+namespace TimeDomain.Content.Items.Arrows
 {
     public class ShimmerBullet : ModItem
     {

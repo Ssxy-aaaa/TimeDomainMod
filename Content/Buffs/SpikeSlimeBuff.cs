@@ -1,5 +1,5 @@
 ﻿using System;
-using yourmod.Content.Items.Projectiles.Summon;
+using TimeDomain.Content.Items.Projectiles.Summon;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Buffs
+namespace TimeDomain.Content.Buffs
 {
     internal class SpikeSlimeBuff : ModBuff
     {

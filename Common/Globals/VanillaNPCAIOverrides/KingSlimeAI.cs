@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 
-namespace yourmod.Common.Globals.VanillaNPCAIOverrides
+namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 {
     public static class KingSlimeAI
     {

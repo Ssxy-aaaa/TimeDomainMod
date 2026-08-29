@@ -9,12 +9,12 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using yourmod.Content.Items.Consumables;
-using yourmod.Common;
-using yourmod.Common.Systems;
-using yourmod.Content.Projectiles;
+using TimeDomain.Content.Items.Consumables;
+using TimeDomain.Common;
+using TimeDomain.Common.Systems;
+using TimeDomain.Content.Projectiles;
 
-namespace yourmod.Content.NPCs.Bosses.PrimordialSlime
+namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
 {
     [AutoloadBossHead]
     public class PrimordialSlime : ModNPC
@@ -39,7 +39,7 @@ namespace yourmod.Content.NPCs.Bosses.PrimordialSlime
         {
             Main.npcFrameCount[Type] = 4;
             LocalizedText spawnInfo = LocalizedText.Empty;
-            spawnInfo = yourmod.Instance.GetLocalization("NPCs.PrimordialSlime.spawnInfo") ?? LocalizedText.Empty;
+            spawnInfo = TimeDomain.Instance.GetLocalization("NPCs.PrimordialSlime.spawnInfo") ?? LocalizedText.Empty;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -350,7 +350,7 @@ namespace yourmod.Content.NPCs.Bosses.PrimordialSlime
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             float Rotation = NPC.velocity.X * 0.05f;
-            Texture2D texture = ModContent.Request<Texture2D>("yourmod/Content/NPCs/Bosses/PrimordialSlime/SevenElements").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("TimeDomain/Content/NPCs/Bosses/PrimordialSlime/SevenElements").Value;
             //Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texture.Width, 46)), new Color(255, 255, 255, 80), Rotation, new Vector2((texture.Width / 2), 23), 1, 0, 0);
         }
     }

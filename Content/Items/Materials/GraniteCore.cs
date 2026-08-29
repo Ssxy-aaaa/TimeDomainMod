@@ -3,7 +3,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Items.Materials
+namespace TimeDomain.Content.Items.Materials
 {
     public class GraniteCore : ModItem
     {

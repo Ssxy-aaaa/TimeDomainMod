@@ -8,7 +8,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Items.Weapons.Summon.Whip
+namespace TimeDomain.Content.Items.Weapons.Summon.Whip
 {
     public class OpticNeuron : ModItem
     {

@@ -8,9 +8,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.Items.Weapons.Common;
+using TimeDomain.Content.Items.Weapons.Common;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 {
     public class VanillaBossAIChangeProjectile : GlobalProjectile
     {

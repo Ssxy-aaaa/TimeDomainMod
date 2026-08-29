@@ -9,11 +9,11 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Items.Consumables
+namespace TimeDomain.Content.Items.Consumables
 {
     public class BrokenPocketWatch : ModItem
     {
-        public SoundStyle Sound = new SoundStyle("yourmod/Assets/Sounds/TS");
+        public SoundStyle Sound = new SoundStyle("TimeDomain/Assets/Sounds/TS");
         public override void SetDefaults()
         {
             Item.width = 32;
@@ -47,14 +47,14 @@ namespace yourmod.Content.Items.Consumables
                 if (Main.npc[i].boss && Main.npc[i].active)
                     return false;
 
-            if (yourmod.AncientMode)
+            if (TimeDomain.AncientMode)
             {
-                yourmod.AncientMode = false;
+                TimeDomain.AncientMode = false;
                 Main.NewText("世界正在回归现世", new Color(180, 40, 255));
             }
             else
             {
-                yourmod.AncientMode = true;
+                TimeDomain.AncientMode = true;
                 Main.NewText("世界正在变得远古", new Color(180, 40, 255));
             }
             return true;

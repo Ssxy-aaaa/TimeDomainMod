@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 
-namespace yourmod.Common.Globals.VanillaNPCAIOverrides
+namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 {
     public static class CreeperAI
     {
@@ -276,7 +276,7 @@ namespace yourmod.Common.Globals.VanillaNPCAIOverrides
         public static bool[] IsDeath = new bool[1000];
         public static bool PreKill(NPC npc)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return true;
             }

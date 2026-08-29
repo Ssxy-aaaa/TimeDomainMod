@@ -2,10 +2,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.Buffs;
-using yourmod.Content.Items.Weapons.Summon.Whip;
+using TimeDomain.Content.Buffs;
+using TimeDomain.Content.Items.Weapons.Summon.Whip;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 {
     public class VanillaSetChangeProjectile : GlobalProjectile
     {

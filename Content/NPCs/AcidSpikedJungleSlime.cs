@@ -6,10 +6,10 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Common;
-using yourmod.Content.Projectiles;
+using TimeDomain.Common;
+using TimeDomain.Content.Projectiles;
 
-namespace yourmod.Content.NPCs
+namespace TimeDomain.Content.NPCs
 {
     public class AcidSpikedJungleSlime : ModNPC
     {

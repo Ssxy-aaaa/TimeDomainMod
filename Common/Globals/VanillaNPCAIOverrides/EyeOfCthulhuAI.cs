@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace yourmod.Common.Globals.VanillaNPCAIOverrides
+namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 {
     public static class EyeOfCthulhuAI
     {

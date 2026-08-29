@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Buffs
+namespace TimeDomain.Content.Buffs
 {
     public class OpticNeuronBuff : ModBuff
     {

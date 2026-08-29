@@ -8,10 +8,10 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.Items.Materials;
-using yourmod.Content.NPCs;
+using TimeDomain.Content.Items.Materials;
+using TimeDomain.Content.NPCs;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 {
     public class SpawnChanceChangeNPC : GlobalNPC
     {

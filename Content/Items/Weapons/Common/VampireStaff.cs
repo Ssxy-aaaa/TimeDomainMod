@@ -6,9 +6,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
-using yourmod;
+using TimeDomain;
 
-namespace yourmod.Content.Items.Weapons.Common
+namespace TimeDomain.Content.Items.Weapons.Common
 {
     public class VampireStaff : ModItem
     {

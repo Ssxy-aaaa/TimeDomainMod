@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Common;
-using yourmod.Content.Projectiles;
+using TimeDomain.Common;
+using TimeDomain.Content.Projectiles;
 
-namespace yourmod.Content.NPCs.Bosses.PrimordialSlime
+namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
 {
     public class SevenElements : ModNPC
     {

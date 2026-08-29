@@ -6,13 +6,13 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 {
     public class TextureChangeProjectile : GlobalProjectile
     {
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return base.PreDraw(projectile, ref lightColor);
             }

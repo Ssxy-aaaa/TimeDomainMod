@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.DamageClasses
+namespace TimeDomain.Content.DamageClasses
 {
     public class SprintDamageClass : DamageClass
     {

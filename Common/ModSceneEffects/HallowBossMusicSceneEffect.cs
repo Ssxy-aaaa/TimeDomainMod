@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Common.ModSceneEffects
+namespace TimeDomain.Common.ModSceneEffects
 {
     public class OceanMusicChange : ModSceneEffect
     {

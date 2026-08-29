@@ -16,11 +16,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static tModPorter.ProgressUpdate;
 
-namespace yourmod.Content.Items.Weapons.Melee
+namespace TimeDomain.Content.Items.Weapons.Melee
 {
     public class EditorProj : ModProjectile
     {
-        public override string Texture => "yourmod/Content/Items/Weapons/Melee/Editor";
+        public override string Texture => "TimeDomain/Content/Items/Weapons/Melee/Editor";
         private Player Owner => Main.player[Projectile.owner];
         public override void SetStaticDefaults()
         {
@@ -219,10 +219,10 @@ namespace yourmod.Content.Items.Weapons.Melee
             {
                 #region L
                 //Vector2 tipPos = Owner.MountedCenter + new Vector2(-1.5f, -1.5f).RotatedBy(Projectile.rotation + (MathHelper.Pi / 2 * 3) * Projectile.spriteDirection) * 80;
-                //Texture2D Tex = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Effect_7").Value;
-                //Texture2D Tex2 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/slash1").Value;
-                //Texture2D Tex3 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/slash2").Value;
-                ////Texture2D Tex4 = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Particle_Slash_05").Value;
+                //Texture2D Tex = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/Effect_7").Value;
+                //Texture2D Tex2 = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/slash1").Value;
+                //Texture2D Tex3 = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/slash2").Value;
+                ////Texture2D Tex4 = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/Particle_Slash_05").Value;
                 //Color c = /*Color.LimeGreen*/new Color(90, 90, 140);
                 //Color c2 = Color.Lerp(/*Color.Blue*/new Color(87, 86, 136), /*Color.Cyan*/new Color(214, 71, 214), 0.5f) * 0.8f;
                 //Color c3 = /*Color.CadetBlue*/new Color(220, 80, 220);
@@ -310,7 +310,7 @@ namespace yourmod.Content.Items.Weapons.Melee
 
                 //if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
                 //{
-                //    gd.Textures[0] = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Extra_209").Value;//获取刀光的拖尾贴图
+                //    gd.Textures[0] = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/Extra_209").Value;//获取刀光的拖尾贴图
                 //    gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);//画
                 //}
 
@@ -372,7 +372,7 @@ namespace yourmod.Content.Items.Weapons.Melee
 
                 if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
                 {
-                    gd.Textures[0] = ModContent.Request<Texture2D>("yourmod/Assets/Textures/Misc/Extra_210").Value;//获取刀光的拖尾贴图
+                    gd.Textures[0] = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/Extra_210").Value;//获取刀光的拖尾贴图
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);//画
                 }
                 //End:;

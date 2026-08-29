@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace yourmod.Content.Projectiles
+namespace TimeDomain.Content.Projectiles
 {
     public class GraniteEnergyBall : ModProjectile
     {

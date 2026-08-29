@@ -9,9 +9,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.UI;
-using yourmod.Content.Items.Weapons.Summon.Whip;
+using TimeDomain.Content.Items.Weapons.Summon.Whip;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 {
     public class VanillaItemChangeItem : GlobalItem
     {

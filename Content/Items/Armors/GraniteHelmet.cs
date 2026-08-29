@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.Items.Materials;
+using TimeDomain.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 
-namespace yourmod.Content.Items.Armors
+namespace TimeDomain.Content.Items.Armors
 {
     [AutoloadEquip(EquipType.Head)]
     public class GraniteHelmet : ModItem

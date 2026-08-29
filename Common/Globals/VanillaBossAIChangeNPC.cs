@@ -3,15 +3,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Common.Globals.VanillaNPCAIOverrides;
+using TimeDomain.Common.Globals.VanillaNPCAIOverrides;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 {
     public class VanillaBossAIChangeNPC : GlobalNPC
     {
         public override void SetDefaults(NPC npc)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return;
             }
@@ -32,7 +32,7 @@ namespace yourmod.Common.Globals
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return;
             }
@@ -70,7 +70,7 @@ namespace yourmod.Common.Globals
         public Vector2 KSTargetVector2;
         public override bool PreAI(NPC npc)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return base.PreAI(npc);
             }
@@ -102,7 +102,7 @@ namespace yourmod.Common.Globals
 
         public override void PostAI(NPC npc)
         {
-        //    if (!yourmod.AncientMode)
+        //    if (!TimeDomain.AncientMode)
         //    {
         //        return;
         //    }
@@ -143,7 +143,7 @@ namespace yourmod.Common.Globals
         }
         public override void AI(NPC npc)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return;
             }

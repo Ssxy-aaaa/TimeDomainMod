@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Common.Test
+namespace TimeDomain.Common.Test
 {
     public class TestItem : ModItem
     {

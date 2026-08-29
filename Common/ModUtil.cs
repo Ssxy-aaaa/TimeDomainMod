@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 
-namespace yourmod.Common
+namespace TimeDomain.Common
 {
     public static class ModUtil
     {

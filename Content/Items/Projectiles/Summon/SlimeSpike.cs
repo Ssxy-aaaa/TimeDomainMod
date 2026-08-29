@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Items.Projectiles.Summon
+namespace TimeDomain.Content.Items.Projectiles.Summon
 {
     internal class SlimeSpike : ModProjectile
     {

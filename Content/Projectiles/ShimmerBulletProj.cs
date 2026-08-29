@@ -6,7 +6,7 @@ using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Projectiles
+namespace TimeDomain.Content.Projectiles
 {
     public class ShimmerBulletProj : ModProjectile
     {

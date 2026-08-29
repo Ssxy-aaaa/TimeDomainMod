@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace yourmod.Content.Items.Weapons.Lance
+namespace TimeDomain.Content.Items.Weapons.Lance
 {
     internal class WoodenLance
     {

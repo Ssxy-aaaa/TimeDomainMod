@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Content.Items.Weapons.Melee
+namespace TimeDomain.Content.Items.Weapons.Melee
 {
     public class TestSpear : ModItem
     {

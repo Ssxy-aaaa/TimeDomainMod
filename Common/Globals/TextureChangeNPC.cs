@@ -6,7 +6,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace yourmod.Common.Globals
+namespace TimeDomain.Common.Globals
 { 
     public class TextureChangeNPC : GlobalNPC
     {
@@ -81,7 +81,7 @@ namespace yourmod.Common.Globals
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (!yourmod.AncientMode)
+            if (!TimeDomain.AncientMode)
             {
                 return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
             }
@@ -109,8 +109,8 @@ namespace yourmod.Common.Globals
                     zero.Y -= 6f;
                 }
                 Color color = npc.GetAlpha(drawColor);
-                Texture2D texture = ModContent.Request<Texture2D>("yourmod/Common/Textures/OverrideKSCS3").Value;
-                Texture2D texture2 = ModContent.Request<Texture2D>("yourmod/Common/Textures/OverrideKSH").Value;
+                Texture2D texture = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideKSCS3").Value;
+                Texture2D texture2 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideKSH").Value;
                 //spriteBatch.Draw(texture, npc.Center - screenPos + zero, new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)), drawColor, num33, new Vector2((texture.Width / 2), (texture.Height / 2)), 1f, 0, 0f);
                 spriteBatch.Draw(TextureAssets.Ninja.Value, npc.Center - screenPos + zero, new Rectangle?(new Rectangle(0, 0, TextureAssets.Ninja.Width(), TextureAssets.Ninja.Height())), drawColor, num33, new Vector2((float)(TextureAssets.Ninja.Width() / 2), (float)(TextureAssets.Ninja.Height() / 2)), 1f, 0, 0f);
                 spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(npc.frame), color, npc.rotation, new Vector2(texture.Width / 2, 70), npc.scale, SpriteEffects.None, 0);
@@ -163,11 +163,11 @@ namespace yourmod.Common.Globals
                 //反正就是与原版不同导致的
                 //if (npc.ai[0] <= 0)
                 //{
-                texture = ModContent.Request<Texture2D>("yourmod/Common/Textures/OverrideBOKAll").Value;
+                texture = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideBOKAll").Value;
                 //}
                 //else
                 //{
-                //    texture = ModContent.Request<Texture2D>("yourmod/Common/Textures/OverrideBOKPhase2").Value;
+                //    texture = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideBOKPhase2").Value;
                 //}
                 //spriteBatch.Draw(texture, npc.position - Main.screenPosition, new Rectangle(texture.Width / 2, texture.Height / Main.npcFrameCount[npc.type] / 2, texture.Width, texture.Height / Main.npcFrameCount[npc.type]), Color.White, npc.rotation, new Vector2(texture.Width / 2, texture.Height / 2), npc.scale, SpriteEffects.None, 0);
                 VanillaBossAIChangeNPC VanillaBossAIChangeNPC = new VanillaBossAIChangeNPC();
@@ -241,8 +241,8 @@ namespace yourmod.Common.Globals
             #region 克苏鲁之眼
             if (npc.type == NPCID.EyeofCthulhu)
             {
-                Texture2D texture1 = ModContent.Request<Texture2D>("yourmod/Common/Textures/OverrideEOK_Phase1").Value;
-                Texture2D texture2 = ModContent.Request<Texture2D>("yourmod/Common/Textures/OverrideEOK_Phase2").Value;
+                Texture2D texture1 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideEOK_Phase1").Value;
+                Texture2D texture2 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideEOK_Phase2").Value;
                 bool flag = npc.ai[0] > 1;
                 float ROoff = -MathHelper.PiOver2;
                 if (flag)

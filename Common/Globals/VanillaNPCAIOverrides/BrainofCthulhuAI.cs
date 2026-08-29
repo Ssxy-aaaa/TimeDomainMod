@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace yourmod.Common.Globals.VanillaNPCAIOverrides
+namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 {
     public static class BrainofCthulhuAI
     {

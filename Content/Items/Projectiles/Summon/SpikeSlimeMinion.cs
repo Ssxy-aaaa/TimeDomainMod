@@ -1,4 +1,4 @@
-﻿using yourmod.Content.Buffs;
+﻿using TimeDomain.Content.Buffs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace yourmod.Content.Items.Projectiles.Summon
+namespace TimeDomain.Content.Items.Projectiles.Summon
 {
 
     internal class SpikeSlimeMinion : ModProjectile

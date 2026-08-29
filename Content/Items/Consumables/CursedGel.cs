@@ -7,9 +7,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using yourmod.Content.NPCs.Bosses.PrimordialSlime;
+using TimeDomain.Content.NPCs.Bosses.PrimordialSlime;
 
-namespace yourmod.Content.Items.Consumables
+namespace TimeDomain.Content.Items.Consumables
 {
     public class CursedGel : ModItem
     {

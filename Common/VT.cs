@@ -10,7 +10,7 @@
 //using Terraria.ModLoader;
 //using Terraria.WorldBuilding;
 
-//namespace yourmod.Common
+//namespace TimeDomain.Common
 //{
 //    public static class VT
 //    {

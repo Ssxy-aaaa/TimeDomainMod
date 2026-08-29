@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace yourmod.Common.Systems
+namespace TimeDomain.Common.Systems
 {
     public class DownedBossSystem : ModSystem
     {
