@@ -33,6 +33,19 @@ namespace yourmod.Content.Items.Weapons.Melee
                 return false;
             return base.CanUseItem(player);
         }
+        //添加物品配方
+        public override void AddRecipes()
+        {
+            //添加一个配方，括号里可以填数字，代表一次合成几个，默认为1
+            CreateRecipe()
+                //添加材料
+                .AddIngredient(ItemID.IronBar, 5)
+                .AddIngredient(ItemID.Wood, 10)
+                //添加合成地
+                .AddTile(TileID.Anvils)
+                //注册
+                .Register();
+        }
     }
     public class TestSpearProj : ModProjectile
     {

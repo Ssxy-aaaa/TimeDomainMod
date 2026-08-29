@@ -124,6 +124,7 @@ NPCs: {
 	}
 
 	// SevenElements.DisplayName: Seven Elements
+	// ThePonder.DisplayName: The Ponder
 }
 
 // DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName

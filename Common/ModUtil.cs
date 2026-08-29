@@ -23,6 +23,11 @@ namespace yourmod.Common
                 npc.lifeMax = masterLifeMax / 3;
             }
         }
+        public static void SetNPCDamageAndLifeMax_InBossFight(NPC npc, int classicDamage, int expertDamage, int masterDamage, int classicLifeMax, int expertLifeMax, int masterLifeMax)
+        {
+            npc.damage = Main.masterMode ? masterDamage : (Main.expertMode ? expertDamage : classicDamage);
+            npc.lifeMax = Main.masterMode ? masterLifeMax : (Main.expertMode ? expertLifeMax : classicLifeMax);
+        }
         public static int SetProjectileDamage(int classicDamage, int expertDamage, int masterDamage)
         {
             Projectile projectile = new Projectile();
