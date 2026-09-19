@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "Tkk9leZhSuU=",
+  "success": false,
+  "projectFilePath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomainMod\\oldjqfa\\yourmod.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "无法读取“yourmod”的项目信息: 无效的框架标识符“”。",
+      "projectPath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomainMod\\oldjqfa\\yourmod.csproj",
+      "filePath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomainMod\\oldjqfa\\yourmod.csproj",
+      "targetGraphs": []
+    }
+  ]
+}

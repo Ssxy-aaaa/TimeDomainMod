@@ -1,0 +1,13 @@
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\bin\Debug\net8.0\TimeDomain.deps.json
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\bin\Debug\net8.0\TimeDomain.dll
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\bin\Debug\net8.0\TimeDomain.pdb
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.AssemblyInfo.cs
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.sourcelink.json
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.dll
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\refint\TimeDomain.dll
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\TimeDomain.pdb
+C:\Users\Administrator\Documents\My Games\Terraria\tModLoader\ModSources\TimeDomain\obj\Debug\net8.0\ref\TimeDomain.dll

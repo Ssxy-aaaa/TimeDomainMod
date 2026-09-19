@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "targets": {},
+  "libraries": {},
+  "projectFileDependencyGroups": {},
+  "packageFolders": {
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomainMod\\oldjqfa\\yourmod.csproj",
+      "projectPath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomainMod\\oldjqfa\\yourmod.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomainMod\\oldjqfa\\obj\\",
+      "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
+      "configFilePaths": [
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "无法读取“yourmod”的项目信息: 无效的框架标识符“”。"
+    }
+  ]
+}

@@ -81,6 +81,16 @@ Items: {
 		DisplayName: Test Spear
 		Tooltip: ""
 	}
+
+	ThornReaper: {
+		DisplayName: Thorn Reaper
+		Tooltip: ""
+	}
+
+	SpikeSlimeSummon: {
+		DisplayName: Spike Slime Summon
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -108,6 +118,7 @@ Projectiles: {
 	ElementalAura.DisplayName: Elemental Aura
 	GraniteEnergyBall.DisplayName: Granite Energy Ball
 	TestSpearProj.DisplayName: Test Spear Proj
+	ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
 }
 
 NPCs: {
