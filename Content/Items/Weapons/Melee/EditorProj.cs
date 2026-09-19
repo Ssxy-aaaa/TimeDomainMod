@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,12 +23,14 @@ namespace TimeDomain.Content.Items.Weapons.Melee
     {
         public override string Texture => "TimeDomain/Content/Items/Weapons/Melee/Editor";
         private Player Owner => Main.player[Projectile.owner];
+        public static Effect EditorEffect;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
             //ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
             //ProjectileID.Sets.TrailingMode[Type] = 2;
             //ProjectileID.Sets.TrailCacheLength[Type] = 10;
+            EditorEffect = ModContent.Request<Effect>("TimeDomain/Content/Effects/Editor", AssetRequestMode.ImmediateLoad).Value;
         }
         public override void SetDefaults()
         {
@@ -91,6 +94,7 @@ namespace TimeDomain.Content.Items.Weapons.Melee
         private ref float Timer => ref Projectile.ai[2]; // 用于跟踪每个阶段进展的计时器
         private ref float Progress => ref Projectile.localAI[1]; // 剑相对于初始角度的位置
         private ref float Size => ref Projectile.localAI[2]; // 剑的尺寸
+        public float Timer2 { get; set; } = 0;
 
         // 我们为每个阶段定义了时间函数，同时考虑了近战攻击速度
         // 注意，你可以根据你的投射物需求更改此设置
@@ -178,6 +182,7 @@ namespace TimeDomain.Content.Items.Weapons.Melee
             }
             //Main.NewText(CurrentAttack);
             SetSwordPosition();
+            //ShootProj();
             DustH();
             Timer++;
         }
@@ -190,6 +195,28 @@ namespace TimeDomain.Content.Items.Weapons.Melee
                 Main.dust[d1].noGravity = true;
                 Main.dust[d2].noGravity = true;
             }
+        }
+        public void ShootProj()
+        {
+            //if (Timer2 >= 1) return;
+            if (Timer >= execTime / 2)
+            {
+                Timer2++;
+                if (Timer2 == 1)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Vector2 pos = new Vector2(Main.MouseWorld.X + Main.rand.Next(-160, 160), Main.MouseWorld.Y - 16 * 70);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), pos, Vector2.Normalize(Main.MouseWorld - pos)*5, ModContent.ProjectileType<EditorProj2>(), Projectile.damage / 2, 0);
+
+                    }
+                }
+            }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.life <= target.lifeMax / 2) hit.Damage = damageDone * 3;
+            if (hit.Crit) Main.player[(target.target >= 0 && target.target < 255) ? target.target : Main.myPlayer].Heal(Main.rand.Next(5) + 1);
         }
         public Player player => Main.player[Projectile.owner];
         int d = 12;
@@ -369,7 +396,8 @@ namespace TimeDomain.Content.Items.Weapons.Melee
                           new Vector3(i / c, 0, 1),
                           b));
                 }
-
+                //EditorEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
+                //EditorEffect.CurrentTechnique.Passes[0].Apply();
                 if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
                 {
                     gd.Textures[0] = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/Extra_210").Value;//获取刀光的拖尾贴图
