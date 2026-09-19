@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\primordialslime\\sevenelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\npcs\\bosses\\primordialslime\\sevenelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\primordialslime\\primordialslime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\npcs\\bosses\\primordialslime\\primordialslime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\projectiles\\elementalaura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\projectiles\\elementalaura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,12 +47,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "SevenElements.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
+              "RelativeToolTip": "Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAiwCcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T10:44:58.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ElementalAura.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Projectiles\\ElementalAura.cs",
+              "RelativeDocumentMoniker": "Content\\Projectiles\\ElementalAura.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Projectiles\\ElementalAura.cs",
+              "RelativeToolTip": "Content\\Projectiles\\ElementalAura.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAADMAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T10:43:11.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "PrimordialSlime.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "RelativeToolTip": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
-              "ViewState": "AgIAAGABAAAAAAAAAAAswHgBAAApAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAywCcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-19T10:18:56.916Z",
               "EditorCaption": ""

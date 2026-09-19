@@ -91,6 +91,11 @@ Items: {
 		DisplayName: Spike Slime Summon
 		Tooltip: ""
 	}
+
+	TestRenderItem: {
+		DisplayName: Test Render Item
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -119,6 +124,7 @@ Projectiles: {
 	GraniteEnergyBall.DisplayName: Granite Energy Ball
 	TestSpearProj.DisplayName: Test Spear Proj
 	ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
+	EditorProj2.DisplayName: Editor Proj2
 }
 
 NPCs: {
@@ -132,6 +138,7 @@ NPCs: {
 
 	SevenElements.DisplayName: Seven Elements
 	ThePonder.DisplayName: The Ponder
+	Plugin.DisplayName: Plugin
 }
 
 DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName

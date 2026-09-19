@@ -44,7 +44,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             spawnInfo = TimeDomain.Instance.GetLocalization("NPCs.PrimordialSlime.spawnInfo") ?? LocalizedText.Empty;
 
             NPCID.Sets.TrailingMode[Type] = 3;
-            NPCID.Sets.TrailCacheLength[Type] = 15;
+            NPCID.Sets.TrailCacheLength[Type] = 40;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -148,6 +148,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         public bool CanShoot = true;
         public override bool PreDraw(SpriteBatch spriteBatch, Microsoft.Xna.Framework.Vector2 screenPos, Color drawColor)
         {
+#if false
             if (Main.GameUpdateCount % 50 == 0)
             {
                 CurrentCount++;
@@ -169,6 +170,22 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             //    1,
             //    SpriteEffects.None,
             //    0);
+#endif
+            float Rotation = NPC.velocity.X * 0.05f;
+
+
+            Texture2D slimeTex = TextureAssets.Npc[NPC.type].Value;
+            Rectangle sourceRect = NPC.frame;
+            Vector2 origin = new Vector2(sourceRect.Width / 2f, sourceRect.Height / 2f);
+
+            for (int i = 0; i < NPC.oldPos.Length; i+=4)
+            {
+                float progress = i / (float)NPC.oldPos.Length;
+                float alpha = (1f - progress) * 0.6f;
+                Vector2 drawPos = NPC.oldPos[i] + NPC.Size / 2f - Main.screenPosition;
+                Color trailColor = Color.White * alpha;
+                spriteBatch.Draw(slimeTex, drawPos, sourceRect, trailColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);
+            }
             return true;
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -187,6 +204,17 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
 
             BossTime = reader.ReadSingle();
             BossTime2 = reader.ReadSingle();
+        }
+        public void Jump(int jumpMaxX,float jumpStength,int extraJump)
+        {
+            int dx = (int)(player.Center.X - NPC.Center.X);
+            int dy = (int)(player.Center.Y - NPC.Center.Y);
+            if (Math.Abs(dx) > jumpMaxX)
+                dx = dx < 0 ? -jumpMaxX : jumpMaxX;
+            if (Math.Abs(dy) > JumpMaxY)
+                dy = JumpMaxY;
+            dy = (dy + JumpMaxY) / 2;
+            NPC.velocity = new Vector2(dx, -JumpMaxY * jumpStength - extraJump) / 30;
         }
         public override void AI()
         {
@@ -216,7 +244,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                 }
             }
             //Main.NewText(style.ToString() + CurrentSkill);
-            int ElseJump = (int)((NPC.lifeMax - NPC.life) / (float)NPC.lifeMax * 5);
+            int ExtraJump = (int)((NPC.lifeMax - NPC.life) / (float)NPC.lifeMax * 5);
             switch (style)
             {
                 case Style.Jump:
@@ -234,14 +262,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
 
                     if (BossTime2 == 30)
                     {
-                        int dx = (int)(player.Center.X - NPC.Center.X);
-                        int dy = (int)(player.Center.Y - NPC.Center.Y);
-                        if (Math.Abs(dx) > JumpMaxX)
-                            dx = dx < 0 ? -JumpMaxX : JumpMaxX;
-                        if (Math.Abs(dy) > JumpMaxY)
-                            dy = JumpMaxY;
-                        dy = (dy + JumpMaxY) / 2;
-                        NPC.velocity = new Vector2(dx, -JumpMaxY * 2 - ElseJump) / 30;
+                        Jump(JumpMaxX, 2, ExtraJump);
                     }
 
                     if (BossTime2 > 40 && NPC.velocity.Y == 0)
@@ -263,14 +284,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                         CurrentSkill++;
                     if (BossTime2 == 30)
                     {
-                        int dx = (int)(player.Center.X - NPC.Center.X);
-                        int dy = (int)(player.Center.Y - NPC.Center.Y);
-                        if (Math.Abs(dx) > BigJumpMaxX)
-                            dx = dx < 0 ? -BigJumpMaxX : BigJumpMaxX;
-                        if (Math.Abs(dy) > JumpMaxY)
-                            dy = JumpMaxY;
-                        dy = (dy + JumpMaxY) / 2;
-                        NPC.velocity = new Vector2(dx, -JumpMaxY * 3 - ElseJump) / 30;
+                        Jump(JumpMaxX, 3, ExtraJump * 2);
                     }
 
                     if (BossTime2 > 40 && NPC.velocity.Y == 0)
@@ -462,24 +476,6 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         public override void DrawEffects(ref Color drawColor)
         {
 
-        }
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            float Rotation = NPC.velocity.X * 0.05f;
-
-
-            Texture2D slimeTex = TextureAssets.Npc[NPC.type].Value;
-            Rectangle sourceRect = NPC.frame;
-            Vector2 origin = new Vector2(sourceRect.Width / 2f, sourceRect.Height / 2f);
-
-            for (int i = 0; i < NPC.oldPos.Length; i++)
-            {
-                float progress = i / (float)NPC.oldPos.Length;
-                float alpha = (1f - progress) * 0.6f;
-                Vector2 drawPos = NPC.oldPos[i] + NPC.Size / 2f - Main.screenPosition;
-                Color trailColor = Color.White * alpha;
-                spriteBatch.Draw(slimeTex, drawPos, sourceRect, trailColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);
-            }
         }
     }
     #region TestCode
