@@ -28,6 +28,7 @@ namespace TimeDomain.Common.Test
         public override bool AltFunctionUse(Player player) => true;
         public int BossDownedCount_Now = 0;
         //public bool BossDowned_Now;
+        //这是石山啊（）
         public override bool CanUseItem(Player player)
         {
             ref bool BossDowned_Now = ref NPC.downedBoss1;

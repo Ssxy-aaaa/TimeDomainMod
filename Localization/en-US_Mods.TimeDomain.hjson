@@ -81,6 +81,11 @@ Items: {
 		DisplayName: Test Spear
 		Tooltip: ""
 	}
+
+	TestRenderItem: {
+		Tooltip: ""
+		DisplayName: Test Render Item
+	}
 }
 
 Buffs: {
@@ -108,6 +113,7 @@ Projectiles: {
 	ElementalAura.DisplayName: Elemental Aura
 	GraniteEnergyBall.DisplayName: Granite Energy Ball
 	TestSpearProj.DisplayName: Test Spear Proj
+	EditorProj2.DisplayName: Editor Proj2
 }
 
 NPCs: {
@@ -121,6 +127,7 @@ NPCs: {
 
 	SevenElements.DisplayName: Seven Elements
 	ThePonder.DisplayName: The Ponder
+	Plugin.DisplayName: Plugin
 }
 
 DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName

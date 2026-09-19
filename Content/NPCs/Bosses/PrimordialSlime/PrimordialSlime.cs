@@ -36,7 +36,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             ModUtil.SetNPCDamageAndLifeMax(NPC, 75, 98, 111, 2500, 3000, 3900);
         }
         public override void SetStaticDefaults()
-        {
+        {   
             Main.npcFrameCount[Type] = 4;
             LocalizedText spawnInfo = LocalizedText.Empty;
             spawnInfo = TimeDomain.Instance.GetLocalization("NPCs.PrimordialSlime.spawnInfo") ?? LocalizedText.Empty;
@@ -61,7 +61,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                 NPC.frame.Y = 0;
             }
         }
-        public enum Style
+        enum Style
         {
             Jump,
             BigJump,
@@ -76,7 +76,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                 return NPC.life < NPC.lifeMax / 2;
             }
         }
-        public Style style = new Style();
+        Style style = new Style();
         public float BossTime
         {
             get => NPC.localAI[0];
@@ -157,6 +157,18 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             //    SpriteEffects.None,
             //    0);
             return true;
+        }
+        public override void DrawBehind(int index)
+        {
+            SpriteBatch sb = Main.spriteBatch;
+            for (int i = 1; i < 10; i++)
+            {
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                sb.Draw(TextureAssets.Npc[Type].Value, NPC.oldPos[i] + new Vector2(NPC.width / 2, NPC.height / 2) - Main.screenPosition, null, new Color(255,255,255,170-i*15), NPC.oldRot[i], new Vector2(TextureAssets.Npc[Type].Value.Width / 2, TextureAssets.Npc[Type].Value.Height / 2 / Main.npcFrameCount[Type]), NPC.scale, 0, 0);
+                sb.End();
+                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            }
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
@@ -352,6 +364,15 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             float Rotation = NPC.velocity.X * 0.05f;
             Texture2D texture = ModContent.Request<Texture2D>("TimeDomain/Content/NPCs/Bosses/PrimordialSlime/SevenElements").Value;
             //Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texture.Width, 46)), new Color(255, 255, 255, 80), Rotation, new Vector2((texture.Width / 2), 23), 1, 0, 0);
+            SpriteBatch sb = Main.spriteBatch;
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone);
+            for (int i = 1; i < 10; i++)
+            {
+                sb.Draw(TextureAssets.Npc[Type].Value, NPC.oldPos[i] - Main.screenPosition, NPC.frame, Color.White, NPC.oldRot[i], Vector2.Zero, NPC.scale, 0, 0);
+            }
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }
     }
     #region TestCode
