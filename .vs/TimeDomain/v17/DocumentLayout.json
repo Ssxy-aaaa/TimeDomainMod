@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\common\\globals\\vanillanpcaioverrides\\brainofcthulhuai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:common\\globals\\vanillanpcaioverrides\\brainofcthulhuai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\theponder\\theponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\npcs\\bosses\\theponder\\theponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\theponder\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\npcs\\bosses\\theponder\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\items\\weapons\\summon\\whip\\opticneuron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\items\\weapons\\summon\\whip\\opticneuron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\primordialslime\\sevenelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\npcs\\bosses\\primordialslime\\sevenelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\items\\weapons\\summon\\whip\\opticneuronproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\items\\weapons\\summon\\whip\\opticneuronproj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|c:\\users\\administrator\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\primordialslime\\primordialslime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,15 +42,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:283709:0:{1a46fd64-28d5-0019-8eb3-17a02d419b53}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Bookmark",
@@ -47,19 +63,83 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "BrainofCthulhuAI.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Common\\Globals\\VanillaNPCAIOverrides\\BrainofCthulhuAI.cs",
+              "RelativeDocumentMoniker": "Common\\Globals\\VanillaNPCAIOverrides\\BrainofCthulhuAI.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Common\\Globals\\VanillaNPCAIOverrides\\BrainofCthulhuAI.cs",
+              "RelativeToolTip": "Common\\Globals\\VanillaNPCAIOverrides\\BrainofCthulhuAI.cs",
+              "ViewState": "AgIAAHwBAAAAAAAAAAAAAJUBAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-24T11:55:03.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OpticNeuronProj.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuronProj.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAowDkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T12:44:27.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OpticNeuron.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuron.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuron.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuron.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Summon\\Whip\\OpticNeuron.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T12:44:25.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Plugin.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\ThePonder\\Plugin.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\ThePonder\\Plugin.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\ThePonder\\Plugin.cs",
+              "RelativeToolTip": "Content\\NPCs\\Bosses\\ThePonder\\Plugin.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAswO8AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T12:30:41.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ThePonder.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\ThePonder\\ThePonder.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\ThePonder\\ThePonder.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\ThePonder\\ThePonder.cs",
+              "RelativeToolTip": "Content\\NPCs\\Bosses\\ThePonder\\ThePonder.cs",
+              "ViewState": "AgIAABYBAAAAAAAAAAAMwH8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T12:21:41.961Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "SevenElements.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
               "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
               "RelativeToolTip": "Content\\NPCs\\Bosses\\PrimordialSlime\\SevenElements.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAAAGoAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAAAFkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-19T10:44:58.132Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "ElementalAura.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Projectiles\\ElementalAura.cs",
               "RelativeDocumentMoniker": "Content\\Projectiles\\ElementalAura.cs",
@@ -67,21 +147,19 @@
               "RelativeToolTip": "Content\\Projectiles\\ElementalAura.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAADMAAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-19T10:43:11.921Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-19T10:43:11.921Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "PrimordialSlime.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "ToolTip": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
               "RelativeToolTip": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAywCcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJwAAAAAAAAAAADwv7AAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-19T10:18:56.916Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-19T10:18:56.916Z"
             }
           ]
         },

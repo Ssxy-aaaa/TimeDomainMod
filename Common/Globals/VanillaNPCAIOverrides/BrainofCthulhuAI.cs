@@ -402,11 +402,17 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         npc.velocity.X = num835 * num837;
                         npc.velocity.Y = num836 * num837;
                     }
-                    if (BossTime < 40)
+                    //if (BossTime < 40)
+                    //{
+                    //    npc.velocity *= 3;
+                    //}
+                    if (BossTime % 80 == 0 && BossTime != 240)
                     {
-                        npc.velocity *= 3;
+                        npc.velocity = Vector2.Normalize(player.Center - npc.Center) * -50f;
+                        for (int i = 0; i < 3; i++)
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.Normalize(player.Center - npc.Center).RotatedByRandom(MathHelper.Pi / 9f) * 3, ProjectileID.GoldenShowerHostile, 16, 3, player.whoAmI);
                     }
-                    if (BossTime % 240 == 0)
+                    if (BossTime == 240)
                     {
                         BossTime = 0;
                         npc.ai[0] = 1;
@@ -453,7 +459,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC Npc = Main.npc[i];
-                if (Npc.type == NPCID.Creeper&&Npc.active)
+                if (Npc.type == NPCID.Creeper && Npc.active)
                     TotalCreeper++;
             }
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -473,7 +479,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     Creeper_origins = CreeperO;
                     Creeper_circles = Creeper_rotation.ToRotationVector2() * Creeper_range;
                     Creeper_origins += Creeper_circles;
-                    Npc.velocity = Creeper_origins - Npc.Center;
+                    Npc.velocity = Vector2.Lerp(Npc.Center, Creeper_origins, 0.1f) - Npc.Center;
 
                     if (CurrentCreeperCount == TotalCreeper / 3 || CurrentCreeperCount == TotalCreeper / 3 * 2 || CurrentCreeperCount == TotalCreeper)
                     {

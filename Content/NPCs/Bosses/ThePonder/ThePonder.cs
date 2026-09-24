@@ -19,6 +19,9 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
         {
             Main.npcFrameCount[Type] = 12;
             NPCTexture = ModContent.Request<Texture2D>("TimeDomain/Content/NPCs/Bosses/ThePonder/ThePonder").Value;
+
+            NPCID.Sets.TrailingMode[Type] = 3;
+            NPCID.Sets.TrailCacheLength[Type] = 10;
         }
         public override void SetDefaults()
         {
@@ -128,7 +131,7 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
             if (Phase == 1 && !(Main.getGoodWorld && Main.masterMode) && !Main.dayTime)
                 NPC.damage = 0;
             else
-                ModUtil.SetNPCDamageAndLifeMax_InBossFight(NPC, 300, 450, 600, 30000, 45000, 60000);
+                ModUtil.SetNPCDamageAndLifeMax_InBossFight(NPC, 200, 270, 350, 30000, 45000, 60000);
         }
         public void GlobalShoot()
         {
@@ -156,6 +159,7 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
             if (IsShootTime > 0)
                 IsShootTime--;
         }
+        public List<int> ControledPlugin = new List<int>();
         public override void AI()
         {
             Timer++;
@@ -165,13 +169,13 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
                 NPC.TargetClosest(true);
             SetDamage();
             GlobalShoot();
-            Main.NewText($"State:{State}_Timer2:{Timer2}", Color.Red);
+            //Main.NewText($"State:{State}_Timer2:{Timer2}", Color.Red);
             switch (State)
             {
                 case SkillState.None:
                     Timer2++;
                     Target = IsShootTime > 0 ? Target : player.Center;
-                    SetNPCPos_Lerp(Target, 0.05f - (Phase > 1).ToInt() * 0.04f + (Phase > 2).ToInt() * 0.01f);
+                    SetNPCPos_Lerp(Target, 0.03f/* - (Phase > 1).ToInt() * 0.04f + (Phase > 2).ToInt() * 0.01f*/);
                     if (Timer2 == 200)
                     {
                         Timer2 = 0;
@@ -195,8 +199,8 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
                         }
                         if (PluginCount < 10)
                         {
-                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + 64, (int)NPC.Center.Y, ModContent.NPCType<Plugin>(), 0, 0, 0, 0, NPC.whoAmI);
-                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 64, (int)NPC.Center.Y, ModContent.NPCType<Plugin>(), 0, 0, 0, 0, NPC.whoAmI);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + 64, (int)NPC.Center.Y, ModContent.NPCType<Plugin>(), 0, 0, 0, 0, NPC.whoAmI, player.whoAmI);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 64, (int)NPC.Center.Y, ModContent.NPCType<Plugin>(), 0, 0, 0, 0, NPC.whoAmI, player.whoAmI);
                         }
                         NPC.velocity += Vector2.Normalize(player.Center - NPC.Center) * -9f;
                     }
@@ -214,46 +218,98 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
                         NextTeleportPos = FindTeleportPos();
                         IsTeleportDraw = true;
                     }
+                    NPC.velocity *= 0.95f;
                     if (Timer2 == 120)
                     {
                         IsTeleportDraw = false;
                         NPC.position = NextTeleportPos;
+                        NPC.velocity *= 0f;
+                    }
+                    if (Timer2 == 130)
+                    {
                         Timer2 = 0;
                         SkillCount++;
                         SetSkill();
                     }
                     break;
             }
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.ModNPC is Plugin plugin)
+                {
+                    if (plugin.state == Plugin.SkillState.BeenControlled)
+                    {
+                        plugin.IsBeenControlled = true;
+                    }
+                }
+            }
+            //if (ControledPlugin.Count >= 1)
+            //{
+            //    Main.npc[ControledPlugin[Main.rand.Next(ControledPlugin.Count)]].
+            //}
         }
         public bool IsTeleportDraw;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+
+            Texture2D Tex = TextureAssets.Npc[NPC.type].Value;
             if (IsTeleportDraw)
             {
                 for (int i = 0; i < 6; i++)
                 {
                     float ro = -MathHelper.Pi + (i / 6f) * MathHelper.TwoPi;
-                    Color newColor = NPC.color;
-                    newColor.A = (byte)(255f - (Timer2 / 120f) * 255f);
 
 
                     //Main.spriteBatch.End();
                     //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                    Main.spriteBatch.Draw(
-                        NPCTexture, 
-                        NextTeleportPos + ro.ToRotationVector2() * (120 - Timer2) - Main.screenPosition, 
+                   spriteBatch.Draw(
+                        Tex, 
+                        NextTeleportPos + ro.ToRotationVector2() * (120f - Timer2) - new Vector2(0, 14) - Main.screenPosition, 
                         NPC.frame,
-                        newColor, 
+                        Color.White * (Timer2 / 120f),
                         0f, 
                         Vector2.Zero, 
-                        NPC.scale, 
-                        0, 
+                        NPC.scale,
+                        SpriteEffects.None,
                         0f);
-                    //Main.spriteBatch.End();
-                    //Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 }
             }
-            return base.PreDraw(spriteBatch, screenPos, drawColor);
+            Rectangle sourceRect = NPC.frame;
+            Vector2 Origin = new Vector2(sourceRect.Width / 2f, sourceRect.Height / 2f);
+            for (int i = 0; i < NPC.oldPos.Length; i++)
+            {
+                float progress = i / (float)NPC.oldPos.Length;
+                float alpha = (1f - progress) * 0.6f;
+                Vector2 drawPos = NPC.oldPos[i]+NPC.Size/2- Origin - new Vector2(0,14)- Main.screenPosition;
+                Color trailColor = Color.White * alpha;
+                spriteBatch.Draw(Tex, drawPos, sourceRect, trailColor, NPC.rotation, Vector2.Zero, NPC.scale, SpriteEffects.None, 0f);
+            }
+            for (int i = 0; i < ControledPlugin.Count; i++)
+            {
+                int npcWhoAmI = ControledPlugin[i];
+                NPC npc = Main.npc[npcWhoAmI];
+                if (npc.active)
+                {
+                    Texture2D texture = TextureAssets.FishingLine.Value;
+                    Rectangle frame = texture.Frame();
+                    Vector2 origin = new Vector2(frame.Width / 2, 0);
+
+                    Vector2 diff = npc.Center - NPC.Center;
+
+                    float rotation = diff.ToRotation() - MathHelper.PiOver2;
+                    Color color = Color.Red;
+                    Vector2 scale = new Vector2(1, (diff.Length() + 2) / frame.Height);
+
+                    Main.EntitySpriteDraw(texture, NPC.Center - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
+
+                }
+                else
+                {
+                    ControledPlugin.Remove(npcWhoAmI);
+                }
+            }
+            return true;
         }
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -307,19 +363,7 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
         }
         public override void DrawEffects(ref Color drawColor)
         {
-            drawColor *= 1.25f; 
-            SpriteBatch sb = Main.spriteBatch;
-            Vector2 screenPos = Main.screenPosition;
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            for (int i = 1; i < 10; i++)
-            {
-                Color c = drawColor;
-                c.A = (byte)(150 - (i / 10f) * 100);
-                sb.Draw(TextureAssets.Npc[Type].Value, NPC.oldPos[i] - screenPos, NPC.frame, drawColor, NPC.rotation, Vector2.Zero, NPC.scale, 0, 0);
-            }
-            sb.End();
-            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
         }
     }
     public class DeathLaserChange : GlobalProjectile
@@ -330,7 +374,7 @@ namespace TimeDomain.Content.NPCs.Bosses.ThePonder
             {
                 //if (projectile.ai[0] == 114514)
                 {
-                    projectile.velocity *= 1.01f;
+                    //projectile.velocity *= 1.01f;
                 }
             }
             return true;
