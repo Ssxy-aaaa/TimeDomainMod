@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using TimeDomain.Common;
 using TimeDomain.Content.Projectiles;
@@ -32,6 +35,9 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 8;
+
+            NPCID.Sets.TrailingMode[Type] = 3;
+            NPCID.Sets.TrailCacheLength[Type] = 7;
         }
         public override void FindFrame(int frameHeight)
         {
@@ -91,6 +97,22 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             {
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(player.Center - NPC.Center) * 5f, ModContent.ProjectileType<ElementalAura>(), ModUtil.SetProjectileDamage(110, 140, 162), 0);
             }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D slimeTex = TextureAssets.Npc[NPC.type].Value;
+            Rectangle sourceRect = NPC.frame;
+            Vector2 origin = new Vector2(sourceRect.Width / 2f, sourceRect.Height / 2f);
+
+            for (int i = 0; i < NPC.oldPos.Length; i++)
+            {
+                float progress = i / (float)NPC.oldPos.Length;
+                float alpha = (1f - progress) * 0.6f;
+                Vector2 drawPos = NPC.oldPos[i] + NPC.Size / 2f - Main.screenPosition;
+                Color trailColor = Color.White * alpha;
+                spriteBatch.Draw(slimeTex, drawPos, sourceRect, trailColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);
+            }
+            return true;
         }
     }
 }

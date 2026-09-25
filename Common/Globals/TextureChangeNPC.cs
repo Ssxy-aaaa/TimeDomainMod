@@ -6,6 +6,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TimeDomain.Content.Items.Weapons.Melee;
 
 namespace TimeDomain.Common.Globals
 { 
@@ -79,6 +80,26 @@ namespace TimeDomain.Common.Globals
             //}
             //算了，我回头看原版代码吧
             GetNPCFrame(npc);
+        }
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            //Texture2D tex = TextureAssets.Npc[npc.type].Value;
+            //int FrameCount = Main.npcFrameCount[npc.type];
+            //Vector2 halfSize = new Vector2(tex.Width, tex.Height / FrameCount) / 2f;
+            //Vector2 pos = npc.Center - screenPos;
+            //pos -= halfSize * npc.scale;
+            //pos += halfSize * npc.scale + new Vector2(0f, Main.NPCAddHeight(npc) + npc.gfxOffY - 2);
+            //SpriteEffects spriteEffects = SpriteEffects.None;
+            //if (npc.spriteDirection == 1) spriteEffects = SpriteEffects.FlipHorizontally;
+            
+
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            //Editor.EditorEffect.CurrentTechnique.Passes[0].Apply();
+            //Editor.EditorEffect.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
+            //spriteBatch.Draw(tex, pos, npc.frame, drawColor, npc.rotation, halfSize, npc.scale, spriteEffects, 0);
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

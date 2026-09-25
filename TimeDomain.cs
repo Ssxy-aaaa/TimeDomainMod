@@ -63,7 +63,8 @@ namespace TimeDomain
         }
         public static void BossChecklist_Check()
         {
-            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+            Mod bossChecklist;
+            ModLoader.TryGetMod("BossChecklist", out bossChecklist);
             if (bossChecklist == null)
                 return;
 

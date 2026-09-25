@@ -71,13 +71,13 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             }
         }
 
-        public enum State
+        enum State
         {
             Jump,
             BigJump,
             Teleport
         }
-        public static State state = new State();
+        static State state = new State();
         public static int SkillTimer = 0;
         public static int NumberOfJumps = 0;
         public static int direction;
@@ -89,7 +89,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 
 
         public static bool SetTextWrite = true;
-        public static void BuffedAI(NPC npc)
+        public static bool BuffedAI(NPC npc)
         {
             thisNPC = npc;
 
@@ -372,6 +372,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     //Main.NewText("它失去了兴趣......", Color.Purple);
                 }
             }
+            return false;
         }
 
         public static void OverrideOnSpawn(NPC npc)
