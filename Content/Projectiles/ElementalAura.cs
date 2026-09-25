@@ -1,11 +1,10 @@
-﻿using Microsoft.CodeAnalysis.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TimeDomain.Content.Projectiles;
 
 namespace TimeDomain.Content.Projectiles
 {
@@ -17,6 +16,7 @@ namespace TimeDomain.Content.Projectiles
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
+
         public override void SetDefaults()
         {
             Projectile.alpha = 255;
@@ -28,31 +28,107 @@ namespace TimeDomain.Content.Projectiles
             Projectile.tileCollide = false;
             AIType = ProjectileID.Bullet;
         }
+
         public override void AI()
         {
             Projectile.alpha = 0;
             Projectile.scale = 1f;
-            Projectile.rotation = Projectile.velocity.ToRotation()/* - MathHelper.PiOver2*/;
+            Projectile.rotation = Projectile.velocity.ToRotation();
 
             Projectile.frameCounter++;
-            Projectile.frame += (Projectile.frameCounter % 10 == 0).ToInt();
-            Projectile.frame %= 4;
+            if (Projectile.frameCounter % 5 == 0)
+            {
+                Projectile.frame++;
+                Projectile.frame %= Main.projFrames[Type];
+            }
+
+            // 发光：颜色跟着彩虹色走
+            Lighting.AddLight(Projectile.Center, GetAuraColor().ToVector3() * 0.9f);
+
+            // 粒子拖尾：每帧喷出一个小光点
+            if (Main.netMode != NetmodeID.Server && Main.rand.NextBool(2))
+            {
+                Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(8f, 8f);
+                Dust d = Dust.NewDustDirect(spawnPos, 1, 1, DustID.RainbowMk2);
+                d.velocity = -Projectile.velocity * 0.1f + Main.rand.NextVector2Circular(1.5f, 1.5f);
+                d.noGravity = true;
+                d.scale = 1.2f;
+                d.color = GetAuraColor();
+                d.fadeIn = 0.6f;
+            }
         }
+
+        // 随时间流动的彩虹色
+        private Color GetAuraColor()
+        {
+            float hue = (Main.GameUpdateCount * 4f + Projectile.whoAmI * 30f) % 360f;
+            return Main.hslToRgb(hue / 360f, 1f, 0.55f);
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D slimeTex = TextureAssets.Projectile[Projectile.type].Value;
-            Rectangle sourceRect = new Rectangle(0,0,50,Projectile.frame);
-            Vector2 origin = new Vector2(sourceRect.Width / 2f, sourceRect.Height / 2f);
+            Texture2D tex = TextureAssets.Projectile[Type].Value;
+            int frameHeight = tex.Height / Main.projFrames[Type];
+            Rectangle sourceRect = new Rectangle(0, frameHeight * Projectile.frame, tex.Width, frameHeight);
+            Vector2 origin = sourceRect.Size() / 2f;
 
+            Color auraColor = GetAuraColor();
+            float pulse = 0.85f + (float)Math.Sin(Main.GameUpdateCount * 0.25f + Projectile.whoAmI) * 0.15f;
+
+            // 1. 拖尾残影：颜色跟随彩虹色，越旧越淡越小
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
+                if (Projectile.oldPos[i] == Vector2.Zero) continue;
+
                 float progress = i / (float)Projectile.oldPos.Length;
-                float alpha = (1f - progress) * 0.6f;
+                float alpha = (1f - progress) * 0.55f;
+                float trailScale = Projectile.scale * (1f - progress * 0.5f);
+
+                // 让拖尾颜色也随时间偏移，形成流动感
+                float trailHue = ((Main.GameUpdateCount * 4f + i * 12f + Projectile.whoAmI * 30f) % 360f) / 360f;
+                Color trailColor = Main.hslToRgb(trailHue, 1f, 0.55f) * alpha;
+
                 Vector2 drawPos = Projectile.oldPos[i] + Projectile.Size / 2f - Main.screenPosition;
-                Color trailColor = /*Main.hslToRgb(Main.GameUpdateCount+i,170,255,255)*/Color.Aqua * alpha;
-                Main.spriteBatch.Draw(TextureAssets.Projectile[Type].Value, drawPos, sourceRect, trailColor, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
+
+                Main.spriteBatch.Draw(tex, drawPos, sourceRect, trailColor,
+                    Projectile.rotation, origin, trailScale, SpriteEffects.None, 0f);
             }
-            return true;
+
+            // 2. 光晕层：脉动的柔光
+            Texture2D glow = TextureAssets.Extra[ExtrasID.SharpTears].Value;
+            Vector2 glowOrigin = glow.Size() / 2f;
+            float glowScale = Projectile.scale * 0.6f * pulse;
+
+            Main.EntitySpriteDraw(glow,
+                Projectile.Center - Main.screenPosition,
+                null,
+                auraColor * 0.75f,
+                Projectile.rotation + MathHelper.PiOver2,
+                glowOrigin,
+                glowScale,
+                SpriteEffects.None, 0);
+
+            // 3. 主贴图：略微放大并叠加一层亮色，增加亮度
+            Main.EntitySpriteDraw(tex,
+                Projectile.Center - Main.screenPosition,
+                sourceRect,
+                lightColor,
+                Projectile.rotation,
+                origin,
+                Projectile.scale,
+                SpriteEffects.None, 0);
+
+            // 4. 高光叠加：同贴图再画一遍，加色，做出“燃”的感觉
+            Main.EntitySpriteDraw(tex,
+                Projectile.Center - Main.screenPosition,
+                sourceRect,
+                auraColor * 0.6f,
+                Projectile.rotation,
+                origin,
+                Projectile.scale * 1.05f,
+                SpriteEffects.None, 0);
+
+            return false;
         }
     }
 }
