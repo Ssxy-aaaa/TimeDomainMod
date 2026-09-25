@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 using TimeDomain.Content.Items.Projectiles.Summon;
 
 
-namespace TimeDomain.Content.Items.Weapons
+namespace TimeDomain.Content.Items.Weapons.Summon
 {
-    public class 尖刺史莱姆召唤杖 : ModItem
+    public class SpikeSlimeSummon : ModItem
     {
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Summon;
             Item.width = 24;
             Item.height = 24;

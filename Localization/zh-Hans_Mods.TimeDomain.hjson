@@ -13,8 +13,8 @@ Items: {
 	}
 
 	尖刺史莱姆召唤杖: {
-		DisplayName: 尖刺史莱姆召唤杖
-		Tooltip: ""
+		// DisplayName: 尖刺史莱姆召唤杖
+		// Tooltip: ""
 	}
 
 	ShimmerBullet: {
@@ -37,8 +37,8 @@ Items: {
 	}
 
 	TestItem: {
-		// DisplayName: Test Item
-		// Tooltip: ""
+		DisplayName: Test Item
+		Tooltip: ""
 	}
 
 	OpticNeuron: {
@@ -57,74 +57,85 @@ Items: {
 	}
 
 	GraniteLeggings: {
-		// Tooltip: ""
-		// DisplayName: Granite Leggings
+		Tooltip: ""
+		DisplayName: Granite Leggings
 	}
 
 	GraniteHelmet: {
-		// Tooltip: ""
-		// DisplayName: Granite Helmet
+		Tooltip: ""
+		DisplayName: Granite Helmet
 	}
 
 	GraniteBreastplate: {
-		// Tooltip: ""
-		// DisplayName: Granite Breastplate
+		Tooltip: ""
+		DisplayName: Granite Breastplate
 	}
 
 	GraniteCore: {
-		// DisplayName: Granite Core
-		// Tooltip: ""
+		DisplayName: Granite Core
+		Tooltip: ""
 	}
 
 	CursedGel: {
-		// Tooltip: ""
-		// DisplayName: Cursed Gel
+		Tooltip: 召唤始祖史莱姆
+		DisplayName: 古咒布丁
 	}
 
 	TestSpear: {
-		// DisplayName: Test Spear
-		// Tooltip: ""
+		DisplayName: Test Spear
+		Tooltip: ""
+	}
+
+	ThornReaper: {
+		DisplayName: 荆棘收割者
+		Tooltip: 攻击有概率使敌人中毒
+	}
+
+	SpikeSlimeSummon: {
+		DisplayName: 毒性污泥
+		Tooltip: 召唤一个尖刺史莱姆宝宝
 	}
 }
 
 Buffs: {
 	SpikeSlimeBuff: {
-		DisplayName: 尖刺宝宝史莱姆
-		Description: 尖刺宝宝史莱姆为你而战！
+		DisplayName: 尖刺史莱姆宝宝
+		Description: 尖刺史莱姆宝宝为你而战！
 	}
 
 	OpticNeuronBuff: {
-		// DisplayName: Optic Neuron Buff
-		// Description: Mods.yourmod.Buffs.OpticNeuronBuff.Description
+		DisplayName: Optic Neuron Buff
+		Description: Mods.yourmod.Buffs.OpticNeuronBuff.Description
 	}
 }
 
 Projectiles: {
-	SpikeSlimeMinion.DisplayName: 尖刺宝宝史莱姆
-	SlimeSpike.DisplayName: 尖刺宝宝史莱姆尖刺
+	SpikeSlimeMinion.DisplayName: 尖刺史莱姆宝宝
+	SlimeSpike.DisplayName: 史莱姆宝宝尖刺
 	JungleAcidSpike.DisplayName: 丛林酸刺
 	ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
-	// OpticNeuronProj.DisplayName: Optic Neuron Proj
-	// OpticNeuronProj2.DisplayName: Optic Neuron Proj2
-	// IceFogProjectile.DisplayName: Ice Fog Projectile
-	// IceCrystalProjectile.DisplayName: Ice Crystal Projectile
-	// EditorProj.DisplayName: Editor Proj
-	// ElementalAura.DisplayName: Elemental Aura
-	// GraniteEnergyBall.DisplayName: Granite Energy Ball
-	// TestSpearProj.DisplayName: Test Spear Proj
+	OpticNeuronProj.DisplayName: Optic Neuron Proj
+	OpticNeuronProj2.DisplayName: Optic Neuron Proj2
+	IceFogProjectile.DisplayName: Ice Fog Projectile
+	IceCrystalProjectile.DisplayName: Ice Crystal Projectile
+	EditorProj.DisplayName: Editor Proj
+	ElementalAura.DisplayName: Elemental Aura
+	GraniteEnergyBall.DisplayName: Granite Energy Ball
+	TestSpearProj.DisplayName: Test Spear Proj
+	ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
 }
 
 NPCs: {
 	AcidSpikedJungleSlime.DisplayName: 丛林酸刺史莱姆
-	// KingAntlion.DisplayName: King Antlion
+	KingAntlion.DisplayName: King Antlion
 
 	PrimordialSlime: {
 		DisplayName: 始祖史莱姆
 		spawnInfo: Mods.yourmod.NPCs.PrimordialSlime.spawnInfo
 	}
 
-	// SevenElements.DisplayName: Seven Elements
-	// ThePonder.DisplayName: The Ponder
+	SevenElements.DisplayName: Seven Elements
+	ThePonder.DisplayName: The Ponder
 }
 
-// DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName
+DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName

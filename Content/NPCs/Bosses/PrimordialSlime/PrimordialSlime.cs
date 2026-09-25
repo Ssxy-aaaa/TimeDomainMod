@@ -3,15 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TimeDomain.Content.Items.Consumables;
 using TimeDomain.Common;
 using TimeDomain.Common.Systems;
+using TimeDomain.Content.Items.Consumables;
 using TimeDomain.Content.Projectiles;
 
 namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
@@ -51,6 +53,13 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         public override void FindFrame(int frameHeight)
         {
             frameHeight = 106;
+
+            if (NPC.velocity.Y != 0 || (style == Style.TeleportSlam && BossTime2 > 0 && BossTime2 < 130))
+            {
+                NPC.frame.Y = frameHeight * 1;
+                return;
+            }
+
             NPC.frameCounter++;
             if (NPC.frameCounter % 10 == 0)
             {
@@ -65,7 +74,8 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         {
             Jump,
             BigJump,
-            Shoot
+            Shoot,
+            TeleportSlam,   //下砸
         }
         public bool Phase2
         {
@@ -94,12 +104,12 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             get
             {
                 if (Main.masterMode && Main.getGoodWorld)
-                    return 20*16;//14
+                    return 20 * 16;//14
                 if (Main.masterMode)
-                    return 17*16;//10
+                    return 17 * 16;//10
                 if (Main.expertMode)
-                    return 12*16;//9
-                return 7*16;//7
+                    return 12 * 16;//9
+                return 7 * 16;//7
             }
         }
         public int JumpMaxY
@@ -160,16 +170,29 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
+            writer.Write((byte)style);
+            writer.Write(CurrentSkill);
+            writer.Write(CanShoot);
             writer.Write(BossTime);
             writer.Write(BossTime2);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
+            style = (Style)reader.ReadByte();
+            CurrentSkill = reader.ReadInt32();
+            CanShoot = reader.ReadBoolean();
+
             BossTime = reader.ReadSingle();
             BossTime2 = reader.ReadSingle();
         }
         public override void AI()
         {
+            for (int i = NPC.oldPos.Length - 1; i > 0; i--)
+            {
+                NPC.oldPos[i] = NPC.oldPos[i - 1];
+            }
+            NPC.oldPos[0] = NPC.position;
+
             BossTime++;
             if (BossTime == 1)
             {
@@ -190,13 +213,22 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                 }
             }
             //Main.NewText(style.ToString() + CurrentSkill);
-            int ElseJump = (NPC.lifeMax - NPC.life) / NPC.lifeMax * 5;
+            int ElseJump = (int)((NPC.lifeMax - NPC.life) / (float)NPC.lifeMax * 5);
             switch (style)
             {
                 case Style.Jump:
                     BossTime2++;
+
                     if (BossTime2 == 1)
                         CurrentSkill++;
+
+                    if (CurrentSkill == 5 && BossTime2 == 1)
+                    {
+                        BossTime2 = 0;
+                        style = Style.Shoot;
+                        break;
+                    }
+
                     if (BossTime2 == 30)
                     {
                         int dx = (int)(player.Center.X - NPC.Center.X);
@@ -209,14 +241,10 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                         NPC.velocity = new Vector2(dx, -JumpMaxY * 2 - ElseJump) / 30;
                     }
 
-                    if (NPC.velocity.Y == 0)
-                    {
-                        NPC.velocity.X *= 0.9f;
-                    }
-
                     if (BossTime2 > 40 && NPC.velocity.Y == 0)
                     {
                         BossTime2 = 0;
+                        NPC.velocity.X = 0f;
                         if (CurrentSkill == 1 || CurrentSkill == 4)
                             style = Style.Jump;
                         if (CurrentSkill == 2)
@@ -225,6 +253,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                             style = Style.Shoot;
                     }
                     break;
+
                 case Style.BigJump:
                     BossTime2++;
                     if (BossTime2 == 1)
@@ -241,19 +270,17 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                         NPC.velocity = new Vector2(dx, -JumpMaxY * 3 - ElseJump) / 30;
                     }
 
-                    if (NPC.velocity.Y == 0)
-                    {
-                        NPC.velocity.X *= 0.9f;
-                    }
-
                     if (BossTime2 > 40 && NPC.velocity.Y == 0)
                     {
                         BossTime2 = 0;
+                        NPC.velocity.X = 0f;
+                        ExplodeEffect(true);
                         if (CurrentSkill == 3)
                             style = Style.Jump;
                         NPC.TargetClosest(true);
                     }
                     break;
+
                 case Style.Shoot:
                     BossTime2++;
                     if (BossTime2 == 1)
@@ -283,40 +310,98 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                     {
                         BossTime2 = 0;
                         if (CurrentSkill == 6)
+                            style = Style.TeleportSlam;
+                        else
                             style = Style.Jump;
                         CurrentSkill = 0;
                         CanShoot = true;
                         NPC.TargetClosest(true);
                     }
                     break;
+
+                case Style.TeleportSlam:
+                    BossTime2++;
+
+                    if (BossTime2 > 300)
+                    {
+                        BossTime2 = 0;
+                        NPC.noTileCollide = false;
+                        style = Style.Jump;
+                        CurrentSkill = 0;
+                        NPC.TargetClosest(true);
+                        break;
+                    }
+
+                    Vector2 targetPos = player.Center + new Vector2(0, -500f);
+                    Vector2 toTarget = targetPos - NPC.Center;
+
+                    if (BossTime2 < 100)
+                    {
+                        // 阶段1：快速飞向玩家头顶
+                        NPC.noTileCollide = true;
+                        if (toTarget.Length() > 20f)
+                        {
+                            NPC.velocity = toTarget.SafeNormalize(Vector2.Zero) * 40f;
+                        }
+                        else
+                        {
+                            NPC.Center = targetPos;
+                            NPC.velocity = Vector2.Zero;
+                            BossTime2 = 100;
+                        }
+                    }
+                    else if (BossTime2 < 130)
+                    {
+                        // 阶段2：悬停 0.5 秒
+                        NPC.noTileCollide = true;
+                        NPC.Center = targetPos;
+                        NPC.velocity = Vector2.Zero;
+                    }
+                    else
+                    {
+                        NPC.noTileCollide = false;
+                        NPC.velocity.Y = 0f;
+                        NPC.position.Y += 30f;
+                        NPC.netUpdate = true;
+
+                        bool onGround = Collision.SolidCollision(
+                            NPC.position + new Vector2(0, NPC.height),
+                            NPC.width, 4);
+
+                        if (onGround)
+                        {
+                            BossTime2 = 0;
+                            ExplodeEffect();
+                            Main.instance.CameraModifiers.Add(new PunchCameraModifier(NPC.Center, Vector2.UnitY, 18f, 6f, 40, 1000f));
+                            style = Style.Jump;
+                            CurrentSkill = 0;
+                            NPC.TargetClosest(true);
+                        }
+                    }
+                    break;
+
             }
             if (Phase2 && NPC.ai[0] == 0)
             {
                 NPC.ai[0] = NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<SevenElements>(), 0, NPC.whoAmI);
                 Main.npc[(int)NPC.ai[0]].active = true;
             }
-            int PX = (int)(130 * NPC.scale);
-            int bx = (int)(NPC.Bottom.X / 16) + 1;
-            int by = (int)(NPC.Bottom.Y / 16) + 1;
-            int ic = PX / 16 + 1;
-            bool CanDown = false;
-            for (int i = -ic / 2; i < ic / 2 + 1; i++)
-            {
-                Tile tile = Main.tile[bx + i, by];
-                bool a = tile.HasTile == false || (Main.tileSolidTop[tile.TileType] && !Main.tileSolid[tile.TileType]);
-                if (a)
-                {
-                    CanDown = true;
-                }
-                else
-                {
-                    CanDown = false;
-                    break;
-                }
 
+            if (Math.Abs(NPC.velocity.X) < 0.5f && Math.Abs(player.Center.X - NPC.Center.X) > 100f && NPC.velocity.Y == 0)
+                NPC.ai[1]++;
+            else
+                NPC.ai[1] = 0;
+
+            if (NPC.ai[1] > 60 && NPC.velocity.Y == 0 && (style == Style.Jump || style == Style.BigJump))
+            {
+                BossTime2 = 29;
+                NPC.ai[1] = 0;
             }
 
-            NPC.noTileCollide = (NPC.Center.Y < player.Center.Y && (player.Center.Y - NPC.Center.Y) > 80) && CanDown;
+            if (style != Style.TeleportSlam)
+            {
+                NPC.noTileCollide = false;
+            }
 
 
 
@@ -339,6 +424,35 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
                 }
             }
         }
+        private void ExplodeEffect(bool isBigJump = false)
+        {
+            SoundEngine.PlaySound(SoundID.Item62, NPC.Center);
+
+            int ringCount = isBigJump ? 40 : 60;
+            int smokeCount = isBigJump ? 15 : 25;
+            float ringSpeed = isBigJump ? 10f : 6f;
+            float smokeSpeed = isBigJump ? 3.5f : 2f;
+
+            for (int i = 0; i < ringCount; i++)
+            {
+                float angle = MathHelper.TwoPi * i / ringCount;
+                Vector2 dir = angle.ToRotationVector2();
+                Vector2 spawnPos = NPC.Center + dir * 30f;
+
+                Dust dust = Dust.NewDustDirect(spawnPos, 1, 1, DustID.Dirt, 0f, 0f, 100, default, 2f);
+                dust.velocity = dir * ringSpeed;
+                dust.noGravity = true;
+            }
+
+            for (int i = 0; i < smokeCount; i++)
+            {
+                Dust dust = Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
+                dust.velocity *= smokeSpeed;
+                dust.noGravity = true;
+            }
+        }
+
+
         public override void OnKill()
         {
             NPC.SetEventFlagCleared(ref DownedBossSystem.downedPrimordialSlime, -1);
@@ -352,6 +466,22 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             float Rotation = NPC.velocity.X * 0.05f;
             Texture2D texture = ModContent.Request<Texture2D>("TimeDomain/Content/NPCs/Bosses/PrimordialSlime/SevenElements").Value;
             //Main.spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, new Rectangle?(new Rectangle(0, 0, texture.Width, 46)), new Color(255, 255, 255, 80), Rotation, new Vector2((texture.Width / 2), 23), 1, 0, 0);
+
+            if (style == Style.TeleportSlam && (BossTime2 < 100 || BossTime2 >= 130))
+            {
+                Texture2D slimeTex = TextureAssets.Npc[NPC.type].Value;
+                Rectangle sourceRect = NPC.frame;
+                Vector2 origin = new Vector2(sourceRect.Width / 2f, sourceRect.Height / 2f);
+
+                for (int i = 0; i < NPC.oldPos.Length; i += 2)
+                {
+                    float progress = i / (float)NPC.oldPos.Length;
+                    float alpha = (1f - progress) * 0.6f;
+                    Vector2 drawPos = NPC.oldPos[i] + NPC.Size / 2f - Main.screenPosition;
+                    Color trailColor = Color.White * alpha;
+                    spriteBatch.Draw(slimeTex, drawPos, sourceRect, trailColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);
+                }
+            }
         }
     }
     #region TestCode
@@ -380,7 +510,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         }
         public float S 
         {
-            get
+            get 
             {
                 if (S > 1)
                     S = 1;
@@ -399,7 +529,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
         }
         public float V 
         {
-            get
+            get 
             {
                 if (V > 1)
                     V = 1;
