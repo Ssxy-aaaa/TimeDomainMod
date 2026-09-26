@@ -1,82 +1,71 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using TimeDomain.Common.Utils;
 
 namespace TimeDomain.Common
 {
     public static class ModUtil
     {
-        public static void SetNPCDamageAndLifeMax(NPC npc, int classicDamage, int expertDamage, int masterDamage, int classicLifeMax, int expertLifeMax, int masterLifeMax)
-        {
-            npc.damage = classicDamage;
-            npc.lifeMax = classicLifeMax;
-            if (Main.expertMode)
-            {
-                npc.damage = expertDamage / 2;
-                npc.lifeMax = expertLifeMax / 2;
-
-            }
-            if (Main.masterMode)
-            {
-                npc.damage = masterDamage / 3;
-                npc.lifeMax = masterLifeMax / 3;
-            }
-        }
-        public static void SetNPCDamageAndLifeMax_InBossFight(NPC npc, int classicDamage, int expertDamage, int masterDamage, int classicLifeMax, int expertLifeMax, int masterLifeMax)
+        /// <summary>
+        /// 按当前难度直接设置 NPC 伤害和最大生命
+        /// </summary>
+        public static void SetNPCDamageAndLifeMax(NPC npc,
+            int classicDamage, int expertDamage, int masterDamage,
+            int classicLifeMax, int expertLifeMax, int masterLifeMax)
         {
             npc.damage = Main.masterMode ? masterDamage : (Main.expertMode ? expertDamage : classicDamage);
             npc.lifeMax = Main.masterMode ? masterLifeMax : (Main.expertMode ? expertLifeMax : classicLifeMax);
         }
+
+        /// <summary>
+        /// 返回当前难度下的弹幕伤害值
+        /// </summary>
         public static int SetProjectileDamage(int classicDamage, int expertDamage, int masterDamage)
         {
-            Projectile projectile = new Projectile();
-            projectile.damage = classicDamage / 2;
-            if (Main.expertMode)
-            {
-                projectile.damage = expertDamage / 4;
-            }
-            if (Main.masterMode)
-            {
-                projectile.damage = masterDamage / 6;
-            }
-            return projectile.damage;
+            if (Main.masterMode) return masterDamage;
+            if (Main.expertMode) return expertDamage;
+            return classicDamage;
         }
-        //public static void SetDamageDown(Projectile projectile, double multiple)
-        //{
-        //    for (int i = 0; i < Main.maxNPCs; i++)
-        //    {
-        //        //NPC npc = Main.npc[i];
-        //        bool flag10 = projectile.Colliding(Damage_GetHitbox(projectile), Main.npc[i].getRect());
-        //        if (flag10) projectile.damage = (int)((double)projectile.damage * multiple);
-        //    }
-        //}
-        public static Rectangle Damage_GetHitbox(Projectile projectile)
+
+        /// <summary>
+        /// 计算弹幕的伤害判定矩形，对部分原版火焰弹幕做额外扩张
+        /// </summary>
+        public static Rectangle GetDamageHitbox(Projectile projectile)
         {
-            Rectangle result = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
+            Rectangle result = new Rectangle(
+                (int)projectile.position.X,
+                (int)projectile.position.Y,
+                projectile.width,
+                projectile.height);
+
             if (projectile.type == ProjectileID.EyeFire)
-            {
                 result.Inflate(30, 30);
-            }
+
             if (projectile.type == ProjectileID.Flames)
             {
-                int num = (int)Utils.Remap(projectile.localAI[0], 0f, 72f, 10f, 40f, true);
+                int num = (int)MathUtils.Remap(projectile.localAI[0], 0f, 72f, 10f, 40f, true);
                 result.Inflate(num, num);
             }
+
             if (projectile.type == ProjectileID.FlamesTrap)
-            {
                 result.Inflate(20, 20);
-            }
+
             if (projectile.aiStyle == ProjAIStyleID.GemStaffBolt)
-            {
                 result.Inflate(4, 4);
-            }
+
             if (projectile.type == ProjectileID.HoundiusShootiusFireball)
-            {
                 result.Inflate(10, 10);
-            }
+
             ProjectileLoader.ModifyDamageHitbox(projectile, ref result);
             return result;
+        }
+
+        internal static void SetNPCDamageAndLifeMax_InBossFight(NPC nPC, int v1, int v2, int v3, int v4, int v5, int v6)
+        {
+            throw new NotImplementedException();
         }
     }
 }

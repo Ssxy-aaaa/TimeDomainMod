@@ -1,0 +1,32 @@
+﻿using TimeDomain.Content.Projectiles.Ranged;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace SupremeAdvent.Content.Items.Ammo
+{
+    internal class AmberArrow : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 14;
+            Item.height = 32;
+            Item.damage = 8;
+            Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 2.5f;
+            Item.shoot = ModContent.ProjectileType<AmberArrowProj>();
+            Item.shootSpeed = 7.5f;
+
+            Item.ammo = AmmoID.Arrow;
+            Item.value = Item.sellPrice(silver: 4);
+            Item.rare = ItemRarityID.Blue;
+            Item.consumable = true;
+            Item.maxStack = 9999;
+        }
+    }
+}

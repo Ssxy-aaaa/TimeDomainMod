@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimeDomain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d37e07e5425e5583633a4e1adffa8ea787b1f005")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d791e5f8c54847c76d4e435e33bc57ca3b96a432")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimeDomain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimeDomain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

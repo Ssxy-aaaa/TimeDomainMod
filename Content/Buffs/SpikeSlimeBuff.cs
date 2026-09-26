@@ -1,5 +1,5 @@
 ﻿using System;
-using TimeDomain.Content.Items.Projectiles.Summon;
+using TimeDomain.Content.Projectiles.Summon;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

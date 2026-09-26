@@ -35,6 +35,7 @@ namespace TimeDomain.Content.NPCs.Bosses.PrimordialSlime
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0f;
             NPC.defense = 3;
+            NPC.buffImmune[BuffID.Poisoned] = true;
             ModUtil.SetNPCDamageAndLifeMax(NPC, 75, 98, 111, 2500, 3000, 3900);
         }
         public override void SetStaticDefaults()

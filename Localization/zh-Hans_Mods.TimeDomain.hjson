@@ -100,6 +100,41 @@ Items: {
 		// DisplayName: Test Render Item
 		// Tooltip: ""
 	}
+
+	AmberArrow: {
+		DisplayName: 琥珀箭
+		Tooltip: ""
+	}
+
+	AmethystArrow: {
+		DisplayName: 紫晶箭
+		Tooltip: ""
+	}
+
+	DiamondArrow: {
+		DisplayName: 钻石箭
+		Tooltip: ""
+	}
+
+	EmeraldArrow: {
+		DisplayName: 翡翠箭
+		Tooltip: ""
+	}
+
+	RubyArrow: {
+		DisplayName: 红玉箭
+		Tooltip: ""
+	}
+
+	SapphireArrow: {
+		DisplayName: 蓝玉箭
+		Tooltip: ""
+	}
+
+	TopazArrow: {
+		DisplayName: 黄玉箭
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -129,6 +164,14 @@ Projectiles: {
 	TestSpearProj.DisplayName: Test Spear Proj
 	ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
 	// EditorProj2.DisplayName: Editor Proj2
+	// AmberArrowProj.DisplayName: Amber Arrow Proj
+	// AmethystArrowProj.DisplayName: Amethyst Arrow Proj
+	// DiamondArrowProj.DisplayName: Diamond Arrow Proj
+	// EmeraldArrowProj.DisplayName: Emerald Arrow Proj
+	// EmeraldArrowShardProj.DisplayName: Emerald Arrow Shard Proj
+	// RubyArrowProj.DisplayName: Ruby Arrow Proj
+	// SapphireArrowProj.DisplayName: Sapphire Arrow Proj
+	// TopazArrowProj.DisplayName: Topaz Arrow Proj
 }
 
 NPCs: {

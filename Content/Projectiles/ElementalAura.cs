@@ -42,10 +42,8 @@ namespace TimeDomain.Content.Projectiles
                 Projectile.frame %= Main.projFrames[Type];
             }
 
-            // 发光：颜色跟着彩虹色走
             Lighting.AddLight(Projectile.Center, GetAuraColor().ToVector3() * 0.9f);
 
-            // 粒子拖尾：每帧喷出一个小光点
             if (Main.netMode != NetmodeID.Server && Main.rand.NextBool(2))
             {
                 Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(8f, 8f);
@@ -75,7 +73,6 @@ namespace TimeDomain.Content.Projectiles
             Color auraColor = GetAuraColor();
             float pulse = 0.85f + (float)Math.Sin(Main.GameUpdateCount * 0.25f + Projectile.whoAmI) * 0.15f;
 
-            // 1. 拖尾残影：颜色跟随彩虹色，越旧越淡越小
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
                 if (Projectile.oldPos[i] == Vector2.Zero) continue;
@@ -84,7 +81,6 @@ namespace TimeDomain.Content.Projectiles
                 float alpha = (1f - progress) * 0.55f;
                 float trailScale = Projectile.scale * (1f - progress * 0.5f);
 
-                // 让拖尾颜色也随时间偏移，形成流动感
                 float trailHue = ((Main.GameUpdateCount * 4f + i * 12f + Projectile.whoAmI * 30f) % 360f) / 360f;
                 Color trailColor = Main.hslToRgb(trailHue, 1f, 0.55f) * alpha;
 
@@ -94,7 +90,6 @@ namespace TimeDomain.Content.Projectiles
                     Projectile.rotation, origin, trailScale, SpriteEffects.None, 0f);
             }
 
-            // 2. 光晕层：脉动的柔光
             Texture2D glow = TextureAssets.Extra[ExtrasID.SharpTears].Value;
             Vector2 glowOrigin = glow.Size() / 2f;
             float glowScale = Projectile.scale * 0.6f * pulse;
@@ -108,7 +103,6 @@ namespace TimeDomain.Content.Projectiles
                 glowScale,
                 SpriteEffects.None, 0);
 
-            // 3. 主贴图：略微放大并叠加一层亮色，增加亮度
             Main.EntitySpriteDraw(tex,
                 Projectile.Center - Main.screenPosition,
                 sourceRect,
@@ -118,7 +112,6 @@ namespace TimeDomain.Content.Projectiles
                 Projectile.scale,
                 SpriteEffects.None, 0);
 
-            // 4. 高光叠加：同贴图再画一遍，加色，做出“燃”的感觉
             Main.EntitySpriteDraw(tex,
                 Projectile.Center - Main.screenPosition,
                 sourceRect,

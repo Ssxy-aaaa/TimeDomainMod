@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TimeDomain.Content.Buffs;
 using Microsoft.Xna.Framework;
-using TimeDomain.Content.Items.Projectiles.Summon;
+using TimeDomain.Content.Projectiles.Summon;
 
 
 namespace TimeDomain.Content.Items.Weapons.Summon
