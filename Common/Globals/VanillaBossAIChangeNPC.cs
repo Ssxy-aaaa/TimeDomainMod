@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -131,8 +132,23 @@ namespace TimeDomain.Common.Globals
                 return;
             }
         }
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (!TimeDomain.AncientMode)
+            {
+                return;
+            }
+            if (npc.type == NPCID.BrainofCthulhu)
+            {
+                BrainofCthulhuAI.PostDraw(npc, spriteBatch, screenPos, drawColor);
+            }
+        }
         public override bool CheckDead(NPC npc)
         {
+            if (!TimeDomain.AncientMode)
+            {
+                return true;
+            }
             if (npc.type == NPCID.Creeper)
             {
                 return CreeperAI.CheckDead(npc);

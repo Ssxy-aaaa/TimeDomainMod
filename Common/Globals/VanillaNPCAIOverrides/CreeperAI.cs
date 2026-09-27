@@ -39,18 +39,19 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
         {
             
         }
+        //public static bool IsDeadOnce = false;
         public static bool CheckDead(NPC npc)
         {
-            return true;
-            if (!TimeDomain.AncientMode)
+            if (!npc.dontTakeDamage)
             {
-                return true;
+                thisNPC = npc;
+                npc.active = true;
+                npc.life = 1;
+                npc.dontTakeDamage = true;
+                npc.netUpdate = true;
+                return false;
             }
-            //thisNPC = npc;
-            //npc.active = true;
-            //npc.life = 1;
-            //npc.dontTakeDamage = true;
-            return false;
+            return true;
         }
     }
 }

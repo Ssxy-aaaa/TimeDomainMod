@@ -130,6 +130,9 @@ Items: {
 	TopazArrow: {
 		DisplayName: Topaz Arrow
 		Tooltip: ""
+	PrettySparkleParticleTestItem: {
+		Tooltip: ""
+		DisplayName: Pretty Sparkle Particle Test Item
 	}
 }
 
@@ -168,6 +171,7 @@ Projectiles: {
 	RubyArrowProj.DisplayName: Ruby Arrow Proj
 	SapphireArrowProj.DisplayName: Sapphire Arrow Proj
 	TopazArrowProj.DisplayName: Topaz Arrow Proj
+	PrettySparkleParticleTestProj.DisplayName: Pretty Sparkle Particle Test Proj
 }
 
 NPCs: {
