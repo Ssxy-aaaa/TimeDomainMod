@@ -213,7 +213,7 @@ Buffs: {
 
 NPCs: {
 	PrimordialSlime: {
-		DisplayName: Mods.TimeDomain.NPCs.PrimordialSlime.DisplayName
+		DisplayName: 始祖史莱姆
 		spawnInfo: Mods.TimeDomain.NPCs.PrimordialSlime.spawnInfo
 	}
 
