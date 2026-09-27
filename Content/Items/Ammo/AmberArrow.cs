@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SupremeAdvent.Content.Items.Ammo
+namespace TimeDomain.Content.Items.Ammo
 {
     internal class AmberArrow : ModItem
     {

@@ -13,8 +13,8 @@ Items: {
 	}
 
 	尖刺史莱姆召唤杖: {
-		// DisplayName: 尖刺史莱姆召唤杖
-		// Tooltip: ""
+		DisplayName: 尖刺史莱姆召唤杖
+		Tooltip: ""
 	}
 
 	ShimmerBullet: {
@@ -97,8 +97,8 @@ Items: {
 	}
 
 	TestRenderItem: {
-		// DisplayName: Test Render Item
-		// Tooltip: ""
+		DisplayName: Test Render Item
+		Tooltip: ""
 	}
 
 	AmberArrow: {
@@ -134,62 +134,120 @@ Items: {
 	TopazArrow: {
 		DisplayName: 黄玉箭
 		Tooltip: ""
+
+		PrettySparkleParticleTestItem: {
+			Tooltip: ""
+			DisplayName: Pretty Sparkle Particle Test Item
+		}
+	}
+
+	Buffs: {
+		SpikeSlimeBuff: {
+			DisplayName: 尖刺史莱姆宝宝
+			Description: 尖刺史莱姆宝宝为你而战！
+		}
+
+		OpticNeuronBuff: {
+			DisplayName: Optic Neuron Buff
+			Description: Mods.yourmod.Buffs.OpticNeuronBuff.Description
+		}
+	}
+
+	Projectiles: {
+		SpikeSlimeMinion.DisplayName: 尖刺史莱姆宝宝
+		SlimeSpike.DisplayName: 史莱姆宝宝尖刺
+		JungleAcidSpike.DisplayName: 丛林酸刺
+		ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
+		OpticNeuronProj.DisplayName: Optic Neuron Proj
+		OpticNeuronProj2.DisplayName: Optic Neuron Proj2
+		IceFogProjectile.DisplayName: Ice Fog Projectile
+		IceCrystalProjectile.DisplayName: Ice Crystal Projectile
+		EditorProj.DisplayName: Editor Proj
+		ElementalAura.DisplayName: Elemental Aura
+		GraniteEnergyBall.DisplayName: Granite Energy Ball
+		TestSpearProj.DisplayName: Test Spear Proj
+		ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
+		EditorProj2.DisplayName: Editor Proj2
+		AmberArrowProj.DisplayName: Amber Arrow Proj
+		AmethystArrowProj.DisplayName: Amethyst Arrow Proj
+		DiamondArrowProj.DisplayName: Diamond Arrow Proj
+		EmeraldArrowProj.DisplayName: Emerald Arrow Proj
+		EmeraldArrowShardProj.DisplayName: Emerald Arrow Shard Proj
+		RubyArrowProj.DisplayName: Ruby Arrow Proj
+		SapphireArrowProj.DisplayName: Sapphire Arrow Proj
+		TopazArrowProj.DisplayName: Topaz Arrow Proj
+		PrettySparkleParticleTestProj.DisplayName: Pretty Sparkle Particle Test Proj
+	}
+
+	NPCs: {
+		AcidSpikedJungleSlime.DisplayName: 丛林酸刺史莱姆
+		KingAntlion.DisplayName: King Antlion
+
+		PrimordialSlime: {
+			DisplayName: 始祖史莱姆
+			spawnInfo: Mods.yourmod.NPCs.PrimordialSlime.spawnInfo
+		}
+
+		SevenElements.DisplayName: Seven Elements
+		ThePonder.DisplayName: The Ponder
+		Plugin.DisplayName: Plugin
+	}
+
 	PrettySparkleParticleTestItem: {
-		// Tooltip: ""
-		// DisplayName: Pretty Sparkle Particle Test Item
+		DisplayName: Pretty Sparkle Particle Test Item
+		Tooltip: ""
 	}
 }
 
 Buffs: {
 	SpikeSlimeBuff: {
-		DisplayName: 尖刺史莱姆宝宝
-		Description: 尖刺史莱姆宝宝为你而战！
+		DisplayName: Spike Slime Buff
+		Description: Mods.TimeDomain.Buffs.SpikeSlimeBuff.Description
 	}
 
 	OpticNeuronBuff: {
+		Description: Mods.TimeDomain.Buffs.OpticNeuronBuff.Description
 		DisplayName: Optic Neuron Buff
-		Description: Mods.yourmod.Buffs.OpticNeuronBuff.Description
 	}
-}
-
-Projectiles: {
-	SpikeSlimeMinion.DisplayName: 尖刺史莱姆宝宝
-	SlimeSpike.DisplayName: 史莱姆宝宝尖刺
-	JungleAcidSpike.DisplayName: 丛林酸刺
-	ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
-	OpticNeuronProj.DisplayName: Optic Neuron Proj
-	OpticNeuronProj2.DisplayName: Optic Neuron Proj2
-	IceFogProjectile.DisplayName: Ice Fog Projectile
-	IceCrystalProjectile.DisplayName: Ice Crystal Projectile
-	EditorProj.DisplayName: Editor Proj
-	ElementalAura.DisplayName: Elemental Aura
-	GraniteEnergyBall.DisplayName: Granite Energy Ball
-	TestSpearProj.DisplayName: Test Spear Proj
-	ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
-	// EditorProj2.DisplayName: Editor Proj2
-	// AmberArrowProj.DisplayName: Amber Arrow Proj
-	// AmethystArrowProj.DisplayName: Amethyst Arrow Proj
-	// DiamondArrowProj.DisplayName: Diamond Arrow Proj
-	// EmeraldArrowProj.DisplayName: Emerald Arrow Proj
-	// EmeraldArrowShardProj.DisplayName: Emerald Arrow Shard Proj
-	// RubyArrowProj.DisplayName: Ruby Arrow Proj
-	// SapphireArrowProj.DisplayName: Sapphire Arrow Proj
-	// TopazArrowProj.DisplayName: Topaz Arrow Proj
-	// PrettySparkleParticleTestProj.DisplayName: Pretty Sparkle Particle Test Proj
 }
 
 NPCs: {
-	AcidSpikedJungleSlime.DisplayName: 丛林酸刺史莱姆
-	KingAntlion.DisplayName: King Antlion
-
 	PrimordialSlime: {
-		DisplayName: 始祖史莱姆
-		spawnInfo: Mods.yourmod.NPCs.PrimordialSlime.spawnInfo
+		DisplayName: Mods.TimeDomain.NPCs.PrimordialSlime.DisplayName
+		spawnInfo: Mods.TimeDomain.NPCs.PrimordialSlime.spawnInfo
 	}
 
+	AcidSpikedJungleSlime.DisplayName: Acid Spiked Jungle Slime
+	KingAntlion.DisplayName: King Antlion
 	SevenElements.DisplayName: Seven Elements
+	Plugin.DisplayName: Plugin
 	ThePonder.DisplayName: The Ponder
-	// Plugin.DisplayName: Plugin
 }
 
-DamageClasses.SprintDamageClass.DisplayName: Mods.yourmod.DamageClasses.SprintDamageClass.DisplayName
+DamageClasses.SprintDamageClass.DisplayName: Mods.TimeDomain.DamageClasses.SprintDamageClass.DisplayName
+
+Projectiles: {
+	IceCrystalProjectile.DisplayName: Ice Crystal Projectile
+	IceFogProjectile.DisplayName: Ice Fog Projectile
+	EditorProj.DisplayName: Editor Proj
+	EditorProj2.DisplayName: Editor Proj2
+	TestSpearProj.DisplayName: Test Spear Proj
+	OpticNeuronProj.DisplayName: Optic Neuron Proj
+	OpticNeuronProj2.DisplayName: Optic Neuron Proj2
+	PrettySparkleParticleTestProj.DisplayName: Pretty Sparkle Particle Test Proj
+	ElementalAura.DisplayName: Elemental Aura
+	GraniteEnergyBall.DisplayName: Granite Energy Ball
+	JungleAcidSpike.DisplayName: Jungle Acid Spike
+	ThornLeafProjectile.DisplayName: Thorn Leaf Projectile
+	AmberArrowProj.DisplayName: Amber Arrow Proj
+	AmethystArrowProj.DisplayName: Amethyst Arrow Proj
+	DiamondArrowProj.DisplayName: Diamond Arrow Proj
+	EmeraldArrowProj.DisplayName: Emerald Arrow Proj
+	EmeraldArrowShardProj.DisplayName: Emerald Arrow Shard Proj
+	RubyArrowProj.DisplayName: Ruby Arrow Proj
+	SapphireArrowProj.DisplayName: Sapphire Arrow Proj
+	TopazArrowProj.DisplayName: Topaz Arrow Proj
+	ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
+	SlimeSpike.DisplayName: Slime Spike
+	SpikeSlimeMinion.DisplayName: Spike Slime Minion
+}
