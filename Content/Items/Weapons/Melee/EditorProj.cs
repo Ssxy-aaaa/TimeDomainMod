@@ -400,6 +400,8 @@ namespace TimeDomain.Content.Items.Weapons.Melee
                 //EditorEffect.CurrentTechnique.Passes[0].Apply();
                 if (ve.Count >= 3)//因为顶点需要围成一个三角形才能画出来 所以需要判顶点数>=3 否则报错
                 {
+                    //Extra_210
+                    //Sprite-0005
                     gd.Textures[0] = ModContent.Request<Texture2D>("TimeDomain/Assets/Textures/Misc/Extra_210").Value;//获取刀光的拖尾贴图
                     gd.DrawUserPrimitives(PrimitiveType.TriangleStrip, ve.ToArray(), 0, ve.Count - 2);//画
                 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis.FlowAnalysis;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -136,8 +137,23 @@ namespace TimeDomain.Common.Globals
                 Texture2D texture2 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideKSH").Value;
                 //spriteBatch.Draw(texture, npc.Center - screenPos + zero, new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)), drawColor, num33, new Vector2((texture.Width / 2), (texture.Height / 2)), 1f, 0, 0f);
                 spriteBatch.Draw(TextureAssets.Ninja.Value, npc.Center - screenPos + zero, new Rectangle?(new Rectangle(0, 0, TextureAssets.Ninja.Width(), TextureAssets.Ninja.Height())), drawColor, num33, new Vector2((float)(TextureAssets.Ninja.Width() / 2), (float)(TextureAssets.Ninja.Height() / 2)), 1f, 0, 0f);
-                spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(npc.frame), color, npc.rotation, new Vector2(texture.Width / 2, 70), npc.scale, SpriteEffects.None, 0);
-
+                if (npc.velocity.Y == 0)
+                {
+                    float a = 0 - npc.ai[0];
+                    float b = (a / 40f) * 0.18f + 0.8f;
+                    if (npc.ai[1] <= 3f && npc.ai[1] != 0f)
+                    {
+                        spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(npc.frame), color, npc.rotation, new Vector2(texture.Width / 2, 70), new Vector2(npc.scale / b, npc.scale * b), SpriteEffects.None, 0);
+                    }
+                    else if (npc.ai[1] == 0f)
+                    {
+                        spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(npc.frame), color, npc.rotation, new Vector2(texture.Width / 2, 70), npc.scale, SpriteEffects.None, 0);
+                    }
+                }
+                else
+                {
+                    spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(npc.frame), color, npc.rotation, new Vector2(texture.Width / 2, 70), new Vector2(npc.scale / 1.1f, npc.scale * 1.1f), SpriteEffects.None, 0);
+                }
 
                 Texture2D value74 = TextureAssets.Extra[ExtrasID.KingSlimeCrown].Value;
                 value74 = texture2;

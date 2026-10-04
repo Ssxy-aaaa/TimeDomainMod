@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis.FlowAnalysis;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -7,6 +9,8 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 {
     public static class KingSlimeAI
     {
+        #region old
+#if false
         public static NPC thisNPC = null;
         public static float BossTime
         {
@@ -97,7 +101,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             npcScale = npcScale * 0.5f + 0.75f;
             npc.scale = npcScale;
             npc.TargetClosest(true);
-            Player player = Main.player[npc.target];
+            Player player = player;
 
             #region OldCode
             //switch (state)
@@ -222,7 +226,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             //        {
             //            if (SkillTimer == TeleportReduceTime)
             //            {
-            //                npc.Center = TeleportPosition(npc, Main.player[npc.target]);
+            //                npc.Center = TeleportPosition(npc, player);
             //                if (player.Center.X > npc.Center.X)
             //                    direction = 1;
             //                else
@@ -407,12 +411,501 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 
 
 
+#endif
+        #endregion
 
+        public static float P => (((float)thisNPC.life / thisNPC.lifeMax) < 0.5f) ? 2f : 1f;
+        public static float JumpY(int c)
+        {
+            if (c == 0)
+                return -8f;
+            if (c == 1)
+                return -6f;
+            if (c == 2)
+                return -13f;
+            return -6f;
+        }
+        public static float JumpX(int c)
+        {
+            if (c == 0)
+                return 4f;
+            if (c == 1)
+                return 4.5f;
+            if (c == 2)
+                return 3.5f;
+            return 3.5f;
+        }
+        public static float TransferTime => 30f;
+        public static NPC thisNPC;
+        public static Player player => Main.player[thisNPC.target];
+        public static void ChangeVanillaAI(NPC npc)
+        {
+            thisNPC = npc;
+            //
+            //npc.ai[1]-状态机
+            //
+            //npc.ai[3]-记录npc的生命
+            //npc.localAI[0]-有点用，看不懂
+            //npc.localAI[1]-史莱姆王传送x坐标
+            //npc.localAI[2]-史莱姆王传送y坐标
+            //npc.localAI[3]-AI里没效果
+            float num236 = 1f;
+            float num237 = 1f;
+            bool flag6 = false;
+            bool flag7 = false;
+            bool flag8 = false;
+            float num238 = 2f;
+            if (Main.getGoodWorld)
+            {
+                num238 -= 1f - (float)npc.life / (float)npc.lifeMax;
+                num237 *= num238;
+            }
+            npc.aiAction = 0;
+            //当刚生成时设为npc.lifeMax
+            if (npc.ai[3] == 0f && npc.life > 0)
+            {
+                npc.ai[3] = (float)npc.lifeMax;
+            }
+            if (npc.localAI[3] == 0f)
+            {
+                npc.localAI[3] = 1f;
+                flag6 = true;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.ai[0] = -100f;
+                    npc.TargetClosest(true);
+                    npc.netUpdate = true;
+                }
+            }
+            //如果当前玩家死亡，传送，以及脱战
+            int KingSlimeDistanceMax = 3000;//史莱姆王距离上限
+            if (player.dead || Vector2.Distance(npc.Center, player.Center) > (float)KingSlimeDistanceMax)
+            {
+                npc.TargetClosest(true);
+                if (player.dead || Vector2.Distance(npc.Center, player.Center) > (float)KingSlimeDistanceMax)
+                {
+                    npc.EncourageDespawn(10);
+                    if (player.Center.X < npc.Center.X)
+                    {
+                        npc.direction = 1;
+                    }
+                    else
+                    {
+                        npc.direction = -1;
+                    }
+                    if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[1] != 5f)
+                    {
+                        npc.netUpdate = true;
+                        npc.ai[2] = 0f;
+                        npc.ai[0] = 0f;
+                        npc.ai[1] = 5f;
+                        npc.localAI[1] = (float)(Main.maxTilesX * 16);
+                        npc.localAI[2] = (float)(Main.maxTilesY * 16);
+                    }
+                }
+            }
+            if (!player.dead && npc.timeLeft > 10 && npc.ai[2] >= 300f && npc.ai[1] < 5f && npc.velocity.Y == 0f)
+            {
+                npc.ai[2] = 0f;
+                npc.ai[0] = 0f;
+                npc.ai[1] = 5f;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.TargetClosest(false);
+                    Point point3 = npc.Center.ToTileCoordinates();
+                    Point playerTileCoord = (player.Center + player.velocity * 45f).ToTileCoordinates();
+                    Vector2 vector30 = player.Center - npc.Center;
+                    int DeviationX = 10;//检索范围数值 Retrieval range value
+                    int num241 = 0;
+                    int DeviationY = 7;
+                    int num243 = 0;
+                    bool flag9 = false;
+                    if (npc.localAI[0] >= 360f || vector30.Length() > 2000f)
+                    {
+                        if (npc.localAI[0] >= 360f)
+                        {
+                            npc.localAI[0] = 360f;
+                        }
+                        flag9 = true;
+                        num243 = 100;
+                    }
+                    while (!flag9 && num243 < 100)
+                    {
+                        num243++;
+                        int num244 = Main.rand.Next(playerTileCoord.X - DeviationX, playerTileCoord.X + DeviationX + 1);//玩家
+                        int num245 = Main.rand.Next(playerTileCoord.Y - DeviationX, playerTileCoord.Y + 1);//
+                        if ((num245 < playerTileCoord.Y - DeviationY || num245 > playerTileCoord.Y + DeviationY || num244 < playerTileCoord.X - DeviationY || num244 > playerTileCoord.X + DeviationY) && (num245 < point3.Y - num241 || num245 > point3.Y + num241 || num244 < point3.X - num241 || num244 > point3.X + num241) && !Main.tile[num244, num245].HasUnactuatedTile)
+                        {
+                            int num246 = num245;
+                            int num247 = 0;
+                            //if (Main.tile[num244, num246].HasUnactuatedTile && Main.tileSolid[(int)(Main.tile[num244, num246].TileType)] && !Main.tileSolidTop[(int)(Main.tile[num244, num246].TileType)])
+                            //{
+                            //    num247 = 1;
+                            //}
+                            //else
+                            //{
+                            //    while (num247 < 150 && num246 + num247 < Main.maxTilesY)
+                            //    {
+                            //        int num248 = num246 + num247;
+                            //        Tile tile = Main.tile[num244, num248];
+                            //        ushort type = tile.TileType; 
+                            //        if (tile.HasUnactuatedTile && Main.tileSolid[type] && !Main.tileSolidTop[type])
+                            //        {
+                            //            num247--;
+                            //            break;
+                            //        }
+                            //        num247--;
+                            //    }
+                            //}
+                            num245 += num247;
+                            bool flag10 = true;
+                            if (flag10 && (Main.tile[num244, num245].LiquidType == LiquidID.Lava))
+                            {
+                                flag10 = false;
+                            }
+                            if (flag10 && !Collision.CanHitLine(npc.Center, 0, 0, player.Center, 0, 0))
+                            {
+                                flag10 = false;
+                            }
+                            if (flag10)
+                            {
+                                npc.localAI[1] = (float)(num244 * 16 + 8);
+                                npc.localAI[2] = (float)(num245 * 16 + 16);
+                                break;
+                            }
+                        }
+                    }
+                    if (num243 >= 100)
+                    {
+                        Vector2 bottom = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].Bottom;
+                        npc.localAI[1] = bottom.X;
+                        npc.localAI[2] = bottom.Y;
+                    }
+                }
+            }
+            if (!Collision.CanHitLine(npc.Center, 0, 0, player.Center, 0, 0) || Math.Abs(npc.Top.Y - player.Bottom.Y) > 160f)
+            {
+                npc.ai[2]++;
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.localAI[0]++;
+                }
+            }
+            else if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                npc.localAI[0]--;
+                if (npc.localAI[0] < 0f)
+                {
+                    npc.localAI[0] = 0f;
+                }
+            }
+            if (npc.timeLeft < 10 && (npc.ai[0] != 0f || npc.ai[1] != 0f))
+            {
+                npc.ai[0] = 0f;
+                npc.ai[1] = 0f;
+                npc.netUpdate = true;
+                flag7 = false;
+            }
+            Dust dust87;
+            Dust dust26;
+            if (npc.ai[1] == 5f)
+            {
+                flag7 = true;
+                npc.aiAction = 1;
+                npc.ai[0]++;
+                num236 = MathHelper.Clamp((TransferTime - npc.ai[0]) / TransferTime, 0f, 1f);
+                num236 = 0.5f + num236 * 0.5f;
+                if (npc.ai[0] >= TransferTime)
+                {
+                    flag8 = true;
+                }
+                if (npc.ai[0] == TransferTime)
+                {
+                    Gore.NewGore(npc.GetSource_FromThis(), npc.Center + new Vector2(-40f, (float)(-(float)npc.height / 2)), npc.velocity, 734, 1f);
+                }
+                if (npc.ai[0] >= TransferTime && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (true)
+                    {
+                        npc.localAI[1] = player.Center.X;
+                        npc.localAI[2] = player.Center.Y - 160f;
+                    }
+                    npc.Bottom = new Vector2(npc.localAI[1], npc.localAI[2]);
+                    npc.ai[1] = 6f;
+                    npc.ai[0] = 0f;
+                    npc.netUpdate = true;
+                }
+                if (Main.netMode == NetmodeID.MultiplayerClient && npc.ai[0] >= TransferTime * 2)
+                {
+                    npc.ai[1] = 6f;
+                    npc.ai[0] = 0f;
+                }
+                if (!flag8)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int num250 = Dust.NewDust(npc.position + Vector2.UnitX * -20f, npc.width + 40, npc.height, DustID.TintableDust, npc.velocity.X, npc.velocity.Y, 150, new Color(78, 136, 255, 80), 2f);
+                        Main.dust[num250].noGravity = true;
+                        dust26 = Main.dust[num250];
+                        dust87 = dust26;
+                        dust87.velocity *= 0.5f;
+                    }
+                }
+            }
+            else if (npc.ai[1] == 6f)
+            {
+                flag7 = true;
+                npc.aiAction = 0;
+                npc.ai[0]++;
+                num236 = MathHelper.Clamp(npc.ai[0] / (TransferTime / 2f), 0f, 1f);
+                num236 = 0.5f + num236 * 0.5f;
+                if (npc.ai[0] >= (TransferTime / 2f) && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    npc.ai[1] = 0f;
+                    npc.ai[0] = 0f;
+                    npc.netUpdate = true;
+                    npc.TargetClosest(true);
+                }
+                if (Main.netMode == NetmodeID.MultiplayerClient && npc.ai[0] >= 60f)
+                {
+                    npc.ai[1] = 0f;
+                    npc.ai[0] = 0f;
+                    npc.TargetClosest(true);
+                }
+                for (int i = 0; i < 10; i++)
+                {
+                    int num252 = Dust.NewDust(npc.position + Vector2.UnitX * -20f, npc.width + 40, npc.height, DustID.TintableDust, npc.velocity.X, npc.velocity.Y, 150, new Color(78, 136, 255, 80), 2f);
+                    Main.dust[num252].noGravity = true;
+                    dust26 = Main.dust[num252];
+                    dust87 = dust26;
+                    dust87.velocity *= 2f;
+                }
+            }
+            //npc.hide = false;
+            npc.dontTakeDamage = (npc.hide = flag8);
+            if (npc.velocity.Y == 0f)
+            {
+                //Main.NewText(npc.ai[1]);
+                npc.velocity.X *= 0.8f;
+                if (npc.velocity.X > -0.1 && npc.velocity.X < 0.1)
+                {
+                    npc.velocity.X = 0f;
+                }
+                if (!flag7)
+                {
+                    npc.ai[0] += 2f;
+                    if (npc.life < npc.lifeMax * 0.8)
+                    {
+                        npc.ai[0] += 1f;
+                    }
+                    if (npc.life < npc.lifeMax * 0.6)
+                    {
+                        npc.ai[0] += 1f;
+                    }
+                    if (npc.life < npc.lifeMax * 0.4)
+                    {
+                        npc.ai[0] += 2f;
+                    }
+                    if (npc.life < npc.lifeMax * 0.2)
+                    {
+                        npc.ai[0] += 3f;
+                    }
+                    if (npc.life < npc.lifeMax * 0.1)
+                    {
+                        npc.ai[0] += 4f;
+                    }
+                    if (npc.ai[0] <= 0f && npc.ai[0] > -20f)
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            int num252 = Dust.NewDust(npc.position + Vector2.UnitX * -20f + Vector2.UnitY * 20f, npc.width, npc.height, DustID.TintableDust, npc.velocity.X, npc.velocity.Y, 150, new Color(78, 136, 255, 80), 2f);
+                            Main.dust[num252].noGravity = true;
+                            dust26 = Main.dust[num252];
+                            Dust dust1 = dust26;
+                            dust1.velocity *= 0.5f;
+                        }
+                    }
+                    if (npc.ai[0] >= 0f)
+                    {
+                        npc.netUpdate = true;
+                        npc.TargetClosest(true);
 
+                        Vector2 v = player.Center - npc.Center;
+                        v.X = Math.Abs(v.X);
+                        v.Y = -Math.Abs(v.Y);
+                        if (v.X > 960) v.X = 960;
+                        float vx = v.X / 30;
+                        float vy = v.Y / 30;
+                        if (npc.ai[1] == 3f)
+                        {
+                            npc.velocity.Y = Math.Min(vy, JumpY(2));//-13f;
+                            npc.velocity.X += Math.Max(vx, JumpX(2)) * (float)npc.direction;
+                            npc.ai[0] = -200f / 3f;
+                            npc.ai[1] = 0f;
 
+                            int c = Main.rand.Next(2, 4);
+                            for (int i = 0; i < c; i++)
+                            {
+                                int x = (int)(npc.position.X + (float)Main.rand.Next(npc.width - 32));
+                                int y = (int)(npc.position.Y + (float)Main.rand.Next(npc.height - 32));
+                                int type = Main.expertMode ? 535 : 1;
+                                int Slime = NPC.NewNPC(npc.GetSource_FromThis(), x, y, type, 0, 0f, 0f, 0f, 0f, 255);
+                                Main.npc[Slime].SetDefaults(type, default(NPCSpawnParams));
+                                Main.npc[Slime].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
+                                Main.npc[Slime].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
+                                Main.npc[Slime].ai[0] = (float)(-1000 * Main.rand.Next(3));
+                                Main.npc[Slime].ai[1] = 0f;
+                                if (!(Main.netMode != NetmodeID.Server || Slime >= 200))
+                                {
+                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Slime, 0f, 0f, 0f, 0, 0, 0);
+                                }
+                            }
+                            //Test
+                            for (int i = 0; i < 15; i++)
+                            {
+                                int projvx = (int)npc.Center.X + Main.rand.Next(-120, 120);
+                                int projvy = (int)npc.Center.Y - 120;
+                                Vector2 npcProjV1 = new Vector2(projvx, projvy) - npc.Center;
+                                npcProjV1 /= npcProjV1.Length();
+                                npcProjV1 *= Main.rand.Next(20, 35);
+                                Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), npc.Center, npcProjV1, ProjectileID.Shuriken, 18, 5);
+                                proj.friendly = false;
+                                proj.hostile = true;
+                            }
+                        }
+                        else if (npc.ai[1] == 2f)
+                        {
+                            npc.velocity.Y = Math.Min(vy, JumpY(1));
+                            npc.velocity.X += Math.Max(vx, JumpX(1)) * (float)npc.direction;
+                            npc.ai[0] = -120f / 3f;
+                            npc.ai[1]++;
+                        }
+                        else
+                        {
+                            npc.velocity.Y = Math.Min(vy, JumpY(0));
+                            npc.velocity.X += Math.Max(vx, JumpX(0)) * (float)npc.direction;
+                            npc.ai[0] = -120f / 3f;
+                            npc.ai[1]++;
+                        }
+                    }
+                    else if (npc.ai[0] >= -30f)
+                    {
+                        npc.aiAction = 1;
+                    }
+                }
+            }
+            else if (npc.target < 255)
+            {
+                float stength = 3f;
+                if (Main.getGoodWorld)
+                {
+                    stength = 6f;
+                }
+                if ((npc.direction == 1 && npc.velocity.X < stength) || (npc.direction == -1 && npc.velocity.X > 0f - stength))
+                {
+                    if ((npc.direction == -1 && (double)npc.velocity.X < 0.1) || (npc.direction == 1 && (double)npc.velocity.X > -0.1))
+                    {
+                        npc.velocity.X += 0.2f * (float)npc.direction;
+                    }
+                    else
+                    {
+                        npc.velocity.X *= 0.93f;
+                    }
+                }
+            }
+            int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.TintableDust, npc.velocity.X, npc.velocity.Y, 255, new Color(0, 80, 255, 80), npc.scale * 1.2f);
+            Main.dust[dust].noGravity = true;
+            dust26 = Main.dust[dust];
+            dust87 = dust26;
+            dust87.velocity *= 0.5f;
+            if (npc.life <= 0)
+            {
+                return;
+            }
+            float TargetScale = (float)npc.life / (float)npc.lifeMax;
+            TargetScale = TargetScale * 0.5f + 0.75f;
+            TargetScale *= num236;
+            TargetScale *= num237;
+            if (TargetScale != npc.scale || flag6)
+            {
+                npc.position.X += (float)(npc.width / 2);
+                npc.position.Y += (float)npc.height;
+                npc.scale = TargetScale;
+                npc.width = (int)(98f * npc.scale);
+                npc.height = (int)(92f * npc.scale);
 
+                npc.position.X -= (float)(npc.width / 2);
+                npc.position.Y -= (float)npc.height;
+            }
+            if (npc.velocity.Y == 0 && npc.ai[1] != 0)
+            {
 
+                npc.position.X += (float)(npc.width / 2);
+                npc.position.Y += (float)npc.height;
+                float a = 0 - npc.ai[0];
+                float b = (a / 120f) * 0.18f + 0.8f;
+                npc.width = (int)(98f * (npc.scale / b));
+                npc.height = (int)(92f * (npc.scale * b));
 
+                npc.position.X -= (float)(npc.width / 2);
+                npc.position.Y -= (float)npc.height;
+            }
+            else if(npc.ai[1] == 0)
+            {
+                npc.position.X += (float)(npc.width / 2);
+                npc.position.Y += (float)npc.height;
+                npc.scale = TargetScale;
+                npc.width = (int)(98f * npc.scale);
+                npc.height = (int)(92f * npc.scale);
+
+                npc.position.X -= (float)(npc.width / 2);
+                npc.position.Y -= (float)npc.height;
+            }
+            float ro = npc.velocity.X / 50f * MathHelper.PiOver2;
+            npc.rotation = MathHelper.Clamp(ro, -MathHelper.PiOver4, MathHelper.PiOver4);
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return;
+            }
+            //当当前生命值比上一帧的减少的数少于npc.lifeMax * 0.05，就不生成史莱姆
+            //是为了npc于上一帧相交减少的生命值大于npc.lifeMax * 0.05，才生成史莱姆
+            if ((float)(npc.life + (npc.lifeMax * 0.05)) >= npc.ai[3])
+            {
+                return;
+            }
+            //设为当前生命值
+            npc.ai[3] = (float)npc.life;
+            int SpawnSlimeNum = Main.rand.Next(1, 4);
+            for (int i = 0; i < SpawnSlimeNum; i++)
+            {
+                int x = (int)(npc.position.X + (float)Main.rand.Next(npc.width - 32));
+                int y = (int)(npc.position.Y + (float)Main.rand.Next(npc.height - 32));
+                int type = 1;
+                if (Main.expertMode /*&& Main.rand.Next(4) == 0*/)
+                {
+                    type = 535;
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        type = NPCID.PurpleSlime;
+                    }
+                    if (Main.rand.Next(3) == 0)
+                    {
+                        type = NPCID.MotherSlime;
+                    }
+                }
+                int Slime = NPC.NewNPC(npc.GetSource_FromThis(), x, y, type, 0, 0f, 0f, 0f, 0f, 255);
+                Main.npc[Slime].SetDefaults(type, default(NPCSpawnParams));
+                Main.npc[Slime].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
+                Main.npc[Slime].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
+                Main.npc[Slime].ai[0] = (float)(-1000 * Main.rand.Next(3));
+                Main.npc[Slime].ai[1] = 0f;
+                if (!(Main.netMode != NetmodeID.Server || Slime >= 200))
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Slime, 0f, 0f, 0f, 0, 0, 0);
+                }
+            }
+            return;
+        }
         public static void VanillaAI(NPC npc)
         {
             //
@@ -452,13 +945,13 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             }
             //传送
             int KingSlimeDistanceMax/*num239*/ = 3000;//史莱姆王距离上限
-            if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > (float)KingSlimeDistanceMax)
+            if (player.dead || Vector2.Distance(npc.Center, player.Center) > (float)KingSlimeDistanceMax)
             {
                 npc.TargetClosest(true);
-                if (Main.player[npc.target].dead || Vector2.Distance(npc.Center, Main.player[npc.target].Center) > (float)KingSlimeDistanceMax)
+                if (player.dead || Vector2.Distance(npc.Center, player.Center) > (float)KingSlimeDistanceMax)
                 {
                     npc.EncourageDespawn(10);
-                    if (Main.player[npc.target].Center.X < npc.Center.X)
+                    if (player.Center.X < npc.Center.X)
                     {
                         npc.direction = 1;
                     }
@@ -477,7 +970,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     }
                 }
             }
-            if (!Main.player[npc.target].dead && npc.timeLeft > 10 && npc.ai[2] >= 300f && npc.ai[1] < 5f && npc.velocity.Y == 0f)
+            if (!player.dead && npc.timeLeft > 10 && npc.ai[2] >= 300f && npc.ai[1] < 5f && npc.velocity.Y == 0f)
             {
                 npc.ai[2] = 0f;
                 npc.ai[0] = 0f;
@@ -486,8 +979,8 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 {
                     npc.TargetClosest(false);
                     Point point3 = npc.Center.ToTileCoordinates();
-                    Point point4 = Main.player[npc.target].Center.ToTileCoordinates();
-                    Vector2 vector30 = Main.player[npc.target].Center - npc.Center;
+                    Point point4 = player.Center.ToTileCoordinates();
+                    Vector2 vector30 = player.Center - npc.Center;
                     int num240 = 10;//检索范围数值 Retrieval range value
                     int num241 = 0;
                     int num242 = 7;
@@ -534,7 +1027,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                             {
                                 flag10 = false;
                             }
-                            if (flag10 && !Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0))
+                            if (flag10 && !Collision.CanHitLine(npc.Center, 0, 0, player.Center, 0, 0))
                             {
                                 flag10 = false;
                             }
@@ -554,7 +1047,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     }
                 }
             }
-            if (!Collision.CanHitLine(npc.Center, 0, 0, Main.player[npc.target].Center, 0, 0) || Math.Abs(npc.Top.Y - Main.player[npc.target].Bottom.Y) > 160f)
+            if (!Collision.CanHitLine(npc.Center, 0, 0, player.Center, 0, 0) || Math.Abs(npc.Top.Y - player.Bottom.Y) > 160f)
             {
                 ref float ptr = ref npc.ai[2];
                 float num1599 = ptr;
@@ -591,10 +1084,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             {
                 flag7 = true;
                 npc.aiAction = 1;
-                ref float ptr = ref npc.ai[0];
-                ref float ptr5 = ref ptr;
-                float num1599 = ptr;
-                ptr5 = num1599 + 1f;
+                npc.ai[0]++;
                 num236 = MathHelper.Clamp((60f - npc.ai[0]) / 60f, 0f, 1f);
                 num236 = 0.5f + num236 * 0.5f;
                 if (npc.ai[0] >= 60f)

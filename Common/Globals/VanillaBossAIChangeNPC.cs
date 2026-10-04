@@ -28,6 +28,8 @@ namespace TimeDomain.Common.Globals
             }
             if (npc.type == NPCID.KingSlime)
             {
+                npc.lifeMax = (int)(npc.lifeMax * 1.2f);
+                npc.damage = (int)(npc.damage * 1.2f);
                 npc.noGravity = false;
             }
         }
@@ -46,11 +48,11 @@ namespace TimeDomain.Common.Globals
                 BrainofCthulhuAI.OverrideOnSpawn(npc);
                 return;
             }
-            if (npc.type == NPCID.KingSlime)
-            {
-                KingSlimeAI.OverrideOnSpawn(npc);
-                return;
-            }
+            //if (npc.type == NPCID.KingSlime)
+            //{
+            //    KingSlimeAI.OverrideOnSpawn(npc);
+            //    return;
+            //}
         }
         public override bool InstancePerEntity => true;
 
@@ -71,7 +73,8 @@ namespace TimeDomain.Common.Globals
             }
             if (npc.type == NPCID.KingSlime)
             {
-                return KingSlimeAI.BuffedAI(npc);
+                KingSlimeAI.ChangeVanillaAI(npc);
+                return false;
             }
             if (npc.type == NPCID.WallofFlesh)
             {
