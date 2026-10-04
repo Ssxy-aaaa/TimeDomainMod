@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "RZ6DvrOptZM=",
+  "dgSpecHash": "tXrZeaypv1w=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\TimeDomain.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\TimeDomain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.31\\microsoft.windowsdesktop.app.ref.8.0.31.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.31\\microsoft.netcore.app.ref.8.0.31.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.31\\microsoft.aspnetcore.app.ref.8.0.31.nupkg.sha512"
+  ],
   "logs": []
 }
