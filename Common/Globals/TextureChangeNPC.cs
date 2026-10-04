@@ -195,7 +195,11 @@ namespace TimeDomain.Common.Globals
                 //spriteBatch.Draw(texture, npc.position - Main.screenPosition, new Rectangle(texture.Width / 2, texture.Height / Main.npcFrameCount[npc.type] / 2, texture.Width, texture.Height / Main.npcFrameCount[npc.type]), Color.White, npc.rotation, new Vector2(texture.Width / 2, texture.Height / 2), npc.scale, SpriteEffects.None, 0);
                 VanillaBossAIChangeNPC VanillaBossAIChangeNPC = new VanillaBossAIChangeNPC();
 
-
+                if (npc.localAI[0] == 1f)
+                {
+                    npc.frame.Y %= npc.frame.Height * 4;
+                    npc.frame.Y += npc.frame.Height * 4;
+                }
                 spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(npc.frame), color, npc.rotation, new Vector2(texture.Width / 2, texture.Height / 16), npc.scale, SpriteEffects.None, 0);
 
                 //color = npc.GetAlpha(drawColor) * 0.5f;

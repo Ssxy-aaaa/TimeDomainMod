@@ -9,25 +9,36 @@ namespace TimeDomain.Common
 {
     public static class ModUtil
     {
-        /// <summary>
-        /// 按当前难度直接设置 NPC 伤害和最大生命
-        /// </summary>
-        public static void SetNPCDamageAndLifeMax(NPC npc,
-            int classicDamage, int expertDamage, int masterDamage,
-            int classicLifeMax, int expertLifeMax, int masterLifeMax)
+        public static void SetNPCDamageAndLifeMax(NPC npc, int classicDamage, int expertDamage, int masterDamage, int classicLifeMax, int expertLifeMax, int masterLifeMax)
         {
-            npc.damage = Main.masterMode ? masterDamage : (Main.expertMode ? expertDamage : classicDamage);
-            npc.lifeMax = Main.masterMode ? masterLifeMax : (Main.expertMode ? expertLifeMax : classicLifeMax);
+            npc.damage = classicDamage;
+            npc.lifeMax = classicLifeMax;
+            if (Main.expertMode)
+            {
+                npc.damage = expertDamage / 2;
+                npc.lifeMax = expertLifeMax / 2;
+
+            }
+            if (Main.masterMode)
+            {
+                npc.damage = masterDamage / 3;
+                npc.lifeMax = masterLifeMax / 3;
+            }
         }
 
-        /// <summary>
-        /// 返回当前难度下的弹幕伤害值
-        /// </summary>
         public static int SetProjectileDamage(int classicDamage, int expertDamage, int masterDamage)
         {
-            if (Main.masterMode) return masterDamage;
-            if (Main.expertMode) return expertDamage;
-            return classicDamage;
+            Projectile projectile = new Projectile();
+            projectile.damage = classicDamage / 2;
+            if (Main.expertMode)
+            {
+                projectile.damage = expertDamage / 4;
+            }
+            if (Main.masterMode)
+            {
+                projectile.damage = masterDamage / 6;
+            }
+            return projectile.damage;
         }
 
         /// <summary>
@@ -63,9 +74,21 @@ namespace TimeDomain.Common
             return result;
         }
 
-        internal static void SetNPCDamageAndLifeMax_InBossFight(NPC nPC, int v1, int v2, int v3, int v4, int v5, int v6)
+        public static void SetNPCDamageAndLifeMax_InBossFight(NPC npc, int classicDamage, int expertDamage, int masterDamage, int classicLifeMax, int expertLifeMax, int masterLifeMax)
         {
-            throw new NotImplementedException();
+            npc.damage = classicDamage;
+            npc.lifeMax = classicLifeMax;
+            if (Main.expertMode)
+            {
+                npc.damage = expertDamage;
+                npc.lifeMax = expertLifeMax;
+
+            }
+            if (Main.masterMode)
+            {
+                npc.damage = masterDamage;
+                npc.lifeMax = masterLifeMax;
+            }
         }
     }
 }

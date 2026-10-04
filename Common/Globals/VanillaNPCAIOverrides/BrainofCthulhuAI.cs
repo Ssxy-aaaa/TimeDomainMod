@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -34,7 +37,6 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 
         static float BrainofCthulhu_range = 0;
         static Vector2 BrainofCthulhu_RO;
-        static Vector2 vcr = Vector2.One;
         static float BrainofCthulhu_rotation;
         static Vector2 BrainofCthulhu_origins;
         static Vector2 BrainofCthulhu_circles;
@@ -112,7 +114,36 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 modifyPlayer.Target = Vector2.Zero;
             }
         }
+        public static void SetScreenPos2(NPC npc)
+        {
+            ScreenPositionModifyPlayer modifyPlayer = player.GetModPlayer<ScreenPositionModifyPlayer>();
+            Vector2 HalfScreen = new Vector2(Main.screenWidth, Main.screenHeight) / 2;
+            if (BossTime <= 250)
+            {
+                if (BossTime <= 230)
+                {
+                    modifyPlayer.IsModifyScreenPosition = true;
+                    modifyPlayer.Target = npc.Center - HalfScreen;
+                }
+                if (BossTime > 230)
+                {
+
+                    Vector2 ToPlayerFromNPC = player.Center - npc.Center;
+                    float b = (BossTime - 230) / 70;
+                    Vector2 CurScreenPos = (npc.Center + ToPlayerFromNPC * b) - HalfScreen;
+
+                    modifyPlayer.IsModifyScreenPosition = true;
+                    modifyPlayer.Target = CurScreenPos;
+                }
+            }
+            else
+            {
+                modifyPlayer.IsModifyScreenPosition = false;
+                modifyPlayer.Target = Vector2.Zero;
+            }
+        }
         public static Player player => Main.player[thisNPC.target];
+        public static bool CanDamagePlayer = true;
         public static bool BuffedAI(NPC npc)
         {
             thisNPC = npc;
@@ -129,6 +160,8 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     int num820 = NPC.NewNPC(npc.GetSource_FromThis(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.Creeper, 0, 0f, 0f, 0f, npc.whoAmI, 255);
                     Main.npc[num820].netUpdate = true;
                 }
+                CreeperPhase2Dis = 105;
+                CanDamagePlayer = true;
             }
             SetDamageAndDefense(npc);
             npc.ai[1]++;
@@ -170,10 +203,10 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     {
                         SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                     }
-                    if (BossTime2 < 180)
+                    if (BossTime2 < 240)
                     {
                         //还好吧，我只是时间比较少
-                        BrainofCthulhu_range = 360 - 2 * BossTime2;
+                        BrainofCthulhu_range = 480 - 2 * BossTime2;
                         float RSpeed = 0.07f;
                         if (BerserkMode)
                             RSpeed = 0.12f;
@@ -184,7 +217,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         BrainofCthulhu_origins = BrainofCthulhu_RO;
                         BrainofCthulhu_circles = BrainofCthulhu_rotation.ToRotationVector2() * BrainofCthulhu_range;
                         BrainofCthulhu_origins += BrainofCthulhu_circles;
-                        npc.velocity = BrainofCthulhu_origins - npc.Center;
+                        npc.velocity = Vector2.Lerp(npc.Center, BrainofCthulhu_origins, 0.2f) - npc.Center;
                     }
                     //旧冲刺
 #if false
@@ -224,113 +257,61 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         }
                     }
 #endif
-                    if (BossTime2 > 180 && BossTime2 < 390)
+                    if (BossTime2 > 240 && BossTime2 < 390)
                     {
                         npc.ai[3] = 1;
-                        if (BossTime2 == 181)
+                        if (BossTime2 == 241)
                         {
-                            int rand = Main.rand.Next(1, 4);
-                            if (rand == 1) { vcr = new Vector2(0, -1); }
-                            if (rand == 2) { vcr = new Vector2(1, 0); }
-                            if (rand == 3) { vcr = new Vector2(0, 1); }
-                            if (rand == 4) { vcr = new Vector2(-1, 0); }
-
-                            vcr *= 800;
+                            Vector2 vcr = (Main.rand.Next(4) * MathHelper.PiOver2).ToRotationVector2() * 800;
                             npc.Center = player.Center + vcr;
-                            npc.velocity = -vcr / 4000;
+                            CanDamagePlayer = false;
                         }
-                        if (BossTime2 == 185)
+                        if (BossTime2 == 245)
                         {
-                            npc.velocity *= 100f;
+                            CanDamagePlayer = true;
+                            npc.velocity = Vector2.Normalize(player.Center - npc.Center) * 20f;
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                         }
-                        if (BossTime2 > 181 && BossTime2 < 200)
+                        if (BossTime2 == 300)
                         {
-                            npc.velocity *= 1.01f;
-                        }
-                        if (BossTime2 > 200 && BossTime2 < 230)
-                        {
-                            npc.velocity *= 0.97f;
-                        }
-                        if (BossTime2 == 230)
-                        {
-                            int rand = Main.rand.Next(1, 4);
-                            if (rand == 1) { vcr = new Vector2(-1, -1); }
-                            if (rand == 2) { vcr = new Vector2(1, -1); }
-                            if (rand == 3) { vcr = new Vector2(1, 1); }
-                            if (rand == 4) { vcr = new Vector2(-1, 1); }
-
-                            vcr *= 100;
-                            npc.velocity = vcr / 1000;
+                            if (Vector2.Distance(player.Center, npc.Center) > 160)
+                            {
+                                Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), npc.Center, Vector2.Normalize(player.Center - npc.Center) * 3, ProjectileID.BloodNautilusShot, npc.damage / 5, 0);
+                                proj.tileCollide = false;
+                                for (int i = 0; i < 3; i++)
+                                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.Normalize(player.Center - npc.Center).RotatedByRandom(MathHelper.Pi / 9f) * 3, ProjectileID.GoldenShowerHostile, 16, 3, player.whoAmI);
+                            }
+                            Vector2 vcr = (Main.rand.Next(4) * MathHelper.PiOver2 + MathHelper.PiOver4).ToRotationVector2() * 20;
+                            npc.velocity = vcr;
                             SoundEngine.PlaySound(SoundID.Roar, npc.Center);
-                        }
-                        if (BossTime2 == 230)
-                        {
-                            npc.velocity *= 100f;
-                        }
-                        if (BossTime2 > 250 && BossTime2 < 260)
-                        {
-                            npc.velocity *= 1.01f;
-                        }
-                        if (BossTime2 > 260 && BossTime2 < 270)
-                        {
-                            npc.velocity *= 0.97f;
                         }
                     }
                     else
                     {
                         npc.ai[3] = 0;
                     }
-                    if (BossTime2 == 270)
+                    if (BossTime2 == 340)
                     {
                         npc.ai[0] = -2;
                         BossTime2 = 0;
                         Vector2 velocity = player.Center - npc.Center;
-                        if (BerserkMode)
+
+                        float Angle = MathHelper.Pi / 18;
+                        for (float r = -Angle * 3; r < Angle * 4; r += Angle)
                         {
-                            if (Main.masterMode)
-                            {
-                                if (Main.getGoodWorld)
-                                {
-                                    float Angle = MathHelper.Pi / 20;
-                                    for (float r = -Angle * 4; r < Angle * 5; r += Angle)
-                                    {
-                                        float r2 = r + velocity.ToRotation();
-                                        Vector2 v = new Vector2((float)Math.Cos(r2), (float)Math.Sin(r2)) * 12f;
-                                        Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, npc.damage / 5, 0);
-                                        proj.tileCollide = false;
-                                    }
-                                }
-                                else
-                                {
-                                    float Angle = MathHelper.Pi / 18;
-                                    for (float r = -Angle * 3; r < Angle * 4; r += Angle)
-                                    {
-                                        float r2 = r + velocity.ToRotation();
-                                        Vector2 v = new Vector2((float)Math.Cos(r2), (float)Math.Sin(r2)) * 12f;
-                                        Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, npc.damage / 5, 0);
-                                        proj.tileCollide = false;
-                                    }
-                                }
-                            }
+                            float r2 = r + velocity.ToRotation();
+                            Vector2 v = new Vector2((float)Math.Cos(r2), (float)Math.Sin(r2)) * 12f;
+                            Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, npc.damage / 5, 0);
+                            proj.tileCollide = false;
                         }
-                        else
-                        {
-                            float Angle = MathHelper.Pi / 18;
-                            for (float r = -Angle * 2; r < Angle * 4; r += Angle)
-                            {
-                                float r2 = r + velocity.ToRotation();
-                                Vector2 v = new Vector2((float)Math.Cos(r2), (float)Math.Sin(r2)) * 10f;
-                                Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, npc.damage / 6, 0);
-                                proj.tileCollide = false;
-                            }
-                        }
+
                         SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                     }
                 }
                 if (npc.ai[0] == -2)
                 {
                     npc.alpha += 5;
+                    npc.velocity *= 0.96f;
                     if (npc.alpha >= 255)
                     {
                         npc.alpha = 255;
@@ -338,7 +319,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         if (Main.rand.Next(0, 1) == 0)
                             a = 1;
                         else
-                            a = -1; 
+                            a = -1;
                         npc.position = Main.player[npc.target].Center + new Vector2(Main.rand.Next(-20, 20), 20 * a) + new Vector2(npc.width / 2, npc.height / 2);
                         npc.ai[0] = -3;
                     }
@@ -347,6 +328,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 if (npc.ai[0] == -3)
                 {
                     npc.alpha -= 5;
+                    npc.velocity *= 0.96f;
                     if (npc.alpha <= 0)
                     {
                         npc.ai[0] = -1;
@@ -372,35 +354,43 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     Phase2 = CreeperCount == 0;
                     if (Phase2)
                     {
-                        npc.ai[0] = -1f;
+                        npc.ai[0] = 3f;
                         ///test
                         //npc.localAI[1] = 0f;
                         ///
                         npc.alpha = 0;
                         npc.netUpdate = true;
+                        BossTime = 0;
                     }
 
 
                     BossTime++;
-                    float num835 = Main.player[npc.target].Center.X - npc.Center.X;
-                    float num836 = Main.player[npc.target].Center.Y - npc.Center.Y;
-                    float num837 = (float)Math.Sqrt((double)(num835 * num835 + num836 * num836));
-                    float num838 = 1f;
-                    if (Main.getGoodWorld)
-                        num838 *= 1.33f;
-                    if (BerserkMode)
-                        num838 *= 1.2f;
-                    num838 *= 3;
-                    if (num837 < num838)
+                    if (BossTime < 80)
                     {
-                        npc.velocity.X = num835;
-                        npc.velocity.Y = num836;
+                        float num835 = Main.player[npc.target].Center.X - npc.Center.X;
+                        float num836 = Main.player[npc.target].Center.Y - npc.Center.Y;
+                        float num837 = (float)Math.Sqrt((double)(num835 * num835 + num836 * num836));
+                        float num838 = 1f;
+                        if (Main.getGoodWorld)
+                            num838 *= 1.33f;
+                        if (BerserkMode)
+                            num838 *= 1.2f;
+                        num838 *= 3;
+                        if (num837 < num838)
+                        {
+                            npc.velocity.X = 0;
+                            npc.velocity.Y = 0;
+                        }
+                        else
+                        {
+                            num837 = num838 / num837;
+                            npc.velocity.X = num835 * num837;
+                            npc.velocity.Y = num836 * num837;
+                        }
                     }
                     else
                     {
-                        num837 = num838 / num837;
-                        npc.velocity.X = num835 * num837;
-                        npc.velocity.Y = num836 * num837;
+                        npc.velocity *= 0.96f;
                     }
                     //if (BossTime < 40)
                     //{
@@ -408,7 +398,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     //}
                     if (BossTime % 80 == 0 && BossTime != 240)
                     {
-                        npc.velocity = Vector2.Normalize(player.Center - npc.Center) * -50f;
+                        npc.velocity = Vector2.Normalize(player.Center - npc.Center) * -5f;
                         for (int i = 0; i < 3; i++)
                             Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.Normalize(player.Center - npc.Center).RotatedByRandom(MathHelper.Pi / 9f) * 3, ProjectileID.GoldenShowerHostile, 16, 3, player.whoAmI);
                     }
@@ -421,7 +411,8 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 if (npc.ai[0] == 1)
                 {
                     BossTime--;
-                    npc.alpha = -5 * (int)BossTime; ;
+                    npc.alpha = -5 * (int)BossTime;
+                    npc.velocity *= 0.99f;
                     if (BossTime <= -51)
                     {
                         int a = Main.rand.Next(2) == 0 ? 1 : -1;
@@ -433,10 +424,47 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 if (npc.ai[0] == 2)
                 {
                     npc.alpha -= 5;
+                    npc.velocity *= 0.99f;
                     if (npc.alpha <= 0)
                     {
                         npc.alpha = 0;
                         npc.ai[0] = 0;
+                    }
+                }
+                if (npc.ai[0] == 3)
+                {
+                    BossTime++;
+
+                    SetScreenPos2(npc);
+                    npc.velocity *= 0.97f;
+                    if (BossTime >= 100 && BossTime <= 205)
+                    {
+                        CreeperPhase2Dis = 205 - BossTime;
+                    }
+                    if (BossTime == 230)
+                    {
+                        for (int i = 0; i < Main.maxNPCs; i++)
+                        {
+                            NPC Creeper = Main.npc[i];
+                            if (Creeper.active && Creeper.type == NPCID.Creeper && Creeper.dontTakeDamage)
+                            {
+                                Creeper.StrikeInstantKill();
+                            }
+                        }
+                    }
+                    if (BossTime == 240)
+                    {
+                        Main.instance.CameraModifiers.Add(new PunchCameraModifier(npc.Center, Main.rand.NextVector2Unit(), 20f, 20f, 60, 2000f));
+                    }
+                    if (BossTime > 230)
+                    {
+                        npc.localAI[0] = 1f;
+                    }
+                    if (BossTime == 300)
+                    {
+                        BossTime = 0;
+                        npc.ai[0] = -1f;
+                        npc.localAI[0] = 0f;
                     }
                 }
             }
@@ -446,6 +474,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             UpdateCreeper(npc);
             return false;
         }
+        public static float CreeperPhase2Dis = 105f;
         public static float CreeperTime = 0;
         public static void UpdateCreeper(NPC npc)
         {
@@ -468,30 +497,40 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 if (Npc.type == NPCID.Creeper && Npc.active)
                 {
                     CurrentCreeperCount++;
-
-                    Vector2 Creeper_circles;
-                    float Creeper_r2;
-                    Creeper_r2 = ((float)CurrentCreeperCount / TotalCreeper) * MathHelper.TwoPi;
-                    Creeper_rotation = CreeperTime * 0.02f + Creeper_r2;
-
-
-                    CreeperO = player.Center;
-                    Creeper_origins = CreeperO;
-                    Creeper_circles = Creeper_rotation.ToRotationVector2() * Creeper_range;
-                    Creeper_origins += Creeper_circles;
-                    Npc.velocity = Vector2.Lerp(Npc.Center, Creeper_origins, 0.1f) - Npc.Center;
-
-                    if (CurrentCreeperCount == TotalCreeper / 3 || CurrentCreeperCount == TotalCreeper / 3 * 2 || CurrentCreeperCount == TotalCreeper)
+                    if (!Npc.dontTakeDamage)
                     {
-                        Npc.color = Color.Yellow;
-                        if (CreeperTime % 180 == 0)
+                        Vector2 Creeper_circles;
+                        float Creeper_r2;
+                        Creeper_r2 = ((float)CurrentCreeperCount / TotalCreeper) * MathHelper.TwoPi;
+                        Creeper_rotation = CreeperTime * 0.02f + Creeper_r2;
+
+
+                        CreeperO = player.Center;
+                        Creeper_origins = CreeperO;
+                        Creeper_circles = Creeper_rotation.ToRotationVector2() * Creeper_range;
+                        Creeper_origins += Creeper_circles;
+                        Npc.velocity = Vector2.Lerp(Npc.Center, Creeper_origins, 0.1f) - Npc.Center;
+
+                        if (CurrentCreeperCount == TotalCreeper / 3 || CurrentCreeperCount == TotalCreeper / 3 * 2 || CurrentCreeperCount == TotalCreeper)
                         {
-                            Projectile.NewProjectile(Npc.GetSource_FromAI(), Npc.Center, Vector2.Normalize(player.Center - Npc.Center) * 2, ProjectileID.GoldenShowerHostile, 15, 3, player.whoAmI);
+                            Npc.color = Color.Yellow;
+                            if (CreeperTime % 180 == 0)
+                            {
+                                Projectile.NewProjectile(Npc.GetSource_FromAI(), Npc.Center, Vector2.Normalize(player.Center - Npc.Center) * 2, ProjectileID.GoldenShowerHostile, 15, 3, player.whoAmI);
+                            }
+                        }
+                        else
+                        {
+                            Npc.color = Color.Transparent;
                         }
                     }
                     else
                     {
-                        Npc.color = Color.Transparent;
+                        Npc.velocity = Vector2.Lerp(Npc.Center, npc.Center + (CurrentCreeperCount / (float)TotalCreeper * MathHelper.TwoPi).ToRotationVector2() * CreeperPhase2Dis, 0.05f + (!npc.dontTakeDamage).ToInt() * 0.3f) - Npc.Center;
+                        if (CreeperTime % 240 == 0)
+                        {
+                            Projectile.NewProjectile(Npc.GetSource_FromAI(), Npc.Center, Vector2.Normalize(player.Center - Npc.Center) * 2, ProjectileID.GoldenShowerHostile, 14, 1, player.whoAmI);
+                        }
                     }
                 }
             }
@@ -501,7 +540,29 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             thisNPC = npc;
             BossTime = BossTime2 = BossTime3 = 0;
         }
+        public static void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                int npcWhoAmI = i;
+                NPC Creeper = Main.npc[npcWhoAmI];
+                if (Creeper.type == NPCID.Creeper && Creeper.active && Creeper.dontTakeDamage)
+                {
+                    Texture2D texture = TextureAssets.FishingLine.Value;
+                    Rectangle frame = texture.Frame();
+                    Vector2 origin = new Vector2(frame.Width / 2, 0);
 
+                    Vector2 diff = Creeper.Center - npc.Center;
+
+                    float rotation = diff.ToRotation() - MathHelper.PiOver2;
+                    Color color = Color.Yellow;
+                    Vector2 scale = new Vector2(1, (diff.Length() + 2) / frame.Height);
+
+                    Main.EntitySpriteDraw(texture, npc.Center - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
+
+                }
+            }
+        }
 
 
 
