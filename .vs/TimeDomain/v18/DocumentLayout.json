@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|d:\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\items\\ammo\\amberarrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\items\\ammo\\amberarrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|d:\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\localization\\zh-hans_mods.timedomain.hjson||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:localization\\zh-hans_mods.timedomain.hjson||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|d:\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\buffs\\spikeslimebuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\buffs\\spikeslimebuff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|d:\\documents\\my games\\terraria\\tmodloader\\modsources\\timedomain\\content\\npcs\\bosses\\primordialslime\\primordialslime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40E2035C-30FB-2F0D-6CC4-2B2A9D3AFDE3}|TimeDomain.csproj|solutionrelative:content\\npcs\\bosses\\primordialslime\\primordialslime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,51 +23,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AmberArrow.cs",
-              "DocumentMoniker": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Items\\Ammo\\AmberArrow.cs",
-              "RelativeDocumentMoniker": "Content\\Items\\Ammo\\AmberArrow.cs",
-              "ToolTip": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Items\\Ammo\\AmberArrow.cs",
-              "RelativeToolTip": "Content\\Items\\Ammo\\AmberArrow.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-26T03:09:28.708Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SpikeSlimeBuff.cs",
-              "DocumentMoniker": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Buffs\\SpikeSlimeBuff.cs",
-              "RelativeDocumentMoniker": "Content\\Buffs\\SpikeSlimeBuff.cs",
-              "ToolTip": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\Buffs\\SpikeSlimeBuff.cs",
-              "RelativeToolTip": "Content\\Buffs\\SpikeSlimeBuff.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-26T02:48:05.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PrimordialSlime.cs",
-              "DocumentMoniker": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
-              "RelativeDocumentMoniker": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
-              "ToolTip": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
-              "RelativeToolTip": "Content\\NPCs\\Bosses\\PrimordialSlime\\PrimordialSlime.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAQwCEAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-25T16:10:16.225Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "zh-Hans_Mods.TimeDomain.hjson",
               "DocumentMoniker": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Localization\\zh-Hans_Mods.TimeDomain.hjson",
               "RelativeDocumentMoniker": "Localization\\zh-Hans_Mods.TimeDomain.hjson",
               "ToolTip": "D:\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TimeDomain\\Localization\\zh-Hans_Mods.TimeDomain.hjson",
               "RelativeToolTip": "Localization\\zh-Hans_Mods.TimeDomain.hjson",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAkwIgAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAkwGMAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2026-09-19T03:10:16.294Z",
               "EditorCaption": ""
