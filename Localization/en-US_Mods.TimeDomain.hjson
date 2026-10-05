@@ -193,6 +193,26 @@ Items: {
 		DisplayName: Pretty Sparkle Particle Test Item
 		Tooltip: ""
 	}
+
+	CopperThrowingKnife: {
+		Tooltip: ""
+		DisplayName: Copper Throwing Knife
+	}
+
+	TinThrowingKnife: {
+		Tooltip: ""
+		DisplayName: Tin Throwing Knife
+	}
+
+	LeadThrowingKnife: {
+		Tooltip: ""
+		DisplayName: Lead Throwing Knife
+	}
+
+	IronThrowingKnife: {
+		Tooltip: ""
+		DisplayName: Iron Throwing Knife
+	}
 }
 
 Buffs: {
@@ -204,6 +224,11 @@ Buffs: {
 	OpticNeuronBuff: {
 		Description: Mods.TimeDomain.Buffs.OpticNeuronBuff.Description
 		DisplayName: Optic Neuron Buff
+	}
+
+	TetanusBuff: {
+		Description: Mods.TimeDomain.Buffs.TetanusBuff.Description
+		DisplayName: Tetanus Buff
 	}
 }
 
@@ -246,4 +271,8 @@ Projectiles: {
 	ShimmerBulletProj.DisplayName: Shimmer Bullet Proj
 	SlimeSpike.DisplayName: Slime Spike
 	SpikeSlimeMinion.DisplayName: Spike Slime Minion
+	CopperThrowingKnifeProj.DisplayName: Copper Throwing Knife Proj
+	TinThrowingKnifeProj.DisplayName: Tin Throwing Knife Proj
+	LeadThrowingKnifeProj.DisplayName: Lead Throwing Knife Proj
+	IronThrowingKnifeProj.DisplayName: Iron Throwing Knife Proj
 }
