@@ -26,6 +26,11 @@ namespace TimeDomain.Common.Globals
                 npc.damage = 45;
                 npc.lifeMax = 1800;
             }
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                npc.damage *= 2;
+                npc.lifeMax = (int)(npc.lifeMax * 1.45f);
+            }
             if (npc.type == NPCID.KingSlime)
             {
                 npc.lifeMax = (int)(npc.lifeMax * 1.2f);
@@ -74,6 +79,11 @@ namespace TimeDomain.Common.Globals
             if (npc.type == NPCID.KingSlime)
             {
                 KingSlimeAI.ChangeVanillaAI(npc);
+                return false;
+            }
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                EyeOfCthulhuAI.ChangeVanillaAI(npc);
                 return false;
             }
             if (npc.type == NPCID.WallofFlesh)

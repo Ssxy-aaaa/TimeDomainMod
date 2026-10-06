@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TimeDomain.Content.Items.Weapons.Common;
@@ -93,8 +94,33 @@ namespace TimeDomain.Common.Globals
                         dust42.position = projectile.oldPos[num164] + projectile.Size / 2f + Main.rand.NextFloat() * projectile.velocity * 2f;
                     }
                 }
+                projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
+                return false;
             }
             return base.PreAI(projectile);
+        }
+        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
+        {
+            if (projectile.type == ProjectileID.DeathLaser)
+            {
+                if (ChangeAI == 1)
+                {
+                    target.AddBuff(BuffID.Darkness, 180);
+                }
+            }
+        }
+        public override bool InstancePerEntity => true;
+        int ChangeAI = 0;
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            ChangeAI = 0;
+            if (projectile.type == ProjectileID.DeathLaser)
+            {
+                if (projectile.ai[0] == NPCID.EyeofCthulhu)
+                {
+                    ChangeAI = 1;
+                }
+            }
         }
         public override void OnHitNPC(Projectile projectile, NPC npc, NPC.HitInfo hit, int damageDone)
         {

@@ -484,7 +484,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 npc.TargetClosest(true);
                 if (player.dead || Vector2.Distance(npc.Center, player.Center) > (float)KingSlimeDistanceMax)
                 {
-                    npc.EncourageDespawn(10);
+                    //npc.EncourageDespawn(10);
                     if (player.Center.X < npc.Center.X)
                     {
                         npc.direction = 1;

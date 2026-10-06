@@ -1,5 +1,8 @@
-﻿using System;
+﻿using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,8 +13,16 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
     {
         public static NPC thisNPC = null;
         public static Player player => Main.player[thisNPC.target];
+        public static float Acceleration
+            => (Main.expertMode ? 0.15f : 0.04f) + Main.getGoodWorld.ToInt() * 0.05f + Main.IsItDay().ToInt() * 0.1f;
+        public static float MaxSpeed
+            => (Main.expertMode ? 8f : 6f) + Main.getGoodWorld.ToInt() * 2f + 10f + Main.IsItDay().ToInt() * 7f;
+        static int randC = 0;
+        public static bool Phase3 = false;
         public static void ChangeVanillaAI(NPC npc)
         {
+            thisNPC = npc;
+            npc.TargetClosest(true);
             bool flag2 = Main.expertMode && (double)npc.life < (double)npc.lifeMax * 0.12;
             bool flag3 = Main.expertMode && (double)npc.life < (double)npc.lifeMax * 0.04;
             float num4 = 20f;
@@ -113,82 +124,87 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 Main.dust[num9].velocity.Y *= 0.1f;
             }
             npc.reflectsProjectiles = false;
-            if (Main.IsItDay() || dead)
+            if (/*Main.IsItDay() || */dead)
             {
-                npc.velocity.Y -= 0.04f;
-                npc.EncourageDespawn(10);
-                return;
+                npc.TargetClosest(true);
+                
+                //npc.velocity.Y -= 0.04f;
+                //npc.EncourageDespawn(10);
+                //return;
             }
             if (npc.ai[0] == 0f)
             {
                 if (npc.ai[1] == 0f)
                 {
+                    if (npc.ai[2] == 0)
+                        randC = Main.rand.Next(2);
                     //克眼最大速度
-                    float MaxSpeed = Main.expertMode ? 7f : 5f;
+                    float maxSpeed = MaxSpeed;
                     //克眼的加速度
-                    float Acceleration = Main.expertMode ? 0.15f : 0.04f;
-                    if (Main.getGoodWorld)
-                    {
-                        Acceleration += 0.05f;
-                        MaxSpeed += 1f;
-                    }
+                    float acceleration = Acceleration;
+                    //if (Main.getGoodWorld)
+                    //{
+                    //    acceleration += 0.05f;
+                    //    maxSpeed += 1f;
+                    //}
+                    if (randC == 0) randC = -1;
                     Vector2 vector = npc.Center;
-                    Vector2 ToPlayerBottom = player.Center - vector - Vector2.UnitY * 200;
+                    Vector2 ToPlayerBottom = player.Center - vector - Vector2.UnitY * 300 + Vector2.UnitX * 300 * randC;
                     float num15 = ToPlayerBottom.Length();
                     ToPlayerBottom /= ToPlayerBottom.Length();
-                    ToPlayerBottom *= MaxSpeed;
+                    ToPlayerBottom *= maxSpeed;
                     if (true)
                     {
                         if (npc.velocity.X < ToPlayerBottom.X)
                         {
-                            npc.velocity.X += Acceleration;
+                            npc.velocity.X += acceleration;
                             if (npc.velocity.X < 0f && ToPlayerBottom.X > 0f)
                             {
-                                npc.velocity.X += Acceleration;
+                                npc.velocity.X += acceleration;
                             }
                         }
                         else if (npc.velocity.X > ToPlayerBottom.X)
                         {
-                            npc.velocity.X -= Acceleration;
+                            npc.velocity.X -= acceleration;
                             if (npc.velocity.X > 0f && ToPlayerBottom.X < 0f)
                             {
-                                npc.velocity.X -= Acceleration;
+                                npc.velocity.X -= acceleration;
                             }
                         }
                         if (npc.velocity.Y < ToPlayerBottom.Y)
                         {
-                            npc.velocity.Y += Acceleration;
+                            npc.velocity.Y += acceleration;
                             if (npc.velocity.Y < 0f && ToPlayerBottom.Y > 0f)
                             {
-                                npc.velocity.Y += Acceleration;
+                                npc.velocity.Y += acceleration;
                             }
                         }
                         else if (npc.velocity.Y > ToPlayerBottom.Y)
                         {
-                            npc.velocity.Y -= Acceleration;
+                            npc.velocity.Y -= acceleration;
                             if (npc.velocity.Y > 0f && ToPlayerBottom.Y < 0f)
                             {
-                                npc.velocity.Y -= Acceleration;
+                                npc.velocity.Y -= acceleration;
                             }
                         }
                     }
                     else if (false)
                     {
-                        npc.velocity.X += (npc.velocity.X < ToPlayerBottom.X).ToInt() * Acceleration;
-                        npc.velocity.X += (npc.velocity.X < 0f && ToPlayerBottom.X > 0f).ToInt() * Acceleration;
+                        npc.velocity.X += (npc.velocity.X < ToPlayerBottom.X).ToInt() * acceleration;
+                        npc.velocity.X += (npc.velocity.X < 0f && ToPlayerBottom.X > 0f).ToInt() * acceleration;
 
-                        npc.velocity.X -= (npc.velocity.X > ToPlayerBottom.X).ToInt() * Acceleration;
-                        npc.velocity.X -= (npc.velocity.X > 0f && ToPlayerBottom.X < 0f).ToInt() * Acceleration;
+                        npc.velocity.X -= (npc.velocity.X > ToPlayerBottom.X).ToInt() * acceleration;
+                        npc.velocity.X -= (npc.velocity.X > 0f && ToPlayerBottom.X < 0f).ToInt() * acceleration;
 
-                        npc.velocity.Y += (npc.velocity.Y < ToPlayerBottom.Y).ToInt() * Acceleration;
-                        npc.velocity.Y += (npc.velocity.Y < 0f && ToPlayerBottom.Y > 0f).ToInt() * Acceleration;
+                        npc.velocity.Y += (npc.velocity.Y < ToPlayerBottom.Y).ToInt() * acceleration;
+                        npc.velocity.Y += (npc.velocity.Y < 0f && ToPlayerBottom.Y > 0f).ToInt() * acceleration;
 
-                        npc.velocity.Y -= (npc.velocity.Y > ToPlayerBottom.Y).ToInt() * Acceleration;
-                        npc.velocity.Y -= (npc.velocity.Y > 0f && ToPlayerBottom.Y < 0f).ToInt() * Acceleration;
+                        npc.velocity.Y -= (npc.velocity.Y > ToPlayerBottom.Y).ToInt() * acceleration;
+                        npc.velocity.Y -= (npc.velocity.Y > 0f && ToPlayerBottom.Y < 0f).ToInt() * acceleration;
                     }
                     else
                     {
-                        npc.velocity += ToPlayerBottom * Acceleration;
+                        npc.velocity += ToPlayerBottom * acceleration;
                     }
                     npc.ai[2] += 1f;
                     float Time = 600f;
@@ -210,42 +226,31 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         {
                             npc.ai[3] += 1f;
                         }
-                        float num17 = 110f;
-                        if (Main.expertMode)
-                        {
-                            num17 *= 0.4f;
-                        }
-                        if (Main.getGoodWorld)
-                        {
-                            num17 *= 0.8f;
-                        }
-                        if (npc.ai[3] >= num17)
+                        float tick = Main.expertMode ? 32f : 80f;//110f;
+                        if (Main.getGoodWorld) tick *= 0.8f;
+                        if (npc.ai[3] >= tick)
                         {
                             npc.ai[3] = 0f;
                             npc.rotation = num7;
-                            float num18 = 5f;
-                            if (Main.expertMode)
-                            {
-                                num18 = 6f;
-                            }
-                            float num19 = player.position.X + (float)(player.width / 2) - vector.X;
-                            float num20 = player.position.Y + (float)(player.height / 2) - vector.Y;
-                            float num21 = (float)Math.Sqrt((double)(num19 * num19 + num20 * num20));
-                            num21 = num18 / num21;
+                            Vector2 ToPlayer = player.Center - npc.Center;
+                            float ToPlayerLength = ToPlayer.Length();
+                            ToPlayer.Normalize();
                             Vector2 vector2 = vector;
                             Vector2 vector3 = default(Vector2);
-                            vector3.X = num19 * num21;
-                            vector3.Y = num20 * num21;
+                            vector3 = vector * MaxSpeed;
                             vector2.X += vector3.X * 10f;
                             vector2.Y += vector3.Y * 10f;
                             if (Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                int num22 = NPC.NewNPC(npc.GetSource_FromAI(), (int)vector2.X, (int)vector2.Y, NPCID.ServantofCthulhu, 0, 0f, 0f, 0f, 0f, 255);
-                                Main.npc[num22].velocity.X = vector3.X;
-                                Main.npc[num22].velocity.Y = vector3.Y;
-                                if (Main.netMode == NetmodeID.Server && num22 < 200)
+                                for (int i = 0; i < 3; i++)
                                 {
-                                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num22, 0f, 0f, 0f, 0, 0, 0);
+                                    int num22 = NPC.NewNPC(npc.GetSource_FromAI(), (int)vector2.X, (int)vector2.Y, NPCID.ServantofCthulhu, 0, 0f, 0f, 0f, 0f, 255);
+                                    Main.npc[num22].velocity.X = vector3.X;
+                                    Main.npc[num22].velocity.Y = vector3.Y;
+                                    if (Main.netMode == NetmodeID.Server && num22 < 200)
+                                    {
+                                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num22, 0f, 0f, 0f, 0, 0, 0);
+                                    }
                                 }
                             }
                             SoundEngine.PlaySound(SoundID.NPCHit1, vector2);
@@ -261,14 +266,14 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 else if (npc.ai[1] == 1f)
                 {
                     npc.rotation = num7;
-                    float Speed = Main.expertMode ? 7f : 6f;
-                    if (Main.getGoodWorld)
-                    {
-                        Speed += 1f;
-                    }
+                    //float Speed = Main.expertMode ? 7f : 6f;
+                    //if (Main.getGoodWorld)
+                    //{
+                    //    Speed += 1f;
+                    //}
                     Vector2 ToPlayer = player.Center - npc.Center;
                     ToPlayer /= ToPlayer.Length();
-                    ToPlayer *= Speed;
+                    ToPlayer *= MaxSpeed;
                     npc.velocity = ToPlayer;
                     npc.ai[1] = 2f;
                     npc.netUpdate = true;
@@ -293,13 +298,43 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     {
                         npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) - 1.57f;
                     }
+                    if (Main.IsItDay())
+                    {
+                        if (npc.ai[2] % 40 == 0)
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                Vector2 v = ((player.Center - npc.Center).ToRotation() + ((i - 2) * MathHelper.PiOver4 / 3f)).ToRotationVector2();
+                                v.Normalize();
+                                v *= 7f;
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, 18, 0, player.whoAmI, NPCID.EyeofCthulhu);
+                            }
+                        }
+                    }
                     int Time = Main.expertMode ? 100 : 150;
                     if (Main.getGoodWorld)
                     {
                         Time -= 15;
                     }
+                    Time /= 2;
                     if (npc.ai[2] >= Time)
                     {
+                        Vector2 v = player.Center - npc.Center;
+                        v.Normalize();
+                        v *= 7f;
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.DeathLaser, 18, 0, player.whoAmI, NPCID.EyeofCthulhu);
+                        if (Main.IsItDay())
+                        {
+                            for (int i = 0; i < 8; i++)
+                            {
+                                float ro = MathHelper.TwoPi / 8f * i;
+                                Vector2 c = npc.Center + ro.ToRotationVector2() * 40;
+                                v = player.Center - c;
+                                v.Normalize();
+                                v *= 7f;
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), c, v, ProjectileID.DeathLaser, 18, 0, player.whoAmI, NPCID.EyeofCthulhu);
+                            }
+                        }
                         npc.ai[3] += 1f;
                         npc.ai[2] = 0f;
                         npc.target = 255;
@@ -332,9 +367,8 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                         npc.netSpam = 10;
                     }
                 }
-                return;
             }
-            //二阶段
+            //二阶段转阶段
             if (npc.ai[0] == 1f || npc.ai[0] == 2f)
             {
                 if (npc.ai[0] == 1f || npc.ai[3] == 1f)
@@ -359,14 +393,14 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 {
                     npc.reflectsProjectiles = true;
                 }
-                int num29 = 20;
+                int TimeInterval = 15;
                 if (Main.getGoodWorld && npc.life < npc.lifeMax / 3)
                 {
-                    num29 = 10;
+                    TimeInterval = 7;
                 }
-                if (Main.expertMode && npc.ai[1] % (float)num29 == 0f)
+                if (Main.expertMode && npc.ai[1] % (float)TimeInterval == 0f)
                 {
-                    float Speed = 5f;
+                    float Speed = MaxSpeed;
                     Vector2 vector5 = npc.Center;
                     Vector2 v = new Vector2(Main.rand.Next(-200, 200), Main.rand.Next(-200, 200));
                     float length = v.Length();
@@ -439,440 +473,826 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 {
                     npc.velocity.Y = 0f;
                 }
-                return;
             }
-            npc.defense = 0;
-            int num37 = 23;
-            int num38 = 18;
-            if (Main.expertMode)
+            //二阶段
+            if (npc.ai[0] == 3)
             {
-                if (flag2)
+                npc.defense = 0;
+                int normalDamage = 40;
+                int expertDamage = 75;
+                if (Main.expertMode)
                 {
-                    npc.defense = -15;
-                }
-                if (flag3)
-                {
-                    num38 = 20;
-                    npc.defense = -30;
-                }
-            }
-            npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues((float)num37, (float)num38);
-            npc.damage = npc.GetAttackDamage_ScaledByStrength((float)npc.damage);
-            if (npc.ai[1] == 0f && flag2)
-            {
-                npc.ai[1] = 5f;
-            }
-            if (npc.ai[1] == 0f)
-            {
-                float num39 = 6f;
-                float num40 = 0.07f;
-                Vector2 vector8 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                float num41 = player.position.X + (float)(player.width / 2) - vector8.X;
-                float num42 = player.position.Y + (float)(player.height / 2) - 120f - vector8.Y;
-                float num43 = (float)Math.Sqrt((double)(num41 * num41 + num42 * num42));
-                if (num43 > 400f && Main.expertMode)
-                {
-                    num39 += 1f;
-                    num40 += 0.05f;
-                    if (num43 > 600f)
+                    if (flag2)
                     {
-                        num39 += 1f;
-                        num40 += 0.05f;
-                        if (num43 > 800f)
+                        npc.defense = -15;
+                    }
+                    if (flag3)
+                    {
+                        expertDamage = 100;
+                        npc.defense = -30;
+                    }
+                }
+                npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues((float)normalDamage, (float)expertDamage);
+                npc.damage = npc.GetAttackDamage_ScaledByStrength((float)npc.damage);
+                if (npc.ai[1] == 0f && flag2)
+                {
+                    npc.ai[1] = 5f;
+                }
+                if (npc.ai[1] == 0f)
+                {
+                    if (npc.ai[2] == 0)
+                    {
+                        randC = Main.rand.Next(-1, 1);
+                    }
+                    Vector2 v = player.Center - npc.Center;
+                    v.Y += 150f * randC;
+                    v.X += 480f * randC;
+                    float num43 = v.Length();
+                    v.Normalize();
+                    v *= MaxSpeed;
+                    if (npc.velocity.X < v.X)
+                    {
+                        npc.velocity.X += Acceleration;
+                        if (npc.velocity.X < 0f && v.X > 0f)
                         {
-                            num39 += 1f;
-                            num40 += 0.05f;
+                            npc.velocity.X += Acceleration;
                         }
                     }
-                }
-                if (Main.getGoodWorld)
-                {
-                    num39 += 1f;
-                    num40 += 0.1f;
-                }
-                num43 = num39 / num43;
-                num41 *= num43;
-                num42 *= num43;
-                if (npc.velocity.X < num41)
-                {
-                    npc.velocity.X += num40;
-                    if (npc.velocity.X < 0f && num41 > 0f)
+                    else if (npc.velocity.X > v.X)
                     {
-                        npc.velocity.X += num40;
+                        npc.velocity.X -= Acceleration;
+                        if (npc.velocity.X > 0f && v.X < 0f)
+                        {
+                            npc.velocity.X -= Acceleration;
+                        }
                     }
-                }
-                else if (npc.velocity.X > num41)
-                {
-                    npc.velocity.X -= num40;
-                    if (npc.velocity.X > 0f && num41 < 0f)
+                    if (npc.velocity.Y < v.Y)
                     {
-                        npc.velocity.X -= num40;
+                        npc.velocity.Y += Acceleration;
+                        if (npc.velocity.Y < 0f && v.Y > 0f)
+                        {
+                            npc.velocity.Y += Acceleration;
+                        }
                     }
-                }
-                if (npc.velocity.Y < num42)
-                {
-                    npc.velocity.Y += num40;
-                    if (npc.velocity.Y < 0f && num42 > 0f)
+                    else if (npc.velocity.Y > v.Y)
                     {
-                        npc.velocity.Y += num40;
+                        npc.velocity.Y -= Acceleration;
+                        if (npc.velocity.Y > 0f && v.Y < 0f)
+                        {
+                            npc.velocity.Y -= Acceleration;
+                        }
                     }
-                }
-                else if (npc.velocity.Y > num42)
-                {
-                    npc.velocity.Y -= num40;
-                    if (npc.velocity.Y > 0f && num42 < 0f)
+                    npc.ai[2] += 1f;
+                    if (npc.ai[2] >= 200f)
                     {
-                        npc.velocity.Y -= num40;
-                    }
-                }
-                npc.ai[2] += 1f;
-                if (npc.ai[2] >= 200f)
-                {
-                    npc.ai[1] = 1f;
-                    npc.ai[2] = 0f;
-                    npc.ai[3] = 0f;
-                    if (Main.expertMode && (double)npc.life < (double)npc.lifeMax * 0.35)
-                    {
-                        npc.ai[1] = 3f;
-                    }
-                    npc.target = 255;
-                    npc.netUpdate = true;
-                }
-                if (Main.expertMode && flag3)
-                {
-                    npc.TargetClosest(true);
-                    npc.netUpdate = true;
-                    npc.ai[1] = 3f;
-                    npc.ai[2] = 0f;
-                    npc.ai[3] -= 1000f;
-                }
-            }
-            else if (npc.ai[1] == 1f)
-            {
-                SoundEngine.PlaySound(SoundID.ForceRoar, npc.position);
-                npc.rotation = num7;
-                float num44 = 6.8f;
-                if (Main.expertMode && npc.ai[3] == 1f)
-                {
-                    num44 *= 1.15f;
-                }
-                if (Main.expertMode && npc.ai[3] == 2f)
-                {
-                    num44 *= 1.3f;
-                }
-                if (Main.getGoodWorld)
-                {
-                    num44 *= 1.2f;
-                }
-                Vector2 vector9 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                float num45 = player.position.X + (float)(player.width / 2) - vector9.X;
-                float num46 = player.position.Y + (float)(player.height / 2) - vector9.Y;
-                float num47 = (float)Math.Sqrt((double)(num45 * num45 + num46 * num46));
-                num47 = num44 / num47;
-                npc.velocity.X = num45 * num47;
-                npc.velocity.Y = num46 * num47;
-                npc.ai[1] = 2f;
-                npc.netUpdate = true;
-                if (npc.netSpam > 10)
-                {
-                    npc.netSpam = 10;
-                }
-            }
-            else if (npc.ai[1] == 2f)
-            {
-                float num48 = 40f;
-                npc.ai[2] += 1f;
-                if (Main.expertMode)
-                {
-                    num48 = 50f;
-                }
-                if (npc.ai[2] >= num48)
-                {
-                    npc.velocity *= 0.97f;
-                    if (Main.expertMode)
-                    {
-                        npc.velocity *= 0.98f;
-                    }
-                    if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
-                    {
-                        npc.velocity.X = 0f;
-                    }
-                    if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
-                    {
-                        npc.velocity.Y = 0f;
-                    }
-                }
-                else
-                {
-                    npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) - 1.57f;
-                }
-                int num49 = 130;
-                if (Main.expertMode)
-                {
-                    num49 = 90;
-                }
-                if (npc.ai[2] >= (float)num49)
-                {
-                    npc.ai[3] += 1f;
-                    npc.ai[2] = 0f;
-                    npc.target = 255;
-                    npc.rotation = num7;
-                    if (npc.ai[3] >= 3f)
-                    {
-                        npc.ai[1] = 0f;
+                        npc.ai[1] = 1f;
+                        npc.ai[2] = 0f;
                         npc.ai[3] = 0f;
-                        if (Main.expertMode && Main.netMode != NetmodeID.MultiplayerClient && (double)npc.life < (double)npc.lifeMax * 0.5)
+                        if (Main.expertMode && (double)npc.life < (double)npc.lifeMax * 0.35)
                         {
                             npc.ai[1] = 3f;
+                        }
+                        npc.target = 255;
+                        npc.netUpdate = true;
+                    }
+                    if (Main.expertMode && flag3)
+                    {
+                        npc.TargetClosest(true);
+                        npc.netUpdate = true;
+                        npc.ai[1] = 3f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] -= 1000f;
+                    }
+                }
+                else if (npc.ai[1] == 1f)
+                {
+                    SoundEngine.PlaySound(SoundID.ForceRoar, npc.position);
+                    npc.rotation = num7;
+                    float speed = MaxSpeed;
+                    if (Main.expertMode && npc.ai[3] == 1f)
+                    {
+                        speed *= 1.15f;
+                    }
+                    if (Main.expertMode && npc.ai[3] == 2f)
+                    {
+                        speed *= 1.3f;
+                    }
+                    if (Main.getGoodWorld)
+                    {
+                        speed *= 1.2f;
+                    }
+                    Vector2 v = player.Center - npc.Center;
+                    v.Normalize();
+                    v *= speed;
+                    npc.velocity = v;
+                    npc.ai[1] = 2f;
+                    npc.netUpdate = true;
+                    if (npc.netSpam > 10)
+                    {
+                        npc.netSpam = 10;
+                    }
+                }
+                else if (npc.ai[1] == 2f)
+                {
+                    float tick = 40f;
+                    npc.ai[2] += 1f;
+                    if (Main.expertMode)
+                    {
+                        tick = 50f;
+                    }
+                    if (npc.ai[2] >= tick)
+                    {
+                        npc.velocity *= 0.97f;
+                        if (Main.expertMode)
+                        {
+                            npc.velocity *= 0.98f;
+                        }
+                        if (npc.velocity.X > -0.1 && npc.velocity.X < 0.1)
+                        {
+                            npc.velocity.X = 0f;
+                        }
+                        if (npc.velocity.Y > -0.1 && npc.velocity.Y < 0.1)
+                        {
+                            npc.velocity.Y = 0f;
+                        }
+                    }
+                    else
+                    {
+                        npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) - 1.57f;
+                    }
+                    int Time = Main.expertMode ? 90 : 130;
+                    if (npc.ai[2] >= Time)
+                    {
+                        npc.ai[3] += 1f;
+                        npc.ai[2] = 0f;
+                        npc.target = 255;
+                        npc.rotation = num7;
+                        if (npc.ai[3] >= 3f)
+                        {
+                            npc.ai[1] = 0f;
+                            npc.ai[3] = 0f;
+                            if (Main.expertMode && Main.netMode != NetmodeID.MultiplayerClient && npc.life < npc.lifeMax * 0.5)
+                            {
+                                //Change
+                                npc.ai[1] = 6f;//3f;
+                                               //npc.ai[3] += (float)Main.rand.Next(1, 4);
+                                npc.ai[2] = 0f;
+                                npc.ai[3] = 0f;
+                            }
+                            npc.netUpdate = true;
+                            if (npc.netSpam > 10)
+                            {
+                                npc.netSpam = 10;
+                            }
+                        }
+                        else
+                        {
+                            npc.ai[1] = 1f;
+                        }
+                    }
+                }
+                else if (npc.ai[1] == 6f)
+                {
+                    npc.ai[2]++;
+                    npc.velocity *= 0.96f;
+                    int Time = 80;
+                    npc.rotation = (player.Center - npc.Center).ToRotation() - MathHelper.PiOver2;
+                    if (npc.ai[2] >= Time)
+                    {
+                        npc.velocity = Vector2.Normalize(player.Center - npc.Center) * -7f;
+                        for (int j = 0; j < Main.rand.Next(5, 7); j++)
+                        {
+                            Vector2 v = ((player.Center - npc.Center).ToRotation()/* + MathHelper.PiOver4*/).ToRotationVector2().RotatedByRandom(MathHelper.PiOver4) * Main.rand.Next(6, 10);
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, 18, 0, player.whoAmI);
+                        }
+                        for (int j = 0; j < Main.rand.Next(2, 3); j++)
+                        {
+                            Vector2 ToPlayer = player.Center - npc.Center;
+                            ToPlayer.Normalize();
+                            ToPlayer *= 7f;
+                            int num22 = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu, 0, 0f, 0f, 0f, 0f, 255);
+                            Main.npc[num22].velocity.X = ToPlayer.X;
+                            Main.npc[num22].velocity.Y = ToPlayer.Y;
+                            if (Main.netMode == NetmodeID.Server && num22 < 200)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num22, 0f, 0f, 0f, 0, 0, 0);
+                            }
+                        }
+                        npc.ai[2] = 0f;
+                        npc.ai[3]++;
+                        if (npc.ai[3] >= 2)
+                        {
+                            npc.ai[1] = 7f;//3f;
+                            npc.ai[2] = 0f;
+                            npc.ai[3] = 0f;
                             npc.ai[3] += (float)Main.rand.Next(1, 4);
                         }
+                    }
+                }
+                else if (npc.ai[1] == 7f)
+                {
+                    npc.ai[2]++;
+                    npc.rotation += 0.15f;
+                    npc.velocity *= 0.96f;
+                    npc.dontTakeDamage = true;
+                    if (npc.ai[2] % 10 == 0)
+                    {
+                        npc.ai[3]++;
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 8f, ProjectileID.BloodNautilusShot, 18, 0, player.whoAmI);
+                    }
+                    if (npc.ai[3] >= 20)
+                    {
+                        npc.dontTakeDamage = false;
+                        npc.ai[1] = 3f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] = 0f;
+                        npc.ai[3] += (float)Main.rand.Next(1, 4);
+                    }
+                }
+                else if (npc.ai[1] == 3f)
+                {
+                    if (npc.ai[3] == 4f && flag2 && npc.Center.Y > player.Center.Y)
+                    {
+                        npc.TargetClosest(true);
+                        npc.ai[1] = 0f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] = 0f;
                         npc.netUpdate = true;
                         if (npc.netSpam > 10)
                         {
                             npc.netSpam = 10;
                         }
                     }
-                    else
+                    else if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        npc.ai[1] = 1f;
-                    }
-                }
-            }
-            else if (npc.ai[1] == 3f)
-            {
-                if (npc.ai[3] == 4f && flag2 && npc.Center.Y > player.Center.Y)
-                {
-                    npc.TargetClosest(true);
-                    npc.ai[1] = 0f;
-                    npc.ai[2] = 0f;
-                    npc.ai[3] = 0f;
-                    npc.netUpdate = true;
-                    if (npc.netSpam > 10)
-                    {
-                        npc.netSpam = 10;
-                    }
-                }
-                else if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    npc.TargetClosest(true);
-                    float num50 = 20f;
-                    Vector2 vector10 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                    float num51 = player.position.X + (float)(player.width / 2) - vector10.X;
-                    float num52 = player.position.Y + (float)(player.height / 2) - vector10.Y;
-                    float num53 = Math.Abs(player.velocity.X) + Math.Abs(player.velocity.Y) / 4f;
-                    num53 += 10f - num53;
-                    if (num53 < 5f)
-                    {
-                        num53 = 5f;
-                    }
-                    if (num53 > 15f)
-                    {
-                        num53 = 15f;
-                    }
-                    if (npc.ai[2] == -1f && !flag3)
-                    {
-                        num53 *= 4f;
-                        num50 *= 1.3f;
-                    }
-                    if (flag3)
-                    {
-                        num53 *= 2f;
-                    }
-                    num51 -= player.velocity.X * num53;
-                    num52 -= player.velocity.Y * num53 / 4f;
-                    num51 *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
-                    num52 *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
-                    if (flag3)
-                    {
-                        num51 *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
-                        num52 *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
-                    }
-                    float num54 = (float)Math.Sqrt((double)(num51 * num51 + num52 * num52));
-                    float num55 = num54;
-                    num54 = num50 / num54;
-                    npc.velocity.X = num51 * num54;
-                    npc.velocity.Y = num52 * num54;
-                    npc.velocity.X += (float)Main.rand.Next(-20, 21) * 0.1f;
-                    npc.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.1f;
-                    if (flag3)
-                    {
-                        npc.velocity.X += (float)Main.rand.Next(-50, 51) * 0.1f;
-                        npc.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.1f;
-                        float num56 = Math.Abs(npc.velocity.X);
-                        float num57 = Math.Abs(npc.velocity.Y);
-                        if (npc.Center.X > player.Center.X)
+                        npc.TargetClosest(true);
+                        float num50 = 20f;
+                        Vector2 v = player.Center - npc.Center;
+                        float num53 = Math.Abs(player.velocity.X) + Math.Abs(player.velocity.Y) / 4f;
+                        num53 += 10f - num53;
+                        if (num53 < 5f)
                         {
-                            num57 *= -1f;
+                            num53 = 5f;
                         }
-                        if (npc.Center.Y > player.Center.Y)
+                        if (num53 > 15f)
                         {
-                            num56 *= -1f;
+                            num53 = 15f;
                         }
-                        npc.velocity.X = num57 + npc.velocity.X;
-                        npc.velocity.Y = num56 + npc.velocity.Y;
-                        npc.velocity.Normalize();
-                        npc.velocity *= num50;
+                        if (npc.ai[2] == -1f && !flag3)
+                        {
+                            num53 *= 4f;
+                            num50 *= 1.3f;
+                        }
+                        if (flag3)
+                        {
+                            num53 *= 2f;
+                        }
+                        v.X -= player.velocity.X * num53;
+                        v.Y -= player.velocity.Y * num53 / 4f;
+                        v.X *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                        v.Y *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                        if (flag3)
+                        {
+                            v.X *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                            v.Y *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                        }
+                        float num54 = v.Length();
+                        float num55 = num54;
+                        num54 = num50 / num54;
+                        npc.velocity.X = v.X * num54;
+                        npc.velocity.Y = v.Y * num54;
                         npc.velocity.X += (float)Main.rand.Next(-20, 21) * 0.1f;
                         npc.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.1f;
-                    }
-                    else if (num55 < 100f)
-                    {
-                        if (Math.Abs(npc.velocity.X) > Math.Abs(npc.velocity.Y))
+                        if (flag3)
                         {
-                            float num58 = Math.Abs(npc.velocity.X);
-                            float num59 = Math.Abs(npc.velocity.Y);
+                            npc.velocity.X += (float)Main.rand.Next(-50, 51) * 0.1f;
+                            npc.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.1f;
+                            float num56 = Math.Abs(npc.velocity.X);
+                            float num57 = Math.Abs(npc.velocity.Y);
                             if (npc.Center.X > player.Center.X)
                             {
-                                num59 *= -1f;
+                                num57 *= -1f;
                             }
                             if (npc.Center.Y > player.Center.Y)
                             {
-                                num58 *= -1f;
+                                num56 *= -1f;
                             }
-                            npc.velocity.X = num59;
-                            npc.velocity.Y = num58;
+                            npc.velocity.X = num57 + npc.velocity.X;
+                            npc.velocity.Y = num56 + npc.velocity.Y;
+                            npc.velocity.Normalize();
+                            npc.velocity *= num50;
+                            npc.velocity.X += (float)Main.rand.Next(-20, 21) * 0.1f;
+                            npc.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.1f;
+                        }
+                        else if (num55 < 100f)
+                        {
+                            if (Math.Abs(npc.velocity.X) > Math.Abs(npc.velocity.Y))
+                            {
+                                float num58 = Math.Abs(npc.velocity.X);
+                                float num59 = Math.Abs(npc.velocity.Y);
+                                if (npc.Center.X > player.Center.X)
+                                {
+                                    num59 *= -1f;
+                                }
+                                if (npc.Center.Y > player.Center.Y)
+                                {
+                                    num58 *= -1f;
+                                }
+                                npc.velocity.X = num59;
+                                npc.velocity.Y = num58;
+                            }
+                        }
+                        else if (Math.Abs(npc.velocity.X) > Math.Abs(npc.velocity.Y))
+                        {
+                            float num60 = (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) / 2f;
+                            float num61 = num60;
+                            if (npc.Center.X > player.Center.X)
+                            {
+                                num61 *= -1f;
+                            }
+                            if (npc.Center.Y > player.Center.Y)
+                            {
+                                num60 *= -1f;
+                            }
+                            npc.velocity.X = num61;
+                            npc.velocity.Y = num60;
+                        }
+                        npc.ai[1] = 4f;
+                        npc.netUpdate = true;
+                        if (npc.netSpam > 10)
+                        {
+                            npc.netSpam = 10;
                         }
                     }
-                    else if (Math.Abs(npc.velocity.X) > Math.Abs(npc.velocity.Y))
+                }
+                else if (npc.ai[1] == 4f)
+                {
+                    if (npc.ai[2] == 0f)
                     {
-                        float num60 = (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) / 2f;
-                        float num61 = num60;
-                        if (npc.Center.X > player.Center.X)
+                        SoundEngine.PlaySound(SoundID.ForceRoar, npc.position);
+                    }
+                    float num62 = num4;
+                    npc.ai[2] += 1f;
+                    if (npc.ai[2] == num62 && Vector2.Distance(npc.position, player.position) < 200f)
+                    {
+                        npc.ai[2] -= 1f;
+                    }
+                    if (npc.ai[2] >= num62)
+                    {
+                        npc.velocity *= 0.95f;
+                        if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
                         {
-                            num61 *= -1f;
+                            npc.velocity.X = 0f;
                         }
-                        if (npc.Center.Y > player.Center.Y)
+                        if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
                         {
-                            num60 *= -1f;
-                        }
-                        npc.velocity.X = num61;
-                        npc.velocity.Y = num60;
-                    }
-                    npc.ai[1] = 4f;
-                    npc.netUpdate = true;
-                    if (npc.netSpam > 10)
-                    {
-                        npc.netSpam = 10;
-                    }
-                }
-            }
-            else if (npc.ai[1] == 4f)
-            {
-                if (npc.ai[2] == 0f)
-                {
-                    SoundEngine.PlaySound(SoundID.ForceRoar, npc.position);
-                }
-                float num62 = num4;
-                npc.ai[2] += 1f;
-                if (npc.ai[2] == num62 && Vector2.Distance(npc.position, player.position) < 200f)
-                {
-                    npc.ai[2] -= 1f;
-                }
-                if (npc.ai[2] >= num62)
-                {
-                    npc.velocity *= 0.95f;
-                    if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
-                    {
-                        npc.velocity.X = 0f;
-                    }
-                    if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
-                    {
-                        npc.velocity.Y = 0f;
-                    }
-                }
-                else
-                {
-                    npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) - 1.57f;
-                }
-                float num63 = num62 + 13f;
-                if (npc.ai[2] >= num63)
-                {
-                    npc.netUpdate = true;
-                    if (npc.netSpam > 10)
-                    {
-                        npc.netSpam = 10;
-                    }
-                    npc.ai[3] += 1f;
-                    npc.ai[2] = 0f;
-                    if (npc.ai[3] >= 5f)
-                    {
-                        npc.ai[1] = 0f;
-                        npc.ai[3] = 0f;
-                        if (npc.target >= 0 && Main.getGoodWorld && Collision.CanHit(npc.position, npc.width, npc.height, player.position, npc.width, npc.height))
-                        {
-                            SoundEngine.PlaySound(SoundID.Roar, npc.position);
-                            npc.ai[0] = 2f;
-                            npc.ai[1] = 0f;
-                            npc.ai[2] = 0f;
-                            npc.ai[3] = 1f;
-                            npc.netUpdate = true;
+                            npc.velocity.Y = 0f;
                         }
                     }
                     else
                     {
-                        npc.ai[1] = 3f;
+                        npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) - 1.57f;
                     }
-                }
-            }
-            else if (npc.ai[1] == 5f)
-            {
-                float num64 = 600f;
-                float num65 = 9f;
-                float num66 = 0.3f;
-                Vector2 vector11 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                float num67 = player.position.X + (float)(player.width / 2) - vector11.X;
-                float num68 = player.position.Y + (float)(player.height / 2) + num64 - vector11.Y;
-                float num69 = (float)Math.Sqrt((double)(num67 * num67 + num68 * num68));
-                num69 = num65 / num69;
-                num67 *= num69;
-                num68 *= num69;
-                if (npc.velocity.X < num67)
-                {
-                    npc.velocity.X += num66;
-                    if (npc.velocity.X < 0f && num67 > 0f)
+                    float num63 = num62 + 13f;
+                    if (npc.ai[2] >= num63)
                     {
-                        npc.velocity.X += num66;
+                        npc.netUpdate = true;
+                        if (npc.netSpam > 10)
+                        {
+                            npc.netSpam = 10;
+                        }
+                        npc.ai[3] += 1f;
+                        npc.ai[2] = 0f;
+                        if (npc.ai[3] >= 5f)
+                        {
+                            npc.ai[1] = 0f;
+                            npc.ai[3] = 0f;
+                            if (npc.target >= 0 && Main.getGoodWorld && Collision.CanHit(npc.position, npc.width, npc.height, player.position, npc.width, npc.height))
+                            {
+                                SoundEngine.PlaySound(SoundID.Roar, npc.position);
+                                npc.ai[0] = 2f;
+                                npc.ai[1] = 0f;
+                                npc.ai[2] = 0f;
+                                npc.ai[3] = 1f;
+                                npc.netUpdate = true;
+                            }
+                        }
+                        else
+                        {
+                            npc.ai[1] = 3f;
+                        }
                     }
                 }
-                else if (npc.velocity.X > num67)
+                else if (npc.ai[1] == 5f)
                 {
-                    npc.velocity.X -= num66;
-                    if (npc.velocity.X > 0f && num67 < 0f)
+                    float acc = 0.3f;
+                    Vector2 ToPlayer = player.Center - npc.Center;
+                    ToPlayer.Y += 600f;
+                    ToPlayer.Normalize();
+                    ToPlayer *= MaxSpeed;
+                    if (npc.velocity.X < ToPlayer.X)
                     {
-                        npc.velocity.X -= num66;
+                        npc.velocity.X += acc;
+                        if (npc.velocity.X < 0f && ToPlayer.X > 0f)
+                        {
+                            npc.velocity.X += acc;
+                        }
                     }
-                }
-                if (npc.velocity.Y < num68)
-                {
-                    npc.velocity.Y += num66;
-                    if (npc.velocity.Y < 0f && num68 > 0f)
+                    else if (npc.velocity.X > ToPlayer.X)
                     {
-                        npc.velocity.Y += num66;
+                        npc.velocity.X -= acc;
+                        if (npc.velocity.X > 0f && ToPlayer.X < 0f)
+                        {
+                            npc.velocity.X -= acc;
+                        }
                     }
-                }
-                else if (npc.velocity.Y > num68)
-                {
-                    npc.velocity.Y -= num66;
-                    if (npc.velocity.Y > 0f && num68 < 0f)
+                    if (npc.velocity.Y < ToPlayer.Y)
                     {
-                        npc.velocity.Y -= num66;
+                        npc.velocity.Y += acc;
+                        if (npc.velocity.Y < 0f && ToPlayer.Y > 0f)
+                        {
+                            npc.velocity.Y += acc;
+                        }
+                    }
+                    else if (npc.velocity.Y > ToPlayer.Y)
+                    {
+                        npc.velocity.Y -= acc;
+                        if (npc.velocity.Y > 0f && ToPlayer.Y < 0f)
+                        {
+                            npc.velocity.Y -= acc;
+                        }
+                    }
+                    npc.ai[2] += 1f;
+                    if (npc.ai[2] >= 70f)
+                    {
+                        npc.TargetClosest(true);
+                        npc.ai[1] = 6f;//3f;
+                        npc.ai[2] = -1f;
+                        npc.ai[3] = (float)Main.rand.Next(-3, 1);
+                        npc.netUpdate = true;
                     }
                 }
-                npc.ai[2] += 1f;
-                if (npc.ai[2] >= 70f)
+                if (flag3 && npc.ai[1] == 5f)
                 {
-                    npc.TargetClosest(true);
                     npc.ai[1] = 3f;
-                    npc.ai[2] = -1f;
-                    npc.ai[3] = (float)Main.rand.Next(-3, 1);
-                    npc.netUpdate = true;
+                }
+                Main.NewText(npc.ai[1]);
+                if (npc.life < npc.lifeMax * 0.15f && !Phase3)
+                {
+                    Phase3 = true;
+                    npc.life += (int)(npc.lifeMax * 0.10f);
+                    npc.ai[0] = 4f;
+                    npc.ai[1] = 0f;
+                    npc.ai[2] = 0f;
+                    npc.ai[3] = 0f;
                 }
             }
-            if (flag3 && npc.ai[1] == 5f)
+            if (npc.ai[0] == 4f)
             {
-                npc.ai[1] = 3f;
+                npc.defense = -10;
+                if (npc.ai[1] == 0f)
+                {
+                    if (npc.ai[2] == 0)
+                    {
+                        randC = Main.rand.Next(-1, 1);
+                    }
+                    Vector2 v = player.Center - npc.Center;
+                    v.Y += 150f * randC;
+                    v.X += 480f * randC;
+                    float num43 = v.Length();
+                    v.Normalize();
+                    v *= MaxSpeed * 1.5f;
+                    if (npc.velocity.X < v.X)
+                    {
+                        npc.velocity.X += Acceleration * 2;
+                        if (npc.velocity.X < 0f && v.X > 0f)
+                        {
+                            npc.velocity.X += Acceleration * 2;
+                        }
+                    }
+                    else if (npc.velocity.X > v.X)
+                    {
+                        npc.velocity.X -= Acceleration * 2;
+                        if (npc.velocity.X > 0f && v.X < 0f)
+                        {
+                            npc.velocity.X -= Acceleration * 2;
+                        }
+                    }
+                    if (npc.velocity.Y < v.Y)
+                    {
+                        npc.velocity.Y += Acceleration * 2;
+                        if (npc.velocity.Y < 0f && v.Y > 0f)
+                        {
+                            npc.velocity.Y += Acceleration * 2;
+                        }
+                    }
+                    else if (npc.velocity.Y > v.Y)
+                    {
+                        npc.velocity.Y -= Acceleration * 2;
+                        if (npc.velocity.Y > 0f && v.Y < 0f)
+                        {
+                            npc.velocity.Y -= Acceleration * 2;
+                        }
+                    }
+                    npc.ai[2] += 1f;
+                    if (npc.ai[2] >= 100)
+                    {
+                        npc.ai[1] = 6f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] = 0f;
+                        npc.target = 255;
+                        npc.netUpdate = true;
+                    }
+                    if (Main.expertMode && flag3)
+                    {
+                        npc.TargetClosest(true);
+                        npc.netUpdate = true;
+                        npc.ai[1] = 3f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] -= 1000f;
+                    }
+                }
+                else if (npc.ai[1] == 6f)
+                {
+                    npc.ai[2]++;
+                    npc.velocity *= 0.96f;
+                    int Time = 40;
+                    npc.rotation = (player.Center - npc.Center).ToRotation() - MathHelper.PiOver2;
+                    if (npc.ai[2] >= Time)
+                    {
+                        npc.velocity = Vector2.Normalize(player.Center - npc.Center) * -7f;
+                        for (int j = 0; j < Main.rand.Next(5, 7); j++)
+                        {
+                            Vector2 v = ((player.Center - npc.Center).ToRotation() + MathHelper.PiOver4).ToRotationVector2().RotatedByRandom(MathHelper.PiOver4) * Main.rand.Next(6, 10);
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, v, ProjectileID.BloodNautilusShot, 18, 0, player.whoAmI);
+                        }
+                        for (int j = 0; j < Main.rand.Next(2, 3); j++)
+                        {
+                            Vector2 ToPlayer = player.Center - npc.Center;
+                            ToPlayer.Normalize();
+                            ToPlayer *= 7f;
+                            int num22 = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu, 0, 0f, 0f, 0f, 0f, 255);
+                            Main.npc[num22].velocity.X = ToPlayer.X;
+                            Main.npc[num22].velocity.Y = ToPlayer.Y;
+                            if (Main.netMode == NetmodeID.Server && num22 < 200)
+                            {
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num22, 0f, 0f, 0f, 0, 0, 0);
+                            }
+                        }
+                        npc.ai[2] = 0f;
+                        npc.ai[3]++;
+                        if (npc.ai[3] >= 2)
+                        {
+                            npc.ai[1] = 7f;//3f;
+                            npc.ai[2] = 0f;
+                            npc.ai[3] = 0f;
+                            npc.ai[3] += (float)Main.rand.Next(1, 4);
+                        }
+                    }
+                }
+                else if (npc.ai[1] == 7f)
+                {
+                    npc.ai[2]++;
+                    npc.rotation += 0.15f;
+                    npc.dontTakeDamage = true;
+                    if (npc.ai[2] % 5 == 0)
+                    {
+                        npc.ai[3]++;
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 8f, ProjectileID.BloodNautilusShot, 18, 0, player.whoAmI);
+                    }
+                    if (npc.ai[3] >= 20)
+                    {
+                        npc.dontTakeDamage = false;
+                        npc.ai[1] = 3f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] = 0f;
+                        npc.ai[3] += (float)Main.rand.Next(1, 4);
+                    }
+                }
+                else if (npc.ai[1] == 3f)
+                {
+                    if (npc.ai[3] == 4f && flag2 && npc.Center.Y > player.Center.Y)
+                    {
+                        npc.TargetClosest(true);
+                        npc.ai[1] = 0f;
+                        npc.ai[2] = 0f;
+                        npc.ai[3] = 0f;
+                        npc.netUpdate = true;
+                        if (npc.netSpam > 10)
+                        {
+                            npc.netSpam = 10;
+                        }
+                    }
+                    else if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        npc.TargetClosest(true);
+                        float num50 = 20f;
+                        Vector2 v = player.Center - npc.Center;
+                        float num53 = Math.Abs(player.velocity.X) + Math.Abs(player.velocity.Y) / 4f;
+                        num53 += 10f - num53;
+                        if (num53 < 5f)
+                        {
+                            num53 = 5f;
+                        }
+                        if (num53 > 15f)
+                        {
+                            num53 = 15f;
+                        }
+                        if (npc.ai[2] == -1f && !flag3)
+                        {
+                            num53 *= 4f;
+                            num50 *= 1.3f;
+                        }
+                        if (flag3)
+                        {
+                            num53 *= 2f;
+                        }
+                        v.X -= player.velocity.X * num53;
+                        v.Y -= player.velocity.Y * num53 / 4f;
+                        v.X *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                        v.Y *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                        if (flag3)
+                        {
+                            v.X *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                            v.Y *= 1f + (float)Main.rand.Next(-10, 11) * 0.01f;
+                        }
+                        float num54 = v.Length();
+                        float num55 = num54;
+                        num54 = num50 / num54;
+                        npc.velocity.X = v.X * num54;
+                        npc.velocity.Y = v.Y * num54;
+                        npc.velocity.X += (float)Main.rand.Next(-20, 21) * 0.1f;
+                        npc.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.1f;
+                        if (flag3)
+                        {
+                            npc.velocity.X += (float)Main.rand.Next(-50, 51) * 0.1f;
+                            npc.velocity.Y += (float)Main.rand.Next(-50, 51) * 0.1f;
+                            float num56 = Math.Abs(npc.velocity.X);
+                            float num57 = Math.Abs(npc.velocity.Y);
+                            if (npc.Center.X > player.Center.X)
+                            {
+                                num57 *= -1f;
+                            }
+                            if (npc.Center.Y > player.Center.Y)
+                            {
+                                num56 *= -1f;
+                            }
+                            npc.velocity.X = num57 + npc.velocity.X;
+                            npc.velocity.Y = num56 + npc.velocity.Y;
+                            npc.velocity.Normalize();
+                            npc.velocity *= num50;
+                            npc.velocity.X += (float)Main.rand.Next(-20, 21) * 0.1f;
+                            npc.velocity.Y += (float)Main.rand.Next(-20, 21) * 0.1f;
+                        }
+                        else if (num55 < 100f)
+                        {
+                            if (Math.Abs(npc.velocity.X) > Math.Abs(npc.velocity.Y))
+                            {
+                                float num58 = Math.Abs(npc.velocity.X);
+                                float num59 = Math.Abs(npc.velocity.Y);
+                                if (npc.Center.X > player.Center.X)
+                                {
+                                    num59 *= -1f;
+                                }
+                                if (npc.Center.Y > player.Center.Y)
+                                {
+                                    num58 *= -1f;
+                                }
+                                npc.velocity.X = num59;
+                                npc.velocity.Y = num58;
+                            }
+                        }
+                        else if (Math.Abs(npc.velocity.X) > Math.Abs(npc.velocity.Y))
+                        {
+                            float num60 = (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) / 2f;
+                            float num61 = num60;
+                            if (npc.Center.X > player.Center.X)
+                            {
+                                num61 *= -1f;
+                            }
+                            if (npc.Center.Y > player.Center.Y)
+                            {
+                                num60 *= -1f;
+                            }
+                            npc.velocity.X = num61;
+                            npc.velocity.Y = num60;
+                        }
+                        npc.ai[1] = 4f;
+                        npc.netUpdate = true;
+                        if (npc.netSpam > 10)
+                        {
+                            npc.netSpam = 10;
+                        }
+                    }
+                }
+                else if (npc.ai[1] == 4f)
+                {
+                    if (npc.ai[2] == 0f)
+                    {
+                        SoundEngine.PlaySound(SoundID.ForceRoar, npc.position);
+                    }
+                    float num62 = num4;
+                    npc.ai[2] += 1f;
+                    if (npc.ai[2] == num62 && Vector2.Distance(npc.position, player.position) < 200f)
+                    {
+                        npc.ai[2] -= 1f;
+                    }
+                    if (npc.ai[2] >= num62)
+                    {
+                        npc.velocity *= 0.95f;
+                        if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
+                        {
+                            npc.velocity.X = 0f;
+                        }
+                        if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
+                        {
+                            npc.velocity.Y = 0f;
+                        }
+                    }
+                    else
+                    {
+                        npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) - 1.57f;
+                    }
+                    float num63 = num62 + 13f;
+                    if (npc.ai[2] >= num63)
+                    {
+                        npc.netUpdate = true;
+                        if (npc.netSpam > 10)
+                        {
+                            npc.netSpam = 10;
+                        }
+                        npc.ai[3] += 1f;
+                        npc.ai[2] = 0f;
+                        if (npc.ai[3] >= 5f)
+                        {
+                            npc.ai[1] = 0f;
+                            npc.ai[3] = 0f;
+                            if (npc.target >= 0 && Main.getGoodWorld && Collision.CanHit(npc.position, npc.width, npc.height, player.position, npc.width, npc.height))
+                            {
+                                SoundEngine.PlaySound(SoundID.Roar, npc.position);
+                                npc.ai[0] = 2f;
+                                npc.ai[1] = 0f;
+                                npc.ai[2] = 0f;
+                                npc.ai[3] = 1f;
+                                npc.netUpdate = true;
+                            }
+                        }
+                        else
+                        {
+                            npc.ai[1] = 3f;
+                        }
+                    }
+                }
+                else if (npc.ai[1] == 5f)
+                {
+                    float acc = 0.3f;
+                    Vector2 ToPlayer = player.Center - npc.Center;
+                    ToPlayer.Y += 600f;
+                    ToPlayer.Normalize();
+                    ToPlayer *= MaxSpeed;
+                    if (npc.velocity.X < ToPlayer.X)
+                    {
+                        npc.velocity.X += acc;
+                        if (npc.velocity.X < 0f && ToPlayer.X > 0f)
+                        {
+                            npc.velocity.X += acc;
+                        }
+                    }
+                    else if (npc.velocity.X > ToPlayer.X)
+                    {
+                        npc.velocity.X -= acc;
+                        if (npc.velocity.X > 0f && ToPlayer.X < 0f)
+                        {
+                            npc.velocity.X -= acc;
+                        }
+                    }
+                    if (npc.velocity.Y < ToPlayer.Y)
+                    {
+                        npc.velocity.Y += acc;
+                        if (npc.velocity.Y < 0f && ToPlayer.Y > 0f)
+                        {
+                            npc.velocity.Y += acc;
+                        }
+                    }
+                    else if (npc.velocity.Y > ToPlayer.Y)
+                    {
+                        npc.velocity.Y -= acc;
+                        if (npc.velocity.Y > 0f && ToPlayer.Y < 0f)
+                        {
+                            npc.velocity.Y -= acc;
+                        }
+                    }
+                    npc.ai[2] += 1f;
+                    if (npc.ai[2] >= 70f)
+                    {
+                        npc.TargetClosest(true);
+                        npc.ai[1] = 3f;
+                        npc.ai[2] = -1f;
+                        npc.ai[3] = (float)Main.rand.Next(-3, 1);
+                        npc.netUpdate = true;
+                    }
+                }
             }
-            return;
         }
 
 
@@ -1384,7 +1804,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 float num40 = 0.07f;
                 Vector2 vector8 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                 float num41 = player.position.X + (float)(player.width / 2) - vector8.X;
-                float num42 = player.position.Y + (float)(player.height / 2) - 120f - vector8.Y;
+                float num42 = player.position.Y + (float)(player.height / 2) - 240f - vector8.Y;
                 float num43 = (float)Math.Sqrt((double)(num41 * num41 + num42 * num42));
                 if (num43 > 400f && Main.expertMode)
                 {

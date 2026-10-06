@@ -288,6 +288,16 @@ namespace TimeDomain.Common.Globals
                 Texture2D texture2 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideEOK_Phase2").Value;
                 bool flag = npc.ai[0] > 1;
                 float ROoff = -MathHelper.PiOver2;
+                if (Main.IsItDay())
+                {
+                    drawColor = Color.Red;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        float ro = MathHelper.TwoPi / 8f * i + uTime / 100f;
+                        Texture2D tex = flag ? texture2 : texture1;
+                        spriteBatch.Draw(tex, npc.Center + ro.ToRotationVector2() * (40 /*+ (i % 2 == 0).ToInt() * 20*/) - screenPos, NPCRectangle, new Color(drawColor.R, drawColor.G, drawColor.B, 150), npc.rotation + ROoff, new Vector2(tex.Width / 2, tex.Height / 8), 1f, SpriteEffects.None, 0f);
+                    }
+                }
                 if (flag)
                     spriteBatch.Draw(texture2, npc.Center - screenPos, NPCRectangle, drawColor, npc.rotation + ROoff, new Vector2(texture2.Width / 2, texture2.Height / 8), 1f, SpriteEffects.None, 0f);
                 else

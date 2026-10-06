@@ -36,7 +36,7 @@ namespace TimeDomain.Content.Items.Weapons.Melee
             int shootType = ModContent.ProjectileType<ThornLeafProjectile>();
             float spread = Main.rand.NextFloat(0.1f, 0.15f);
 
-            for (int i = -1; i <= 1; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Vector2 v = velocity.RotatedBy(i * spread);
                 Projectile.NewProjectile(source, position, v, shootType, damage, knockback, player.whoAmI);
