@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
 {
@@ -400,7 +401,7 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                 }
                 if (Main.expertMode && npc.ai[1] % (float)TimeInterval == 0f)
                 {
-                    float Speed = MaxSpeed;
+                    float Speed = MaxSpeed / 10f;
                     Vector2 vector5 = npc.Center;
                     Vector2 v = new Vector2(Main.rand.Next(-200, 200), Main.rand.Next(-200, 200));
                     float length = v.Length();
@@ -436,6 +437,14 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
                     }
                     else
                     {
+                        int num22 = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.ServantofCthulhu, 0, 0f, 0f, 0f, 0f, 255);
+                        //Main.npc[num22].velocity.X = ToPlayer.X;
+                        //Main.npc[num22].velocity.Y = ToPlayer.Y;
+                        if (Main.netMode == NetmodeID.Server && num22 < 200)
+                        {
+                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num22, 0f, 0f, 0f, 0, 0, 0);
+                        }
+
                         npc.ai[0] += 1f;
                         npc.ai[1] = 0f;
                         if (npc.ai[0] == 3f)
@@ -478,18 +487,18 @@ namespace TimeDomain.Common.Globals.VanillaNPCAIOverrides
             if (npc.ai[0] == 3)
             {
                 npc.defense = 0;
-                int normalDamage = 40;
-                int expertDamage = 75;
+                int normalDamage = 30;
+                int expertDamage = 65;
                 if (Main.expertMode)
                 {
-                    if (flag2)
-                    {
-                        npc.defense = -15;
-                    }
+                    //if (flag2)
+                    //{
+                    //    npc.defense = -15;
+                    //}
                     if (flag3)
                     {
-                        expertDamage = 100;
-                        npc.defense = -30;
+                        expertDamage = 80;
+                        //npc.defense = -30;
                     }
                 }
                 npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues((float)normalDamage, (float)expertDamage);

@@ -243,6 +243,7 @@ NPCs: {
 	SevenElements.DisplayName: Seven Elements
 	Plugin.DisplayName: Plugin
 	ThePonder.DisplayName: The Ponder
+	EyeOfCthulhuPhantom.DisplayName: Eye Of Cthulhu Phantom
 }
 
 DamageClasses.SprintDamageClass.DisplayName: Mods.TimeDomain.DamageClasses.SprintDamageClass.DisplayName

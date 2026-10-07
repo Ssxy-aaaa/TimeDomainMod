@@ -7,6 +7,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TimeDomain.Common.Globals.VanillaNPCAIOverrides;
 using TimeDomain.Content.Items.Weapons.Melee;
 
 namespace TimeDomain.Common.Globals
@@ -304,6 +305,20 @@ namespace TimeDomain.Common.Globals
                     spriteBatch.Draw(texture1, npc.Center - screenPos, NPCRectangle, drawColor, npc.rotation + ROoff, new Vector2(texture1.Width / 2, texture1.Height / 8), 1f, SpriteEffects.None, 0f);
                 return false;
             }
+            if (npc.type == ModContent.NPCType<EyeOfCthulhuPhantom>())
+            {
+                Texture2D texture1 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideEOK_Phase1").Value;
+                Texture2D texture2 = ModContent.Request<Texture2D>("TimeDomain/Common/Textures/OverrideEOK_Phase2").Value;
+                Color newColor = drawColor;
+                newColor.A = 100;
+                bool flag = Main.npc[(int)npc.ai[0]].ai[0] > 1;
+                float ROoff = -MathHelper.PiOver2;
+                if (flag)
+                    spriteBatch.Draw(texture2, npc.Center - screenPos, NPCRectangle, newColor, npc.rotation + ROoff, new Vector2(texture2.Width / 2, texture2.Height / 8), 1f, SpriteEffects.None, 0f);
+                else
+                    spriteBatch.Draw(texture1, npc.Center - screenPos, NPCRectangle, newColor, npc.rotation + ROoff, new Vector2(texture1.Width / 2, texture1.Height / 8), 1f, SpriteEffects.None, 0f);
+                return false;
+            }
             #endregion
 
             #region d
@@ -326,16 +341,14 @@ namespace TimeDomain.Common.Globals
         public double NPCFrameCount = 0;
 
         public Rectangle NPCRectangle = new Rectangle(0, 0, 0, 0);
-        public int A;
         public void GetNPCFrame(NPC npc)
         {
-            int a = A + 1;
             int Height = TextureAssets.Npc[npc.type].Height();
             int npcFrameCount = Main.npcFrameCount[npc.type];
             int num = Height / npcFrameCount;
             NPCRectangle.Width = TextureAssets.Npc[npc.type].Width();
-            
-            if (npc.type == NPCID.EyeofCthulhu)
+
+            if (npc.type == NPCID.EyeofCthulhu || npc.type == ModContent.NPCType<EyeOfCthulhuPhantom>())
             {
                 num = 464 / 4;
                 NPCFrameCount++;
